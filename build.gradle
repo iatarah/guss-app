@@ -27,7 +27,7 @@ repositories {
 }
 
 configurations {
-	providedRuntime
+	providedCompile
 }
 
 
@@ -37,7 +37,11 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile group: 'io.swagger', name: 'swagger-codegen-maven-plugin', version: '2.3.1'
-	compile group: 'org.springframework', name: 'spring-web', version: '3.0.2.RELEASE'
+	compile group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '1.0.0.RELEASE'
+	compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+	compile group: 'org.hibernate', name: 'hibernate-annotations', version: '3.5.6-Final'
+	compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: '2.0.2.RELEASE'
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
@@ -47,15 +51,15 @@ dependencies {
 import io.swagger.codegen.config.CodegenConfigurator
 import io.swagger.codegen.DefaultGenerator
 
-def swaggerInput = "guss.yaml"
-def swaggerOutputDir = file('build/openapi')
+def swaggerInput = file("guss.yaml").path
+def swaggerOutputDir = file('build/generated').path
 task generateApi {
-    inputs.file(swaggerInput)
-    outputs.dir(swaggerOutputDir)
+	group "codegen"
+	description "Generate API"
     doLast {
         def config = new CodegenConfigurator()
         config.setInputSpec(swaggerInput)
-        config.setOutputDir(swaggerOutputDir.path)
+        config.setOutputDir(swaggerOutputDir)
         config.setLang('spring')
         config.setAdditionalProperties([
                 'invokerPackage': 'org.ugguss.generated.client',
@@ -73,6 +77,7 @@ clean.doFirst {
     delete(swaggerOutputDir)
 }
 
+/*
 configurations {
     swagger
 }
@@ -81,7 +86,7 @@ sourceSets {
     swagger {
         compileClasspath = configurations.swaggerCompile
         java {
-            srcDir file("${project.buildDir.path}/openapi/src/main/java")
+            srcDirs = ['src/main/java', 'build/openapi/src/main/java'] //file("${project.buildDir.path}/openapi/src/main/java")
         }
     }
     main {
@@ -97,3 +102,4 @@ sourceSets {
 compileSwaggerJava.dependsOn generateApi
 classes.dependsOn swaggerClasses
 compileJava.dependsOn compileSwaggerJava
+*/
