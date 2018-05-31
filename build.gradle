@@ -48,7 +48,7 @@ import io.swagger.codegen.config.CodegenConfigurator
 import io.swagger.codegen.DefaultGenerator
 
 def swaggerInput = "guss.yaml"
-def swaggerOutputDir = file('build/swagger')
+def swaggerOutputDir = file('build/openapi')
 task generateApi {
     inputs.file(swaggerInput)
     outputs.dir(swaggerOutputDir)
@@ -58,9 +58,9 @@ task generateApi {
         config.setOutputDir(swaggerOutputDir.path)
         config.setLang('spring')
         config.setAdditionalProperties([
-                'invokerPackage': 'org.ugguss.client',
-                'modelPackage'  : 'org.ugguss.model',
-                'apiPackage'    : 'org.ugguss.controller',
+                'invokerPackage': 'org.ugguss.generated.client',
+                'modelPackage'  : 'org.ugguss.generated.model',
+                'apiPackage'    : 'org.ugguss.generated.controller',
                 'dateLibrary'   : 'java8',
 				'library'		: 'spring-mvc'
         ])
@@ -81,7 +81,7 @@ sourceSets {
     swagger {
         compileClasspath = configurations.swaggerCompile
         java {
-            srcDir file("${project.buildDir.path}/swagger/src/main/java")
+            srcDir file("${project.buildDir.path}/openapi/src/main/java")
         }
     }
     main {
