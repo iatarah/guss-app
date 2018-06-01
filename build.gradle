@@ -59,8 +59,7 @@ import io.swagger.codegen.DefaultGenerator
 
 def swaggerInput = file("guss.yaml").path
 def swaggerOutputDir = file('./').path
-def swaggerGeneratedDir = file('./org.ugguss.generated').path
-def swaggerGeneratedDir2 = file('/src/main/java/io.swagger.configuration').path
+def swaggerGeneratedDir = "./src/main/java/io/"
 task generateApi {
 	group "codegen"
 	description "Generate API"
@@ -81,33 +80,11 @@ task generateApi {
     }
 }
 
+task deleteGenDir << {
+    def binDir = new File('./src/main/java/io/')
+    binDir.deleteDir()
+}
+
 clean.doFirst {
-    delete(swaggerGeneratedDir2)
+    delete swaggerGeneratedDir
 }
-
-/*
-configurations {
-    swagger
-}
-
-sourceSets {
-    swagger {
-        compileClasspath = configurations.swaggerCompile
-        java {
-            srcDirs = ['src/main/java', 'build/openapi/src/main/java'] //file("${project.buildDir.path}/openapi/src/main/java")
-        }
-    }
-    main {
-        compileClasspath += swagger.output
-        runtimeClasspath += swagger.output
-    }
-    test {
-        compileClasspath += swagger.output
-        runtimeClasspath += swagger.output
-    }
-}
-
-compileSwaggerJava.dependsOn generateApi
-classes.dependsOn swaggerClasses
-compileJava.dependsOn compileSwaggerJava
-*/
