@@ -80,7 +80,7 @@ task generateApi {
     }
 }
 
-task deleteGenDir << {
+task deleteGenDir {
     def binDir = new File('./src/main/java/io/')
     binDir.deleteDir()
 }
