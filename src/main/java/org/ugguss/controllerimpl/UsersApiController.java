@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.ugguss.generated.controller.UsersApi;
+import org.ugguss.generated.model.LiferayUser;
 import org.ugguss.generated.model.Person;
 import org.ugguss.model.User;
 import org.ugguss.service.IUserService;
@@ -18,9 +19,9 @@ public class UsersApiController implements UsersApi {
     private IUserService userService;
 
     @Override
-    public ResponseEntity<Person> getCurrentUser() {
+    public ResponseEntity<LiferayUser> getCurrentUser() {
         User user =  userService.getCurrentUser(001);
         // do some magic!
-        return new ResponseEntity<Person>(new Person(),HttpStatus.OK);
+        return new ResponseEntity<LiferayUser>(new LiferayUser(),HttpStatus.OK);
     }
 }
