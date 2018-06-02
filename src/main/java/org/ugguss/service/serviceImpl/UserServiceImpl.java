@@ -20,7 +20,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getCurrentUser(int userId) {
-        return iUserRepository.getOne(userId);
+    public User getUserByUserId(String userId) {
+        return iUserRepository.findUserByUserId(userId);
+    }
+
+    @Override
+    public User getUserByEmail(String emailId) {
+        return iUserRepository.findUserByEmail(emailId);
     }
 }

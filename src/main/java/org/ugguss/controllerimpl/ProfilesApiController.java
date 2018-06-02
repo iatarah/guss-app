@@ -22,7 +22,7 @@ public class ProfilesApiController implements ProfilesApi {
 
     @Override
     public ResponseEntity<UserProfile> getMember(@ApiParam(value = "",required=true ) @PathVariable("memberId") String memberId) {
-        // do some magic!
+        userService.getUserByEmail(memberId);
         return new ResponseEntity<UserProfile>(new UserProfile(), HttpStatus.OK);
     }
 
