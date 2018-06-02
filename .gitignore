@@ -28,5 +28,6 @@
 
 .swagger-codegen-ignore
 .swagger-codegen/
-/bin/
+/bin
+bin/main/*
 pom.xml
