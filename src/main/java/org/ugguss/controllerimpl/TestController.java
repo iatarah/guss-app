@@ -1,4 +1,4 @@
-package org.ugguss.controller;
+package org.ugguss.controllerimpl;
 
 public class TestController {
 
