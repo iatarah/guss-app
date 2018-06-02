@@ -47,7 +47,9 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.5'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.5'
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
-	runtime('mysql:mysql-connector-java')
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+//	runtime('mysql:mysql-connector-java')
+//	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
