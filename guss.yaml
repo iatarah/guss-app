@@ -25,7 +25,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/Person'
+            $ref: '#/definitions/UserProfile'
   /people:
     get:
       tags:
@@ -140,6 +140,23 @@ paths:
           schema:
             $ref: '#/definitions/LiferayUser'
 definitions:
+  UserProfile:
+    type: object
+    properties:
+      emailAddress:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      middleName:
+        type: string
+      dob:
+        type: string
+        format: date
+      policyNumber:
+        type: integer
+        format: int32
   LiferayUser:
     type: object
     properties:

@@ -15,13 +15,5 @@ import org.ugguss.service.IUserService;
 
 @RestController
 public class UsersApiController implements UsersApi {
-    @Autowired
-    private IUserService userService;
 
-    @Override
-    public ResponseEntity<LiferayUser> getCurrentUser() {
-        User user =  userService.getCurrentUser(001);
-        // do some magic!
-        return new ResponseEntity<LiferayUser>(new LiferayUser(),HttpStatus.OK);
-    }
 }
