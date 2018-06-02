@@ -59,6 +59,9 @@ import io.swagger.codegen.DefaultGenerator
 def swaggerInput = file("guss.yaml").path
 def swaggerOutputDir = file('./').path
 def swaggerGeneratedDir = "./src/main/java/io/"
+def generatedApiControllers = fileTree('./src/main/java/org/ugguss/generated/controller/') { 
+    include '**/*Controller.java'
+}
 task generateApi {
 	group "codegen"
 	description "Generate API"
@@ -79,11 +82,8 @@ task generateApi {
     }
 }
 
-task deleteGenDir {
-    def binDir = new File('./src/main/java/io/')
-    binDir.deleteDir()
+clean.doFirst {
+    delete swaggerGeneratedDir, generatedApiControllers
 }
 
-clean.doFirst {
-    delete swaggerGeneratedDir
-}
+
