@@ -13,6 +13,7 @@ import org.ugguss.generated.model.LiferayUser;
 import org.ugguss.generated.model.UserProfile;
 import org.ugguss.model.User;
 import org.ugguss.service.IUserService;
+import org.ugguss.util.constants.RestEndpointConstants;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-05-31T21:30:34.195-04:00")
 
@@ -23,7 +24,7 @@ public class ProfilesApiController implements ProfilesApi {
     private IUserService userService;
 
     @Override
-    @RequestMapping(value = "/o/rest/accounts/api/v1/profiles/{memberId}",
+    @RequestMapping(value = RestEndpointConstants.Constants.BASE_API +"/" + RestEndpointConstants.Constants.GET_MEMBER_PROFILE,
     produces = { "application/json" }, 
     method = RequestMethod.GET)
     public ResponseEntity<UserProfile> getMember(@ApiParam(value = "",required=true ) @PathVariable("memberId") String memberId) {

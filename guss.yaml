@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: GUSS Account API
 host: 'localhost:8080'
-basePath: /o/rest/accounts/api/v1
+basePath: /rest/ugguss/api/v1
 schemes:
   - http
 paths:
@@ -49,6 +49,23 @@ paths:
             type: object
             items:
               $ref: '#/definitions/UserProfile'
+  /userType:
+    get:
+      tags:
+        -/userTypes
+      summary: Return list of User Types in the application
+      description: ''
+      operationId: getAllUserTypes
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: successful operations
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserType'
   /people:
     get:
       tags:
@@ -180,6 +197,13 @@ definitions:
       policyNumber:
         type: integer
         format: int32
+  UserType:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
   LiferayUser:
     type: object
     properties:
