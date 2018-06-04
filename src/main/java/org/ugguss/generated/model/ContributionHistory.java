@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * ContributionHistory
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-03T00:59:47.813-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-04T14:37:17.942-05:00")
 
 public class ContributionHistory   {
   @JsonProperty("documentId")

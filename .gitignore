@@ -31,3 +31,4 @@
 /bin
 bin/main/*
 pom.xml
+src/main/java/org/ugguss/generated/*

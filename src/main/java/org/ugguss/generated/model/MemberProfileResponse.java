@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.ugguss.generated.model.BaseResponse;
-import org.ugguss.generated.model.GussMember;
+import org.ugguss.generated.model.Member;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * MemberProfileResponse
  */
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-03T00:59:47.813-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-04T14:37:17.942-05:00")
 
 public class MemberProfileResponse   {
   @JsonProperty("baseResponse")
   private BaseResponse baseResponse = null;
 
   @JsonProperty("gussMember")
-  private GussMember gussMember = null;
+  private Member gussMember = null;
 
   public MemberProfileResponse baseResponse(BaseResponse baseResponse) {
     this.baseResponse = baseResponse;
@@ -43,7 +43,7 @@ public class MemberProfileResponse   {
     this.baseResponse = baseResponse;
   }
 
-  public MemberProfileResponse gussMember(GussMember gussMember) {
+  public MemberProfileResponse gussMember(Member gussMember) {
     this.gussMember = gussMember;
     return this;
   }
@@ -56,11 +56,11 @@ public class MemberProfileResponse   {
 
   @Valid
 
-  public GussMember getGussMember() {
+  public Member getGussMember() {
     return gussMember;
   }
 
-  public void setGussMember(GussMember gussMember) {
+  public void setGussMember(Member gussMember) {
     this.gussMember = gussMember;
   }
 
