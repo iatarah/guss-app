@@ -5,7 +5,7 @@
  */
 package org.ugguss.generated.controller;
 
-import org.ugguss.generated.model.LiferayUser;
+import org.ugguss.generated.model.AppUser;
 
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
@@ -22,21 +22,21 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import javax.validation.constraints.*;
 import javax.validation.Valid;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-03T00:59:47.813-04:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-04T14:37:17.942-05:00")
 
 @Api(value = "users", description = "the users API")
 public interface UsersApi {
 
-    @ApiOperation(value = "Returns a simplified JSON representation of Liferay User object for logged in user (or default user if not logged in)", notes = "", response = LiferayUser.class, tags={ "/samples", })
+    @ApiOperation(value = "Returns a simplified JSON representation of Application User object for logged in user (or default user if not logged in)", notes = "", response = AppUser.class, tags={ "/samples", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = LiferayUser.class) })
+        @ApiResponse(code = 200, message = "successful operation", response = AppUser.class) })
     
     @RequestMapping(value = "/users/current",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<LiferayUser> getCurrentUser() {
+    default ResponseEntity<AppUser> getCurrentUser() {
         // do some magic!
-        return new ResponseEntity<LiferayUser>(HttpStatus.OK);
+        return new ResponseEntity<AppUser>(HttpStatus.OK);
     }
 
 }

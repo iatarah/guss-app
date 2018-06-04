@@ -7,7 +7,7 @@ basePath: /rest/ugguss/api/v1
 schemes:
   - http
 paths:
-  '/profiles/{memberId}':
+  /profiles/{memberId}:
     get:
       tags:
        - /accounts
@@ -49,6 +49,24 @@ paths:
             type: object
             items:
               $ref: '#/definitions/UserProfile'
+  /registration:
+    post:
+      description: ''
+      operationId: registerUser
+      produces:
+          - application/json
+      parameters:
+          - name: userRegistrationRequest
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/UserRegistrationRequest'
+      responses:
+          "200":
+            description: Succeful Response for user registration
+            code:
+              type: integer
+              format: int32
   /userType:
     get:
       tags:
@@ -66,109 +84,11 @@ paths:
             type: array
             items:
               $ref: '#/definitions/UserType'
-  /people:
-    get:
-      tags:
-        - /samples
-      summary: Returns the entire collection of in-memory Person objects
-      description: ''
-      operationId: getAllPeople
-      produces:
-        - application/json
-      parameters: []
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Person'
-    post:
-      tags:
-        - /samples
-      summary: Creates a new Person object based on suppplied JSON and returns the created object including ID
-      description: ''
-      operationId: addPerson
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          required: false
-          schema:
-            $ref: '#/definitions/Person'
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Person'
-  '/people/{id}':
-    get:
-      tags:
-        - /samples
-      summary: Returns a single Person object based on suppplied ID
-      description: ''
-      operationId: getPerson
-      produces:
-        - application/json
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Person'
-    put:
-      tags:
-        - /samples
-      summary: Modifies an existing Person object based on suppplied JSON and uses the ID parameter to identify the target person
-      description: ''
-      operationId: updatePerson
-      consumes:
-        - application/json
-      produces:
-        - application/json
-      parameters:
-        - in: body
-          name: body
-          required: false
-          schema:
-            $ref: '#/definitions/Person'
-        - name: id
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Person'
-    delete:
-      tags:
-        - /samples
-      summary: Removes a single Person object based on suppplied ID
-      description: ''
-      operationId: deletePerson
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Person'
   /users/current:
     get:
       tags:
         - /samples
-      summary: Returns a simplified JSON representation of Liferay User object for logged in user (or default user if not logged in)
+      summary: Returns a simplified JSON representation of Application User object for logged in user (or default user if not logged in)
       description: ''
       operationId: getCurrentUser
       produces:
@@ -178,7 +98,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/LiferayUser'
+            $ref: '#/definitions/AppUser'
 definitions:
   UserProfile:
     type: object
@@ -204,66 +124,15 @@ definitions:
         type: string
       description:
         type: string
-  LiferayUser:
-    type: object
-    properties:
-      emailAddress:
-        type: string
-      screenName:
-        type: string
-      id:
-        type: integer
-        format: int64
-      active:
-        type: boolean
-        default: false
-      defaultUser:
-        type: boolean
-        default: false
-  GussPortalUser:
-    type: object
-    properties:
-      emailAddress:
-        type: string
-      screenName:
-        type: string
-      id:
-        type: integer
-        format: int64
-      active:
-        type: boolean
-        default: false
-      defaultUser:
-        type: boolean
-        default: false
-  Person:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      lastName:
-        type: string
-      firstName:
-        type: string
-      location:
-        type: string
-      gender:
-        type: string
-  GussMember:
+  Member:
     type: object
     properties:
       userId: 
-        type: string
+        type: number
       memberId:
         type: string
-      dateOfBirth:
+      joinDate:
         type: string
-      gender:
-        type: string
-        enum:
-         - male
-         - female
       retirementDate:
         type: string
       membershipStatus:
@@ -274,7 +143,12 @@ definitions:
       basicSalary:
         type: number
       address:
-        $ref: '#/definitions/Address'
+        type: string
+      membershipCategory:
+        type: string
+        enum:
+         - YRA1999
+         - YRB2000
   ContributionHistory:
     type: object
     properties:
@@ -285,27 +159,6 @@ definitions:
       paymentDate:
         type: string
       fiscalMonthYear:
-        type: string
-  Address:
-    type: object
-    properties:
-      street1:
-        type: string
-      street2:
-        type: string
-      street3:
-        type: string
-      zip:
-        type: string
-      pObox:
-        type: string
-      region:
-        type: string
-      country: 
-        type: string
-      primary:
-        type: string
-      mailing: 
         type: string
   BaseRequest:
     type: object
@@ -328,4 +181,44 @@ definitions:
       baseResponse:
         $ref: '#/definitions/BaseResponse'
       gussMember:
-        $ref: '#/definitions/GussMember'
+        $ref: '#/definitions/Member'
+  UserRegistrationRequest:
+    type: object
+    properties:
+      baseRequest:
+        $ref: '#/definitions/BaseRequest'
+      member:
+        $ref: '#/definitions/Member'
+      appUser:
+        $ref: '#/definitions/AppUser'
+  AppUser:
+    type: object
+    properties:
+      userId: 
+        type: number
+      dateOfBirth:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      firstName:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      role:
+        type: string
+        enum:
+         - adminRole
+         - staffRole
+         - memberRole
+      status:
+        type: number
+      gender:
+        type: string
+        enum:
+         - male
+         - female
+        
