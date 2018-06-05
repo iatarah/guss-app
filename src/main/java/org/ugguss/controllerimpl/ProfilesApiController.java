@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.ugguss.generated.controller.ProfilesApi;
-import org.ugguss.generated.model.LiferayUser;
 import org.ugguss.generated.model.UserProfile;
-import org.ugguss.model.User;
 import org.ugguss.service.IUserService;
 import org.ugguss.util.constants.RestEndpointConstants;
 

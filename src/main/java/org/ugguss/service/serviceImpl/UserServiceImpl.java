@@ -3,6 +3,7 @@ package org.ugguss.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ugguss.generated.model.UserRegistrationRequest;
 import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IUserService;
@@ -26,6 +27,8 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User getUserByEmail(String emailId) {
+    	UserRegistrationRequest ur = new UserRegistrationRequest();
+    	ur.getMember();
         return iUserRepository.findUserByEmail(emailId);
     }
 }
