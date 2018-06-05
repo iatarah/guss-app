@@ -32,3 +32,5 @@
 bin/main/*
 pom.xml
 src/main/java/org/ugguss/generated/*
+src/main/java/io/*
+src/main/resources/swagger.properties
