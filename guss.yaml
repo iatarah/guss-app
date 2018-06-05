@@ -67,13 +67,13 @@ paths:
             code:
               type: integer
               format: int32
-  /userType:
+  /login:
     get:
       tags:
-        -/userTypes
-      summary: Return list of User Types in the application
+        -/login
+      summary: Login User into the portal
       description: ''
-      operationId: getAllUserTypes
+      operationId: login
       produces:
         - application/json
       parameters: []
@@ -81,9 +81,8 @@ paths:
         '200':
           description: successful operations
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/UserType'
+            $ref: '#/definitions/LoginRequest'
+
   /users/current:
     get:
       tags:
@@ -117,12 +116,12 @@ definitions:
       policyNumber:
         type: integer
         format: int32
-  UserType:
+  LoginRequest:
     type: object
     properties:
-      name:
+      email:
         type: string
-      description:
+      password:
         type: string
   Member:
     type: object

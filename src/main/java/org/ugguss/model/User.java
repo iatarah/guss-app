@@ -36,11 +36,14 @@ public class User implements java.io.Serializable {
 	private String gender;
 	private Date dob;
 	private Integer status;
+	private boolean enabled;
 	private Date dateCreated;
 	private Date lastUpdated;
 	private Set<GussMember> gussMembers = new HashSet<GussMember>(0);
 
 	public User() {
+		super();
+		this.enabled = false;
 	}
 
 	public User(int id, Role role, String userId, String email, String password) {
@@ -202,4 +205,11 @@ public class User implements java.io.Serializable {
 		this.gussMembers = gussMembers;
 	}
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
 }

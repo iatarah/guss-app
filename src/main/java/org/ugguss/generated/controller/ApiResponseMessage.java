@@ -2,7 +2,7 @@ package org.ugguss.generated.controller;
 
 import javax.xml.bind.annotation.XmlTransient;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-04T14:37:17.942-05:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-04T20:50:06.616-04:00")
 
 @javax.xml.bind.annotation.XmlRootElement
 public class ApiResponseMessage {
