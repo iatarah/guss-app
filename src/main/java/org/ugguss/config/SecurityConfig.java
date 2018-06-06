@@ -12,12 +12,13 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IUserService;
 
 @Configuration
-@ComponentScan(basePackages = { "org.ugguss" })
+@ComponentScan(basePackages = { "org.ugguss.*" })
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
@@ -46,16 +47,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/login", "/logout").permitAll()
+                    .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
+                .antMatchers("/rest/ugguss/api/v1/profiles/1").permitAll()
                 .antMatchers("/protectedbyrole").hasRole("GUSS_MEMBER")
                 .antMatchers("/protectedforadmin").hasRole("ADMIN")
-                .antMatchers("/protectedforstaff").hasRole("STAFF");
+                .antMatchers("/protectedforstaff").hasRole("STAFF")
+                .anyRequest().authenticated();
     }
 
     @Bean
     public DaoAuthenticationProvider authProvider() {
         final CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider(userRepository, userDetailsService());
-        authProvider.setPasswordEncoder(encoder());
+        authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
@@ -64,4 +67,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder(11);
     }
 
+    @Bean
+    public static NoOpPasswordEncoder passwordEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
 }

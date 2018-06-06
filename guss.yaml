@@ -76,12 +76,17 @@ paths:
       operationId: login
       produces:
         - application/json
-      parameters: []
+      parameters:
+        - name: loginRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/LoginRequest'
       responses:
         '200':
           description: successful operations
           schema:
-            $ref: '#/definitions/LoginRequest'
+            $ref: '#/definitions/UserProfile'
 
   /users/current:
     get:
