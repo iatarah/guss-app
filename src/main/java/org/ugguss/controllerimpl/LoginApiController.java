@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.ugguss.generated.controller.LoginApi;
 import org.ugguss.generated.model.LoginRequest;
 import org.ugguss.generated.model.UserProfile;
@@ -37,6 +34,7 @@ public class LoginApiController implements LoginApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     public ResponseEntity<UserProfile> login(@ApiParam(value = "" ,required=true )  @Valid @RequestBody LoginRequest loginRequest) {
+        System.out.println("Hello Am here");
         UserDetails user = userService.loadUserByUsername(loginRequest.getEmail());
 
         UserProfile userProfile = new UserProfile();
@@ -44,4 +42,19 @@ public class LoginApiController implements LoginApi {
 
         return new ResponseEntity<UserProfile>(userProfile ,HttpStatus.OK);
     }
+
+    @RequestMapping(value = RestEndpointConstants.Constants.BASE_API +"/" + RestEndpointConstants.Constants.ADMIN_ONLY,
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    public ResponseEntity<String> testAdminEndpoint() {
+        System.out.println("Hello Am here on Admin");
+//        UserDetails user = userService.loadUserByUsername(loginRequest.getEmail());
+//
+//        UserProfile userProfile = new UserProfile();
+//        userProfile.firstName(user.getUsername());
+        String x = "Hello STAFF";
+        return new ResponseEntity<String>(x ,HttpStatus.OK);
+    }
+
+
 }

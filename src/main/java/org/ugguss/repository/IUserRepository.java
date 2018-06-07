@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public interface IUserRepository extends JpaRepository<User, Integer> {
 
-    @Query("FROM User u WHERE u.email = :email")
+    @Query("FROM User u JOIN FETCH u.role r  WHERE u.email = :email")
     User findUserByEmail(@Param("email") String email);
 
     @Query("FROM User u WHERE u.id = :id")

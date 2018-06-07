@@ -13,9 +13,8 @@ import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IUserService;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 
 @Service("userDetailsService")
 @Transactional
@@ -50,7 +49,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
             if (user == null) {
                 throw new UsernameNotFoundException("No user found with username: " + email);
             }
-            org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(null));
+            org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user));
             return userDetails;
 
         } catch (final Exception e) {
@@ -61,5 +60,13 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
         return null;
+    }
+
+
+    private Collection<? extends GrantedAuthority> getAuthorities(User user) {
+        Collection<GrantedAuthority> authorities = new HashSet<>();
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole().getRoleName());
+        authorities.add(grantedAuthority);
+        return authorities;
     }
 }
