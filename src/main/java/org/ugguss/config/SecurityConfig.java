@@ -48,11 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new UserDetailsServiceImpl(userRepository);
     }
 
-/*    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
-    }*/
-
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
@@ -80,20 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
         return new CustomBasicAuthenticationEntryPoint();
     }
-
-/*
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        final CustomAuthenticationProvider authProvider = new CustomAuthenticationProvider(userRepository, userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-*/
-
-/*    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(11);
-    }*/
 
     @SuppressWarnings("deprecation")
     @Bean

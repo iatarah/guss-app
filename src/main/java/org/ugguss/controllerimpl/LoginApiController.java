@@ -52,8 +52,16 @@ public class LoginApiController implements LoginApi {
 //
 //        UserProfile userProfile = new UserProfile();
 //        userProfile.firstName(user.getUsername());
-        String x = "Hello STAFF";
+        String x = "Hello Admin";
         return new ResponseEntity<String>(x ,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = RestEndpointConstants.Constants.BASE_API + "/" + RestEndpointConstants.Constants.STAFF_ONLY,
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    public ResponseEntity<String> testStaffEndpoint() {
+        String x = "Hello Staff";
+        return new ResponseEntity<String>(x, HttpStatus.OK);
     }
 
 
