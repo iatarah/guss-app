@@ -64,9 +64,8 @@ paths:
       responses:
           "200":
             description: Succeful Response for user registration
-            code:
-              type: integer
-              format: int32
+            schema:
+                $ref: '#/definitions/UserRegistrationResponse'
   /userType:
     get:
       tags:
@@ -189,6 +188,13 @@ definitions:
         $ref: '#/definitions/BaseRequest'
       member:
         $ref: '#/definitions/Member'
+      appUser:
+        $ref: '#/definitions/AppUser'
+  UserRegistrationResponse:
+    type: object
+    properties:
+      baseResponse:
+        $ref: '#/definitions/BaseResponse'
       appUser:
         $ref: '#/definitions/AppUser'
   AppUser:
