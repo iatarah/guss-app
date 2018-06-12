@@ -121,7 +121,7 @@ definitions:
     type: object
     properties:
       name:
-        type: string
+        $ref: '#/definitions/UserTypeNames'
       description:
         type: string
   Member:
@@ -208,12 +208,12 @@ definitions:
         type: string
       lastName:
         type: string
-      role:
+      dateCreated:
         type: string
-        enum:
-         - adminRole
-         - staffRole
-         - memberRole
+      lastUpdatedDate:
+        type: string
+      userRole:
+        $ref: '#/definitions/UserRole'
       status:
         type: number
       gender:
@@ -221,4 +221,9 @@ definitions:
         enum:
          - male
          - female
-        
+  UserRole:
+    type: string
+    enum:
+    - ADMIN
+    - STAFF
+    - MEMBER 

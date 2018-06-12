@@ -12,11 +12,15 @@ buildscript {
 	}
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse-wtp'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'war'
+plugins {
+  id "org.springframework.boot" version "2.0.2.RELEASE"
+  id 'java'
+  id 'eclipse-wtp'
+  id "io.spring.dependency-management" version "1.0.5.RELEASE"
+  id 'war'
+  id "net.ltgt.apt" version "0.15"
+}
+
 
 group = 'org.ugguss.services'
 version = '0.0.1-SNAPSHOT'
@@ -48,8 +52,8 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.5'
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
-//	runtime('mysql:mysql-connector-java')
-//	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
+    apt 'org.mapstruct:mapstruct-processor:1.2.0.Final'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
