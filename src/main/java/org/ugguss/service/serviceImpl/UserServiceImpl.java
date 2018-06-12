@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ugguss.generated.model.AppUser;
+import org.ugguss.generated.model.BaseResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
+import org.ugguss.generated.model.UserRegistrationResponse;
 import org.ugguss.generated.model.UserRole;
 import org.ugguss.generated.model.UserType;
 import org.ugguss.model.User;
@@ -20,15 +22,23 @@ public class UserServiceImpl implements IUserService {
     private IUserRepository iUserRepository;
     @Autowired
     private ServiceImplProviderFactory serviceImplProviderFactory;
-    
 
 
-    @Override
-    public User registerUser(AppUser user) {
-    	UserServiceImplProvider provider = serviceImplProviderFactory.getServiceImplProvider(user.getUserRole());
-    	return provider.registerUser(user);        
-    }
-
+	@Override
+	public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
+		
+		UserRegistrationResponse response = new UserRegistrationResponse();
+		response.setBaseResponse(new BaseResponse());
+		if(request == null
+				|| request.getAppUser() == null) {
+			response.getBaseResponse().setReturnCode(1);
+			return response;
+		}
+		UserServiceImplProvider provider = serviceImplProviderFactory.getServiceImplProvider(request.getAppUser().getUserRole());
+		
+		return provider.registerUser(request);
+	}
+	
     @Override
     public User getUserByUserId(String userId) {
         return iUserRepository.findUserByUserId(userId);
@@ -44,4 +54,5 @@ public class UserServiceImpl implements IUserService {
     protected UserServiceImplProvider getServiceImplProvider(UserRole userRole) {
     	return serviceImplProviderFactory.getServiceImplProvider(userRole);
     }
+
 }

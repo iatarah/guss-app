@@ -1,12 +1,13 @@
 package org.ugguss.service.serviceImpl.provider;
 
-import org.ugguss.generated.model.AppUser;
-import org.ugguss.model.User;
+
+import org.ugguss.generated.model.UserRegistrationRequest;
+import org.ugguss.generated.model.UserRegistrationResponse;
 
 public class StaffUserServiceImplProvider extends UserServiceImplProvider{
 
 	@Override
-	public User registerUser(AppUser user) {
+	public UserRegistrationResponse registerUser(UserRegistrationRequest userRegistrationRequest) {
 		// TODO Auto-generated method stub
 		return null;
 	}
