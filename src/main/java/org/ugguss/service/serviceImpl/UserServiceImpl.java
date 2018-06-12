@@ -35,7 +35,10 @@ public class UserServiceImpl implements IUserService {
 			return response;
 		}
 		UserServiceImplProvider provider = serviceImplProviderFactory.getServiceImplProvider(request.getAppUser().getUserRole());
-		
+		if(provider == null ) {
+			response.getBaseResponse().setReturnCode(1);
+			return response;
+		}
 		return provider.registerUser(request);
 	}
 	
