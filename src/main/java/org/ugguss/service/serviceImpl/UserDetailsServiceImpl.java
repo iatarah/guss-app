@@ -1,6 +1,5 @@
 package org.ugguss.service.serviceImpl;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +12,6 @@ import org.ugguss.repository.IUserRepository;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Transactional
 @Qualifier(value = "UserDetailsServiceImpl")

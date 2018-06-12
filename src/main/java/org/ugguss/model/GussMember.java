@@ -1,5 +1,5 @@
 package org.ugguss.model;// default package
-// Generated May 30, 2018 7:20:56 PM by Hibernate Tools 5.2.8.Final
+// Generated Jun 11, 2018 9:52:10 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import java.util.HashSet;
@@ -25,7 +25,6 @@ public class GussMember implements java.io.Serializable {
 	private int id;
 	private MembershipCategory membershipCategory;
 	private User user;
-	private String memberId;
 	private Date policyStartDate;
 	private Date maturityDate;
 	private String membershipStatus;
@@ -43,13 +42,12 @@ public class GussMember implements java.io.Serializable {
 		this.user = user;
 	}
 
-	public GussMember(int id, MembershipCategory membershipCategory, User user, String memberId, Date policyStartDate,
-			Date maturityDate, String membershipStatus, Long currentSalary, String address,
-			Set<TransactionHistory> transactionHistories, Set<GussMemberContribution> gussMemberContributions) {
+	public GussMember(int id, MembershipCategory membershipCategory, User user, Date policyStartDate, Date maturityDate,
+			String membershipStatus, Long currentSalary, String address, Set<TransactionHistory> transactionHistories,
+			Set<GussMemberContribution> gussMemberContributions) {
 		this.id = id;
 		this.membershipCategory = membershipCategory;
 		this.user = user;
-		this.memberId = memberId;
 		this.policyStartDate = policyStartDate;
 		this.maturityDate = maturityDate;
 		this.membershipStatus = membershipStatus;
@@ -88,15 +86,6 @@ public class GussMember implements java.io.Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	@Column(name = "member_id", length = 45)
-	public String getMemberId() {
-		return this.memberId;
-	}
-
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 
 	@Temporal(TemporalType.DATE)

@@ -49,7 +49,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
             if (user == null) {
                 throw new UsernameNotFoundException("No user found with username: " + email);
             }
-            org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, getAuthorities(user));
+            org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), true, true, true, true, getAuthorities(user));
             return userDetails;
 
         } catch (final Exception e) {

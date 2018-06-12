@@ -1,5 +1,5 @@
 package org.ugguss.model;// default package
-// Generated May 30, 2018 7:20:56 PM by Hibernate Tools 5.2.8.Final
+// Generated Jun 11, 2018 9:52:10 PM by Hibernate Tools 5.2.8.Final
 
 import java.util.Date;
 import javax.persistence.Column;
