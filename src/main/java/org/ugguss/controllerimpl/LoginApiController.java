@@ -2,6 +2,7 @@ package org.ugguss.controllerimpl;
 
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
 public class LoginApiController implements LoginApi {
 
     @Autowired
+    @Qualifier(value="userDetailsService")
     private IUserService userService;
 
     @Override

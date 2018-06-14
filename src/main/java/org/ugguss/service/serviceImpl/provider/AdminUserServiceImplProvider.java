@@ -3,9 +3,11 @@ package org.ugguss.service.serviceImpl.provider;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.BaseResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
@@ -16,12 +18,12 @@ import org.ugguss.repository.IUserRepository;
 import org.ugguss.util.UserServiceMapperUtil;
 
 import java.util.Collection;
-
+@Component
+@Qualifier(value="AdminUserServiceImplProvider")
 public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 	@Autowired
 	private IUserRepository iUserRepository;
-	@Autowired
-	private UserServiceMapperUtil userServiceMapperUtil;
+
 
 	@Override
 	public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
@@ -29,10 +31,10 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 		UserRegistrationResponse response = new UserRegistrationResponse();
 		response.setBaseResponse(new BaseResponse());
 		AppUser appUser = request.getAppUser();
-		User user = userServiceMapperUtil.appUserToDbUser(appUser);
+		User user = UserServiceMapperUtil.INSTANCE.appUserToDbUser(appUser);
 		try {
 			User savedUser =  iUserRepository.save(user);
-			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);
+			AppUser dtoUser = UserServiceMapperUtil.INSTANCE.dbUserToAppUser(savedUser);
 			response.setAppUser(dtoUser);
 			response.getBaseResponse().setReturnCode(0);		
 			

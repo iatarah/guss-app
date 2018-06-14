@@ -1,8 +1,10 @@
 package org.ugguss.service.serviceImpl.provider;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.UserRegistrationRequest;
 import org.ugguss.generated.model.UserRegistrationResponse;
@@ -11,6 +13,8 @@ import org.ugguss.model.User;
 
 import java.util.Collection;
 
+@Component
+@Qualifier(value="MemberUserServiceImplProvider")
 public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 
 	@Override

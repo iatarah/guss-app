@@ -1,10 +1,22 @@
 package org.ugguss.service.serviceImpl.provider;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.UserRole;
 
 @Component
 public class ServiceImplProviderFactory {
+	@Autowired
+	@Qualifier(value="AdminUserServiceImplProvider")
+	private AdminUserServiceImplProvider adminUserServiceImplProvider;
+	@Autowired
+	@Qualifier(value="MemberUserServiceImplProvider")
+	private MemberUserServiceImplProvider memberUserServiceImplProvider;
+	@Autowired
+	@Qualifier(value="StaffUserServiceImplProvider")
+	private StaffUserServiceImplProvider  staffUserServiceImplProvider;
+	
 	
 	public UserServiceImplProvider getServiceImplProvider (UserRole role){
 		
@@ -15,11 +27,14 @@ public class ServiceImplProviderFactory {
 		}
 		switch (role) {
 		case ADMIN: 
-			provider = new AdminUserServiceImplProvider();
+			provider = adminUserServiceImplProvider;
+			break;
 		case STAFF:
-			provider = new StaffUserServiceImplProvider();
+			provider = staffUserServiceImplProvider;
+			break;
 		case MEMBER:
-			provider = new MemberUserServiceImplProvider();
+			provider = memberUserServiceImplProvider;
+			break;
 		default:
 			provider = null;
 		}
