@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.ugguss.model.User;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public interface IUserRepository extends JpaRepository<User, Integer> {
@@ -14,6 +16,15 @@ public interface IUserRepository extends JpaRepository<User, Integer> {
     @Query("FROM User u WHERE u.email = :email")
     User findUserByEmail(@Param("email") String email);
 
-    @Query("FROM User u WHERE u.id = :userId")
+    @Query("FROM User u WHERE u.userId = :userId")
     User findUserByUserId(@Param("userId") String userId);
+
+    @Query("FROM User u WHERE u.id = :id")
+    User findUserByUserId(@Param("id") String id);
+
+    @Query(value = "SELECT * FROM User", nativeQuery = true)
+    List<User> findAllUser();
+
+    User findUserByEmail(@Param("email") String email);
+
 }

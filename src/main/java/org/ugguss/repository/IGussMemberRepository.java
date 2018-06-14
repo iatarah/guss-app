@@ -16,7 +16,7 @@ public interface IGussMemberRepository extends JpaRepository<GussMember, Integer
 	
 	@Query("FROM GussMember m WHERE m.user.id = :userId")
 	GussMember findGussMemberByUserId(@Param("userId") String userId);
-	
+
 	@Query("FROM GussMember m WHERE m.user.id = :userId AND m.memberId = :memberId")
 	GussMember findGussMemberByUserIdAndMemberId(@Param("userId") String userId, @Param("memberId") String memberId);
 }

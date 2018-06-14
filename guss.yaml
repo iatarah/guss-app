@@ -232,4 +232,32 @@ definitions:
     enum:
     - ADMIN
     - STAFF
-    - MEMBER 
+    - MEMBER
+  LoginRequest:
+       type: object
+       properties:
+       email:
+          type: string
+       password:
+          type: string
+
+      /login:
+        get:
+          tags:
+            -/login
+          summary: Login User into the portal
+          description: ''
+          operationId: login
+          produces:
+            - application/json
+          parameters:
+            - name: loginRequest
+              in: body
+              required: true
+              schema:
+                $ref: '#/definitions/LoginRequest'
+          responses:
+            '200':
+              description: successful operations
+              schema:
+                $ref: '#/definitions/UserProfile'
