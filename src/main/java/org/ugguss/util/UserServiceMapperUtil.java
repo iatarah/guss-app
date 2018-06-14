@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
+import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.UserRole;
 import org.ugguss.model.Role;
@@ -13,6 +14,7 @@ import org.ugguss.model.User;
 import org.ugguss.service.serviceImpl.provider.RoleServiceImplProvider;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Component
 public interface  UserServiceMapperUtil {
 	
 	UserServiceMapperUtil INSTANCE = Mappers.getMapper(UserServiceMapperUtil.class);

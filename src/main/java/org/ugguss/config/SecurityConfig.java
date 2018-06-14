@@ -1,6 +1,7 @@
 package org.ugguss.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +30,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserRepository userRepository;
 
-    @Autowired
-    private IUserService userService;
+  /*  @Autowired
+    @Qualifier(value="UserDetailsServiceImpl")
+    private IUserService userService; */
 
     public SecurityConfig() {
         super();
@@ -38,14 +40,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-       authenticationMgr.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
-/*        authenticationMgr.inMemoryAuthentication().withUser("john4@gmail.com").password("12345").roles("ADMIN");
-        authenticationMgr.inMemoryAuthentication().withUser("hiab4@gmail.com").password("12345").roles("STAFF");*/
+//       authenticationMgr.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
+        authenticationMgr.inMemoryAuthentication().withUser("john4@gmail.com").password("12345").roles("ADMIN");
+        authenticationMgr.inMemoryAuthentication().withUser("hiab4@gmail.com").password("12345").roles("STAFF");
     }
 
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception {
-        return new UserDetailsServiceImpl(userRepository);
+  //      return new UserDetailsServiceImpl(userRepository);
+    	return null;
     }
 
     @Override
