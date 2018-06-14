@@ -8,10 +8,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ugguss.generated.model.AppUser;
+import org.ugguss.generated.model.BaseResponse;
+import org.ugguss.generated.model.UserRegistrationRequest;
+import org.ugguss.generated.model.UserRegistrationResponse;
+import org.ugguss.generated.model.UserRole;
+import org.ugguss.generated.model.UserType;
 import org.ugguss.model.Role;
 import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IUserService;
+import org.ugguss.service.serviceImpl.provider.UserServiceImplProvider;
+import org.ugguss.service.serviceImpl.provider.ServiceImplProviderFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -21,16 +29,31 @@ import java.util.HashSet;
 public class UserServiceImpl implements IUserService, UserDetailsService {
     @Autowired
     private IUserRepository iUserRepository;
+    @Autowired
+    private ServiceImplProviderFactory serviceImplProviderFactory;
 
     public UserServiceImpl() {
         super();
     }
 
 
-    @Override
-    public User registerUser(User user) {
-        return iUserRepository.save(user);
-    }
+	@Override
+	public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
+
+		UserRegistrationResponse response = new UserRegistrationResponse();
+		response.setBaseResponse(new BaseResponse());
+		if(request == null
+				|| request.getAppUser() == null) {
+			response.getBaseResponse().setReturnCode(1);
+			return response;
+		}
+		UserServiceImplProvider provider = serviceImplProviderFactory.getServiceImplProvider(request.getAppUser().getUserRole());
+		if(provider == null ) {
+			response.getBaseResponse().setReturnCode(1);
+			return response;
+		}
+		return provider.registerUser(request);
+	}
 
     @Override
     public User getUserByUserId(String userId) {
@@ -39,6 +62,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Override
     public User getUserByEmail(String emailId) {
+    	UserRegistrationRequest ur = new UserRegistrationRequest();
+    	ur.getMember();
         return iUserRepository.findUserByEmail(emailId);
     }
 
@@ -69,4 +94,9 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
         authorities.add(grantedAuthority);
         return authorities;
     }
+
+    protected UserServiceImplProvider getServiceImplProvider(UserRole userRole) {
+    	return serviceImplProviderFactory.getServiceImplProvider(userRole);
+    }
+
 }

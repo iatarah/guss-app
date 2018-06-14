@@ -64,30 +64,25 @@ paths:
       responses:
           "200":
             description: Succeful Response for user registration
-            code:
-              type: integer
-              format: int32
-  /login:
+            schema:
+                $ref: '#/definitions/UserRegistrationResponse'
+  /userType:
     get:
       tags:
-        -/login
-      summary: Login User into the portal
+        -/userTypes
+      summary: Return list of User Types in the application
       description: ''
-      operationId: login
+      operationId: getAllUserTypes
       produces:
         - application/json
-      parameters:
-        - name: loginRequest
-          in: body
-          required: true
-          schema:
-            $ref: '#/definitions/LoginRequest'
+      parameters: []
       responses:
         '200':
           description: successful operations
           schema:
-            $ref: '#/definitions/UserProfile'
-
+            type: array
+            items:
+              $ref: '#/definitions/UserType'
   /users/current:
     get:
       tags:
@@ -121,12 +116,12 @@ definitions:
       policyNumber:
         type: integer
         format: int32
-  LoginRequest:
+  UserType:
     type: object
     properties:
-      email:
-        type: string
-      password:
+      name:
+        $ref: '#/definitions/UserTypeNames'
+      description:
         type: string
   Member:
     type: object
@@ -195,6 +190,13 @@ definitions:
         $ref: '#/definitions/Member'
       appUser:
         $ref: '#/definitions/AppUser'
+  UserRegistrationResponse:
+    type: object
+    properties:
+      baseResponse:
+        $ref: '#/definitions/BaseResponse'
+      appUser:
+        $ref: '#/definitions/AppUser'
   AppUser:
     type: object
     properties:
@@ -212,12 +214,12 @@ definitions:
         type: string
       lastName:
         type: string
-      role:
+      dateCreated:
         type: string
-        enum:
-         - adminRole
-         - staffRole
-         - memberRole
+      lastUpdatedDate:
+        type: string
+      userRole:
+        $ref: '#/definitions/UserRole'
       status:
         type: number
       gender:
@@ -225,4 +227,37 @@ definitions:
         enum:
          - male
          - female
-        
+  UserRole:
+    type: string
+    enum:
+    - ADMIN
+    - STAFF
+    - MEMBER
+  LoginRequest:
+       type: object
+       properties:
+       email:
+          type: string
+       password:
+          type: string
+
+      /login:
+        get:
+          tags:
+            -/login
+          summary: Login User into the portal
+          description: ''
+          operationId: login
+          produces:
+            - application/json
+          parameters:
+            - name: loginRequest
+              in: body
+              required: true
+              schema:
+                $ref: '#/definitions/LoginRequest'
+          responses:
+            '200':
+              description: successful operations
+              schema:
+                $ref: '#/definitions/UserProfile'
