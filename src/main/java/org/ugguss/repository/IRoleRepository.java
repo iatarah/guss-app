@@ -11,8 +11,8 @@ import org.ugguss.model.Role;
 @Transactional
 public interface IRoleRepository extends JpaRepository<Role, Integer> {
 	
-	@Query("FROM Role r WHERE r.id = :roleId")
-	Role findRoleByRoleId(@Param("roleId") String roleId);
+	@Query("FROM Role r WHERE r.id = :id")
+	Role findRoleByRoleId(@Param("id") String roleId);
 	
 	@Query("FROM Role r WHERE r.id = :roleName")
 	Role findRoleByRoleName(@Param("roleName") String roleName);
