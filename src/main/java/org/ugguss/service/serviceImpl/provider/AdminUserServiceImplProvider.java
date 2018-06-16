@@ -1,5 +1,6 @@
 package org.ugguss.service.serviceImpl.provider;
 
+import javax.inject.Inject;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.ugguss.generated.model.UserRegistrationResponse;
 import org.ugguss.model.Role;
 import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
+import org.ugguss.service.IRoleService;
 import org.ugguss.util.UserServiceMapperUtil;
 
 import java.util.Collection;
@@ -23,7 +25,10 @@ import java.util.Collection;
 public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 	@Autowired
 	private IUserRepository iUserRepository;
-
+	@Autowired
+	private UserServiceMapperUtil userServiceMapperUtil;
+	@Autowired
+	private IRoleService iRoleService;
 
 	@Override
 	public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
@@ -31,10 +36,16 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 		UserRegistrationResponse response = new UserRegistrationResponse();
 		response.setBaseResponse(new BaseResponse());
 		AppUser appUser = request.getAppUser();
-		User user = UserServiceMapperUtil.INSTANCE.appUserToDbUser(appUser);
+		User user = userServiceMapperUtil.appUserToDbUser(appUser);
+		user.setPassword("password1");
+		Role role = iRoleService.getRoleByRoleName("ADMIN");
+		
+		role.setRoleName("ADMIN");
+		role.setId(role.getId());
+		user.setRole(role);
 		try {
 			User savedUser =  iUserRepository.save(user);
-			AppUser dtoUser = UserServiceMapperUtil.INSTANCE.dbUserToAppUser(savedUser);
+			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);
 			response.setAppUser(dtoUser);
 			response.getBaseResponse().setReturnCode(0);		
 			

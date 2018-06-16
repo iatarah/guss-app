@@ -13,11 +13,10 @@ import org.ugguss.model.Role;
 import org.ugguss.model.User;
 import org.ugguss.service.serviceImpl.provider.RoleServiceImplProvider;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
-@Component
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface  UserServiceMapperUtil {
 	
-	UserServiceMapperUtil INSTANCE = Mappers.getMapper(UserServiceMapperUtil.class);
+	//UserServiceMapperUtil INSTANCE = Mappers.getMapper(UserServiceMapperUtil.class);
 	
 	@Mappings({
 		//@Mapping(target = "Role", source = ""), // we probably need to replace this with roleId
