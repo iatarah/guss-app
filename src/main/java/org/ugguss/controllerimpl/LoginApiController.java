@@ -13,6 +13,7 @@ import org.ugguss.generated.model.UserProfile;
 import org.ugguss.service.IUserService;
 import org.ugguss.util.constants.RestEndpointConstants;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2018-06-04T20:43:54.638-04:00")
@@ -59,5 +60,10 @@ public class LoginApiController implements LoginApi {
         return new ResponseEntity<String>(x, HttpStatus.OK);
     }
 
+    @RequestMapping(value = RestEndpointConstants.Constants.BASE_API + "/" + RestEndpointConstants.Constants.LOGOUT,
+                    method= RequestMethod.GET)
+    public void logout(HttpSession session) {
+        session.invalidate();
+    }
 
 }
