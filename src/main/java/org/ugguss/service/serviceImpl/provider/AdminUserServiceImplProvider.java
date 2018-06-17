@@ -14,6 +14,7 @@ import org.ugguss.model.Role;
 import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IRoleService;
+import org.ugguss.util.RegistrationUtil;
 import org.ugguss.util.UserServiceMapperUtil;
 import org.ugguss.util.constants.AppConstants;
 
@@ -30,17 +31,19 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 	private IRoleService iRoleService;
 
 	@Override
-	public UserRegistrationResponse registerUser(UserRegistrationRequest request) {
+	public UserRegistrationResponse registerUser(UserRegistrationRequest userRegistrationRequest) {
 		
 		UserRegistrationResponse response = new UserRegistrationResponse();
 		response.setBaseResponse(new BaseResponse());
-		AppUser appUser = request.getAppUser();
+		AppUser appUser = userRegistrationRequest.getAppUser();
 		User user = userServiceMapperUtil.appUserToDbUser(appUser);
-		user.setPassword("password1");
 		Role role = iRoleService.getRoleByRoleName(AppConstants.ADMIN);
-		user.setRole(role);
-		user.setDateCreated(new Date());
-		user.setStatus(AppConstants.ACTIVE_STATUS);
+		
+		if(user == null || role == null) {
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
+		}
+		
+		RegistrationUtil.populateUserExtraAttributes(userRegistrationRequest, role, user);
 		
 		try {
 			User savedUser =  iUserRepository.save(user);

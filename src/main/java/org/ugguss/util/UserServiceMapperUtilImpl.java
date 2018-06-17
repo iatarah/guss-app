@@ -6,11 +6,16 @@ import java.text.SimpleDateFormat;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.AppUser;
+import org.ugguss.generated.model.GussMemberCategory;
+import org.ugguss.generated.model.Member;
+import org.ugguss.generated.model.Member.MembershipStatusEnum;
+import org.ugguss.model.GussMember;
+import org.ugguss.model.MembershipCategory;
 import org.ugguss.model.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-06-16T21:09:33-0500",
+    date = "2018-06-17T15:04:14-0500",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_111 (Oracle Corporation)"
 )
 @Component
@@ -31,7 +36,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         }
         try {
             if ( appUser.getDateOfBirth() != null ) {
-                user.setDob( new SimpleDateFormat().parse( appUser.getDateOfBirth() ) );
+                user.setDob( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( appUser.getDateOfBirth() ) );
             }
         }
         catch ( ParseException e ) {
@@ -77,7 +82,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         appUser.setGender( dbUserGenderToAppUserGender( user.getGender() ) );
         appUser.setMiddleName( user.getMiddleName() );
         if ( user.getDob() != null ) {
-            appUser.setDateOfBirth( new SimpleDateFormat().format( user.getDob() ) );
+            appUser.setDateOfBirth( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).format( user.getDob() ) );
         }
         appUser.setUserRole( dbRoleToUserRole( user.getRole() ) );
         appUser.setUserId( BigDecimal.valueOf( user.getId() ) );
@@ -88,5 +93,74 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         appUser.setPassword( user.getPassword() );
 
         return appUser;
+    }
+
+    @Override
+    public Member gussMemberTodtoMember(GussMember gussMember) {
+        if ( gussMember == null ) {
+            return null;
+        }
+
+        Member member = new Member();
+
+        member.setAddress( gussMember.getAddress() );
+        if ( gussMember.getPolicyStartDate() != null ) {
+            member.setJoinDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).format( gussMember.getPolicyStartDate() ) );
+        }
+        if ( gussMember.getMaturityDate() != null ) {
+            member.setRetirementDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).format( gussMember.getMaturityDate() ) );
+        }
+        if ( gussMember.getCurrentSalary() != null ) {
+            member.setBasicSalary( BigDecimal.valueOf( gussMember.getCurrentSalary() ) );
+        }
+        if ( gussMember.getMembershipStatus() != null ) {
+            member.setMembershipStatus( Enum.valueOf( MembershipStatusEnum.class, gussMember.getMembershipStatus() ) );
+        }
+        member.setMembershipCategory( map( gussMember.getMembershipCategory() ) );
+
+        return member;
+    }
+
+    @Override
+    public GussMember dtoMemberTodbGussMember(Member member) {
+        if ( member == null ) {
+            return null;
+        }
+
+        GussMember gussMember = new GussMember();
+
+        try {
+            if ( member.getJoinDate() != null ) {
+                gussMember.setPolicyStartDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getJoinDate() ) );
+            }
+        }
+        catch ( ParseException e ) {
+            throw new RuntimeException( e );
+        }
+        gussMember.setAddress( member.getAddress() );
+        try {
+            if ( member.getRetirementDate() != null ) {
+                gussMember.setMaturityDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getRetirementDate() ) );
+            }
+        }
+        catch ( ParseException e ) {
+            throw new RuntimeException( e );
+        }
+        gussMember.setMembershipCategory( gussMemberCategoryToMembershipCategory( member.getMembershipCategory() ) );
+        if ( member.getMembershipStatus() != null ) {
+            gussMember.setMembershipStatus( member.getMembershipStatus().name() );
+        }
+
+        return gussMember;
+    }
+
+    protected MembershipCategory gussMemberCategoryToMembershipCategory(GussMemberCategory gussMemberCategory) {
+        if ( gussMemberCategory == null ) {
+            return null;
+        }
+
+        MembershipCategory membershipCategory = new MembershipCategory();
+
+        return membershipCategory;
     }
 }
