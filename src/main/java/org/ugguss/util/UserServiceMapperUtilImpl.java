@@ -15,7 +15,7 @@ import org.ugguss.model.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-06-17T12:58:08-0500",
+    date = "2018-06-17T15:04:14-0500",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_111 (Oracle Corporation)"
 )
 @Component
@@ -36,7 +36,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         }
         try {
             if ( appUser.getDateOfBirth() != null ) {
-                user.setDob( new SimpleDateFormat().parse( appUser.getDateOfBirth() ) );
+                user.setDob( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( appUser.getDateOfBirth() ) );
             }
         }
         catch ( ParseException e ) {
@@ -82,7 +82,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         appUser.setGender( dbUserGenderToAppUserGender( user.getGender() ) );
         appUser.setMiddleName( user.getMiddleName() );
         if ( user.getDob() != null ) {
-            appUser.setDateOfBirth( new SimpleDateFormat().format( user.getDob() ) );
+            appUser.setDateOfBirth( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).format( user.getDob() ) );
         }
         appUser.setUserRole( dbRoleToUserRole( user.getRole() ) );
         appUser.setUserId( BigDecimal.valueOf( user.getId() ) );
@@ -103,6 +103,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
 
         Member member = new Member();
 
+        member.setAddress( gussMember.getAddress() );
         if ( gussMember.getPolicyStartDate() != null ) {
             member.setJoinDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).format( gussMember.getPolicyStartDate() ) );
         }
@@ -115,7 +116,6 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         if ( gussMember.getMembershipStatus() != null ) {
             member.setMembershipStatus( Enum.valueOf( MembershipStatusEnum.class, gussMember.getMembershipStatus() ) );
         }
-        member.setAddress( gussMember.getAddress() );
         member.setMembershipCategory( map( gussMember.getMembershipCategory() ) );
 
         return member;
@@ -130,16 +130,17 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         GussMember gussMember = new GussMember();
 
         try {
-            if ( member.getRetirementDate() != null ) {
-                gussMember.setMaturityDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getRetirementDate() ) );
+            if ( member.getJoinDate() != null ) {
+                gussMember.setPolicyStartDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getJoinDate() ) );
             }
         }
         catch ( ParseException e ) {
             throw new RuntimeException( e );
         }
+        gussMember.setAddress( member.getAddress() );
         try {
-            if ( member.getJoinDate() != null ) {
-                gussMember.setPolicyStartDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getJoinDate() ) );
+            if ( member.getRetirementDate() != null ) {
+                gussMember.setMaturityDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getRetirementDate() ) );
             }
         }
         catch ( ParseException e ) {
@@ -149,7 +150,6 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         if ( member.getMembershipStatus() != null ) {
             gussMember.setMembershipStatus( member.getMembershipStatus().name() );
         }
-        gussMember.setAddress( member.getAddress() );
 
         return gussMember;
     }

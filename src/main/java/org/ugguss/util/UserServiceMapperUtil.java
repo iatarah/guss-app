@@ -12,6 +12,7 @@ import org.ugguss.generated.model.UserRole;
 import org.ugguss.model.GussMember;
 import org.ugguss.model.Role;
 import org.ugguss.model.User;
+import org.ugguss.util.constants.AppConstants;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface  UserServiceMapperUtil {
@@ -23,7 +24,7 @@ public interface  UserServiceMapperUtil {
 		@Mapping(target = "lastName", source = "lastName"),
 		@Mapping(target = "middleName", source = "middleName"),
 		@Mapping(target = "gender", source = "gender"),
-		@Mapping(target = "dob", source = "dateOfBirth"),
+		@Mapping(target = "dob", source = "dateOfBirth", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "status", source = "status"),
 		//@Mapping(target = "dateCreated", source = ""),
 		//@Mapping(target = "lastUpdated", source = ""),
@@ -39,7 +40,7 @@ public interface  UserServiceMapperUtil {
 		@Mapping(target = "lastName", source = "lastName"),
 		@Mapping(target = "middleName", source = "middleName"),
 		@Mapping(target = "gender", source = "gender"),
-		@Mapping(target = "dateOfBirth", source = "dob"),
+		@Mapping(target = "dateOfBirth", source = "dob", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "status", source = "status"),
 		@Mapping(target = "dateCreated", source = "dateCreated", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "lastUpdatedDate", source = "lastUpdated", dateFormat = "dd-MM-yyyy HH:mm:ss")
@@ -48,10 +49,24 @@ public interface  UserServiceMapperUtil {
 	
 	
 	public default UserRole dbRoleToUserRole (Role role) {
-		if(role == null) {
+		if(role == null || role.getRoleName() == null) {
 			return null;
 		}
-		UserRole userRole = UserRole.fromValue(role.getRoleName());
+		String roleName = null;
+		switch (role.getRoleName()) {
+		case AppConstants.ADMIN:
+			roleName = "ADMIN";
+			break;
+		case AppConstants.MEMBER:
+			roleName = "MEMBER";
+			break;
+		case AppConstants.STAFF:
+			roleName = "STAFF";
+			break;
+		default:
+			break;
+		}
+		UserRole userRole = UserRole.fromValue(roleName);
 		return userRole;
 	}
 	
@@ -65,6 +80,7 @@ public interface  UserServiceMapperUtil {
 	
 	@Mappings({
 		@Mapping(target = "basicSalary", source = "currentSalary"),
+		@Mapping(target = "address", source = "address"),
 		@Mapping(target = "retirementDate", source = "maturityDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "joinDate", source = "policyStartDate", dateFormat = "dd-MM-yyyy HH:mm:ss")
 	})
@@ -73,7 +89,8 @@ public interface  UserServiceMapperUtil {
 	
 	@Mappings({
 		@Mapping(target = "policyStartDate", source = "joinDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
-		@Mapping(target = "maturityDate", source = "retirementDate", dateFormat = "dd-MM-yyyy HH:mm:ss")
+		@Mapping(target = "maturityDate", source = "retirementDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "address", source = "address")
 	})
 	GussMember dtoMemberTodbGussMember(Member member) ;
 	
