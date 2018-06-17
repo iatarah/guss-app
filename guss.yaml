@@ -219,6 +219,8 @@ definitions:
         $ref: '#/definitions/BaseResponse'
       appUser:
         $ref: '#/definitions/AppUser'
+      gussMember:
+        $ref: '#/definitions/Member'
   AppUser:
     type: object
     properties:

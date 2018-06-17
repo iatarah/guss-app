@@ -67,7 +67,6 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 		
 		try {
 			User savedUser =  iUserRepository.save(user);
-			// TODO: if user is saved successfully, add member object to member table
 			GussMember gussMember = userServiceMapperUtil.dtoMemberTodbGussMember(userRegistrationRequest.getMember());
 			MembershipCategory membershipCategory = iMembershipCategoryService.getCategoryByCategoryName(
 					(userRegistrationRequest.getMember().getMembershipCategory() != null) ?
@@ -79,15 +78,17 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 			Member dtoMember = userServiceMapperUtil.gussMemberTodtoMember(savedGussMember);
 			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);
 			
+			response.setGussMember(dtoMember);
 			response.setAppUser(dtoUser);
 			response.getBaseResponse().setReturnCode(AppConstants.SUCCESS_CODE);
-			//response.set
 			
 		} catch (Exception e) {
+			// TODO : log
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
+			return response;
 			// TODO: handle exception
 		}
-		// TODO Auto-generated method stub
-		return null;
+		return response;
 	}
 
 	@Override
