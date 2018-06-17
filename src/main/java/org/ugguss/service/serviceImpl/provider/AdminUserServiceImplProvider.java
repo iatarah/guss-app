@@ -18,8 +18,10 @@ import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IRoleService;
 import org.ugguss.util.UserServiceMapperUtil;
+import org.ugguss.util.constants.AppConstants;
 
 import java.util.Collection;
+import java.util.Date;
 @Component
 @Qualifier(value="AdminUserServiceImplProvider")
 public class AdminUserServiceImplProvider extends UserServiceImplProvider{
@@ -38,18 +40,19 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 		AppUser appUser = request.getAppUser();
 		User user = userServiceMapperUtil.appUserToDbUser(appUser);
 		user.setPassword("password1");
-		Role role = iRoleService.getRoleByRoleName("ADMIN");
-		
-		role.setRoleName("ADMIN");
-		role.setId(role.getId());
+		Role role = iRoleService.getRoleByRoleName(AppConstants.ADMIN);
 		user.setRole(role);
+		user.setDateCreated(new Date());
+		user.setStatus(AppConstants.ACTIVE_STATUS);
+		
 		try {
 			User savedUser =  iUserRepository.save(user);
 			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);
 			response.setAppUser(dtoUser);
-			response.getBaseResponse().setReturnCode(0);		
+			response.getBaseResponse().setReturnCode(AppConstants.SUCCESS_CODE);		
 			
 		} catch (Exception e) {
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 			e.printStackTrace(); // TODO: handle exception
 		}
 		return response;

@@ -243,16 +243,18 @@ definitions:
       status:
         type: number
       gender:
-        type: string
-        enum:
-         - male
-         - female
+        $ref: '#/definitions/Gender'
   UserRole:
     type: string
     enum:
     - ADMIN
     - STAFF
     - MEMBER
+  Gender:
+    type: string
+    enum:
+    - M
+    - F
   LoginRequest:
      type: object
      properties:
