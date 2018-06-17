@@ -38,13 +38,13 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 	private IMembershipCategoryService iMembershipCategoryService;
 	@Autowired
 	private IGussMemberRepository iGussMemberRepository;
-	
+
 	@Override
 	public UserRegistrationResponse registerUser(UserRegistrationRequest userRegistrationRequest) {
-		
+
 		UserRegistrationResponse response = new UserRegistrationResponse();
 		response.setBaseResponse(new BaseResponse());
-		
+
 		if(userRegistrationRequest == null
 				|| userRegistrationRequest.getAppUser() == null
 				|| userRegistrationRequest.getMember() == null) {
@@ -52,19 +52,19 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 			return response;
 		}
-		
+
 		AppUser appUser = userRegistrationRequest.getAppUser();
 		User user = userServiceMapperUtil.appUserToDbUser(appUser);
-		Role role = iRoleService.getRoleByRoleName(AppConstants.MEMBER);	
-		
+		Role role = iRoleService.getRoleByRoleName(AppConstants.MEMBER);
+
 		if(user == null || role == null) {
 			// TODO : log
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 			return response;
 		}
-		
+
 		RegistrationUtil.populateUserExtraAttributes(userRegistrationRequest, role, user);
-		
+
 		try {
 			User savedUser =  iUserRepository.save(user);
 			GussMember gussMember = userServiceMapperUtil.dtoMemberTodbGussMember(userRegistrationRequest.getMember());
@@ -73,15 +73,15 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 							userRegistrationRequest.getMember().getMembershipCategory().toString() : null);
 			gussMember.setMembershipCategory(membershipCategory);
 			gussMember.setUser(savedUser);
-			
+
 			GussMember savedGussMember = iGussMemberRepository.save(gussMember);
 			Member dtoMember = userServiceMapperUtil.gussMemberTodtoMember(savedGussMember);
 			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);
-			
+
 			response.setGussMember(dtoMember);
 			response.setAppUser(dtoUser);
 			response.getBaseResponse().setReturnCode(AppConstants.SUCCESS_CODE);
-			
+
 		} catch (Exception e) {
 			// TODO : log
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);

@@ -17,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.savedrequest.NullRequestCache;
+import org.springframework.session.web.http.HeaderHttpSessionStrategy;
+import org.springframework.session.web.http.HttpSessionStrategy;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IUserService;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
@@ -30,9 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IUserRepository userRepository;
 
-  /*  @Autowired
-    @Qualifier(value="UserDetailsServiceImpl")
-    private IUserService userService; */
 
     public SecurityConfig() {
         super();
@@ -40,15 +40,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder authenticationMgr) throws Exception {
-//       authenticationMgr.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
+       authenticationMgr.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
+/*
         authenticationMgr.inMemoryAuthentication().withUser("john4@gmail.com").password("12345").roles("ADMIN");
         authenticationMgr.inMemoryAuthentication().withUser("hiab4@gmail.com").password("12345").roles("STAFF");
+*/
     }
 
     @Override
     public UserDetailsService userDetailsServiceBean() throws Exception {
-  //      return new UserDetailsServiceImpl(userRepository);
-    	return null;
+        return new UserDetailsServiceImpl(userRepository);
+    	//return null;
     }
 
     @Override
@@ -70,7 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/protectedforadmin").hasRole("ADMIN")
                 .antMatchers("/protectedforstaff").hasRole("STAFF")
                 .and().httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint())
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and().requestCache().requestCache(new NullRequestCache());
                 //.anyRequest().authenticated();
     }
 
@@ -84,4 +87,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }
+
 }
