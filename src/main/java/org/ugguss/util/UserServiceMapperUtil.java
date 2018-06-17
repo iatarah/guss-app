@@ -6,7 +6,10 @@ import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.Gender;
+import org.ugguss.generated.model.GussMemberCategory;
+import org.ugguss.generated.model.Member;
 import org.ugguss.generated.model.UserRole;
+import org.ugguss.model.GussMember;
 import org.ugguss.model.Role;
 import org.ugguss.model.User;
 
@@ -59,6 +62,31 @@ public interface  UserServiceMapperUtil {
 		Gender appUserGender = Gender.fromValue(gender);
 		return appUserGender;
 	}
+	
+	@Mappings({
+		@Mapping(target = "basicSalary", source = "currentSalary"),
+		@Mapping(target = "retirementDate", source = "maturityDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "joinDate", source = "policyStartDate", dateFormat = "dd-MM-yyyy HH:mm:ss")
+	})
+	Member gussMemberTodtoMember(GussMember gussMember) ;
+	
+	
+	@Mappings({
+		@Mapping(target = "policyStartDate", source = "joinDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "maturityDate", source = "retirementDate", dateFormat = "dd-MM-yyyy HH:mm:ss")
+	})
+	GussMember dtoMemberTodbGussMember(Member member) ;
+	
+	default GussMemberCategory map(org.ugguss.model.MembershipCategory value) {
+		
+		if(value == null) {
+			return null;
+		}
+		GussMemberCategory gussMemberCategory = GussMemberCategory.fromValue(value.getCategoryName());
+		return gussMemberCategory;
+		
+	}
+	
 /*	
 	public default String appUserGenderTodbUserGender (Gender gender) {
 		if(gender == null) {

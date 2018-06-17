@@ -164,10 +164,12 @@ definitions:
       address:
         type: string
       membershipCategory:
-        type: string
-        enum:
-         - YRA1999
-         - YRB2000
+        $ref: '#/definitions/GussMemberCategory'
+  GussMemberCategory:
+    type: string
+    enum:
+    - YRA1999
+    - YRB2000
   ContributionHistory:
     type: object
     properties:
