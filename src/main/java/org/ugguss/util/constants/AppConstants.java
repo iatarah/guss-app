@@ -16,5 +16,8 @@ public class AppConstants {
 	public static final String CATEGORY_YRA1999 = "YRA1999";
 	public static final String CATEGORY_YRB2000 = "YRB2000";
 	
+	public static final String GUSS_MEMBER_ACTIVE_STATUS = "ACTIVE";
+	public static final String GUSS_MEMBER_INACTIVE_STATUS = "INACTIVE";
+	
 	
 }

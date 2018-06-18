@@ -73,7 +73,7 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 							userRegistrationRequest.getMember().getMembershipCategory().toString() : null);
 			gussMember.setMembershipCategory(membershipCategory);
 			gussMember.setUser(savedUser);
-
+			gussMember.setMembershipStatus(AppConstants.GUSS_MEMBER_ACTIVE_STATUS);
 			GussMember savedGussMember = iGussMemberRepository.save(gussMember);
 			Member dtoMember = userServiceMapperUtil.gussMemberTodtoMember(savedGussMember);
 			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);

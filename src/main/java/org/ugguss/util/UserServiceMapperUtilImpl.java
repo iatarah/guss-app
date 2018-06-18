@@ -15,7 +15,7 @@ import org.ugguss.model.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-06-17T15:04:14-0500",
+    date = "2018-06-17T19:44:49-0500",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_111 (Oracle Corporation)"
 )
 @Component
@@ -116,6 +116,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
         if ( gussMember.getMembershipStatus() != null ) {
             member.setMembershipStatus( Enum.valueOf( MembershipStatusEnum.class, gussMember.getMembershipStatus() ) );
         }
+        member.setMemberId( gussMember.getMemberSsn() );
         member.setMembershipCategory( map( gussMember.getMembershipCategory() ) );
 
         return member;
@@ -138,6 +139,7 @@ public class UserServiceMapperUtilImpl implements UserServiceMapperUtil {
             throw new RuntimeException( e );
         }
         gussMember.setAddress( member.getAddress() );
+        gussMember.setMemberSsn( member.getMemberId() );
         try {
             if ( member.getRetirementDate() != null ) {
                 gussMember.setMaturityDate( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).parse( member.getRetirementDate() ) );

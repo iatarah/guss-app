@@ -82,7 +82,9 @@ public interface  UserServiceMapperUtil {
 		@Mapping(target = "basicSalary", source = "currentSalary"),
 		@Mapping(target = "address", source = "address"),
 		@Mapping(target = "retirementDate", source = "maturityDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
-		@Mapping(target = "joinDate", source = "policyStartDate", dateFormat = "dd-MM-yyyy HH:mm:ss")
+		@Mapping(target = "joinDate", source = "policyStartDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "memberId", source = "memberSsn"),
+		@Mapping(target = "membershipStatus", source = "membershipStatus")
 	})
 	Member gussMemberTodtoMember(GussMember gussMember) ;
 	
@@ -90,7 +92,8 @@ public interface  UserServiceMapperUtil {
 	@Mappings({
 		@Mapping(target = "policyStartDate", source = "joinDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "maturityDate", source = "retirementDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
-		@Mapping(target = "address", source = "address")
+		@Mapping(target = "address", source = "address"),
+		@Mapping(target = "memberSsn", source = "memberId")
 	})
 	GussMember dtoMemberTodbGussMember(Member member) ;
 	
