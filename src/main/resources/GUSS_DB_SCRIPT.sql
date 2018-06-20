@@ -205,3 +205,9 @@ DEFAULT CHARACTER SET = utf8;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+ALTER TABLE `guss_db`.`guss_member_contribution` 
+DROP INDEX `doc_id_UNIQUE` ,
+ADD UNIQUE INDEX `doc_id_UNIQUE` (`doc_id` ASC, `guss_member_ssn` ASC, `contribution_category` ASC),
+DROP INDEX `UKbpsxsj1lvf3v07ubxve7o8yil` ;
