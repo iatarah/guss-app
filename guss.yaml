@@ -118,6 +118,59 @@ paths:
           description: successful operations
           schema:
             $ref: '#/definitions/UserProfile'
+  /member-contribution:
+    put:
+      tags:
+        -  Contribution
+      description: 'called to create new contribution'
+      operationId: createContribution
+      produces:
+          - application/json
+      parameters:
+          - name: contributionRequest
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/ContributionRequest'
+      responses:
+          "200":
+            description: Succeful Response for editing guss member contribution
+            schema:
+                $ref: '#/definitions/ContributionResponse'
+    post:
+      description: 'called to update contribution'
+      operationId: updateContribution
+      produces:
+          - application/json
+      parameters:
+          - name: contributionRequest
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/ContributionRequest'
+      responses:
+          "200":
+            description: Succeful Response for editing guss member contribution
+            schema:
+                $ref: '#/definitions/ContributionResponse'
+    delete:
+      description: 'called to delete  member contribution'
+      operationId: deleteContribution
+      produces:
+          - application/json
+      parameters:
+          - name: memberId
+            in: query
+            required: true
+          - name: contributionRequest
+            in: body
+            schema:
+              $ref: '#/definitions/ContributionRequest'
+      responses:
+          "200":
+            description: Succeful Response for editing guss member contribution
+            schema:
+                $ref: '#/definitions/ContributionResponse'
 definitions:
   UserProfile:
     type: object
@@ -170,16 +223,26 @@ definitions:
     enum:
     - YRA1999
     - YRB2000
-  ContributionHistory:
+  Contribution:
     type: object
     properties:
       documentId:
         type: string
-      contributionStartDate:
-        type: string
       paymentDate:
         type: string
-      fiscalMonthYear:
+      fiscalMonth:
+        type: string
+      fiscalYear:
+        type: string
+      contributionCategory:
+        type: string
+      dateCreated:
+        type: string
+      dateUpdated:
+        type: string
+      comments:
+        type: string
+      memberId:
         type: string
   BaseRequest:
     type: object
@@ -266,3 +329,17 @@ definitions:
           type: string
        password:
           type: string
+  ContributionRequest:
+    type: object
+    properties:
+      baseRequest:
+        $ref: '#/definitions/BaseRequest'
+      contribution:
+        $ref: '#/definitions/Contribution'
+  ContributionResponse:
+    type: object
+    properties:
+      baseRequest:
+        $ref: '#/definitions/BaseResponse'
+      contribution:
+        $ref: '#/definitions/Contribution'
