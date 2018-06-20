@@ -119,6 +119,22 @@ paths:
           schema:
             $ref: '#/definitions/UserProfile'
   /member-contribution:
+    get:
+      tags:
+        -  Contribution
+      description: 'called to get  all contribution for member'
+      operationId: getContribution
+      produces:
+          - application/json
+      parameters:
+          - name: memberId
+            in: path
+            required: true
+      responses:
+          "200":
+            description: Succeful Response for getting guss member contribution history
+            schema:
+                $ref: '#/definitions/ContributionHistoryResponse'
     put:
       tags:
         -  Contribution
@@ -339,7 +355,16 @@ definitions:
   ContributionResponse:
     type: object
     properties:
-      baseRequest:
+      baseResponse:
         $ref: '#/definitions/BaseResponse'
       contribution:
         $ref: '#/definitions/Contribution'
+  ContributionHistoryResponse:
+    type: object
+    properties:
+      baseResponse:
+        $ref: '#/definitions/BaseResponse'
+      contributionHistory:
+        type: array
+        items:
+          $ref: '#/definitions/Contribution'
