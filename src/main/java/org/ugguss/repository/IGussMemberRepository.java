@@ -11,7 +11,7 @@ import org.ugguss.model.GussMember;
 @Transactional
 public interface IGussMemberRepository extends JpaRepository<GussMember, Integer> {
 	
-	@Query("FROM GussMember m WHERE m.id = :memberId")
+	@Query("FROM GussMember m WHERE m.memberSsn = :memberId")
 	GussMember findGussMemberByMemberId(@Param("memberId") String memberId);
 	
 /*
