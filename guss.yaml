@@ -121,7 +121,7 @@ paths:
   /member-contribution:
     get:
       tags:
-        -  Contribution
+        -  Memcontribution
       description: 'called to get  all contribution for member'
       operationId: getContribution
       produces:
@@ -137,7 +137,7 @@ paths:
                 $ref: '#/definitions/ContributionHistoryResponse'
     put:
       tags:
-        -  Contribution
+        -  Memcontribution
       description: 'called to create new contribution'
       operationId: createContribution
       produces:
@@ -154,6 +154,8 @@ paths:
             schema:
                 $ref: '#/definitions/ContributionResponse'
     post:
+      tags:
+        - Memcontribution
       description: 'called to update contribution'
       operationId: updateContribution
       produces:

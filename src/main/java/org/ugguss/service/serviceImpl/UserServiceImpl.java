@@ -17,6 +17,7 @@ import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.IUserService;
 import org.ugguss.service.serviceImpl.provider.UserServiceImplProvider;
+import org.ugguss.util.constants.AppConstants;
 import org.ugguss.service.serviceImpl.provider.ServiceImplProviderFactory;
 
 import java.util.Collection;
@@ -42,12 +43,12 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		response.setBaseResponse(new BaseResponse());
 		if(request == null
 				|| request.getAppUser() == null) {
-			response.getBaseResponse().setReturnCode(1);
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 			return response;
 		}
 		UserServiceImplProvider provider = serviceImplProviderFactory.getServiceImplProvider(request.getAppUser().getUserRole());
 		if(provider == null ) {
-			response.getBaseResponse().setReturnCode(1);
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 			return response;
 		}
 		return provider.registerUser(request);
