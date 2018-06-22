@@ -9,7 +9,7 @@ import org.ugguss.model.GussMemberContribution;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-06-21T22:04:23-0500",
+    date = "2018-06-22T09:19:06-0500",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_111 (Oracle Corporation)"
 )
 @Component
@@ -57,6 +57,9 @@ public class ContributionServiceMapperUtilImpl implements ContributionServiceMap
         Contribution contribution = new Contribution();
 
         contribution.setComments( gussMemberContribution.getComments() );
+        if ( gussMemberContribution.getDateCreated() != null ) {
+            contribution.setDateCreated( new SimpleDateFormat( "dd-MM-yyyy HH:mm:ss" ).format( gussMemberContribution.getDateCreated() ) );
+        }
         contribution.setDocumentId( gussMemberContribution.getDocId() );
         contribution.setFiscalMonth( gussMemberContribution.getFiscalMonth() );
         if ( gussMemberContribution.getPaymentDate() != null ) {
@@ -64,9 +67,7 @@ public class ContributionServiceMapperUtilImpl implements ContributionServiceMap
         }
         contribution.setFiscalYear( gussMemberContribution.getFiscalYear() );
         contribution.setContributionCategory( gussMemberContribution.getContributionCategory() );
-        if ( gussMemberContribution.getDateCreated() != null ) {
-            contribution.setDateCreated( new SimpleDateFormat().format( gussMemberContribution.getDateCreated() ) );
-        }
+        contribution.setMemberId( memberId( gussMemberContribution.getGussMember() ) );
 
         return contribution;
     }

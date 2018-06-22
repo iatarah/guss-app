@@ -1,5 +1,7 @@
 package org.ugguss.service.serviceImpl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,7 @@ public class GussMemberContributionServiceImpl implements IGussMemberContributio
 		GussMemberContribution dbContribution = contributionServiceMapperUtil
 				.contributionDTOtoDbContribution(contributionRequest.getContribution());
 		dbContribution.setGussMember(gussMember);
+		dbContribution.setDateCreated(new Date());
 		GussMemberContribution savedContribution = iGussMemberContributionRepository.save(dbContribution);
 		response.setContribution(
 					contributionServiceMapperUtil.dbContributionToDTOcontribution(savedContribution));

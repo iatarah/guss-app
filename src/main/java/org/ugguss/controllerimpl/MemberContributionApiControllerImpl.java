@@ -27,10 +27,10 @@ public class MemberContributionApiControllerImpl implements MemberContributionAp
 	@Override
 	@RequestMapping(value = RestEndpointConstants.Constants.BASE_API +"/" + RestEndpointConstants.Constants.MEMBER_CONTRIBUTION,
 	produces = { "application/json" }, 
-	method = RequestMethod.POST)
+	method = RequestMethod.PUT)
     public  ResponseEntity<ContributionResponse> createContribution(@ApiParam(value = "" ,required=true )  @Valid @RequestBody ContributionRequest contributionRequest) {
-        // do some magic!
-        return new ResponseEntity<ContributionResponse>(HttpStatus.OK);
+		ContributionResponse response = iGussMemberContributionService.createContribution(contributionRequest);
+        return new ResponseEntity<ContributionResponse>(response, HttpStatus.OK);
     }
 
 }
