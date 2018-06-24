@@ -118,7 +118,7 @@ paths:
           description: successful operations
           schema:
             $ref: '#/definitions/UserProfile'
-  /member-contribution:
+  /member-contribution/{memberId}:
     get:
       tags:
         -  Memcontribution
@@ -130,6 +130,12 @@ paths:
           - name: memberId
             in: path
             required: true
+          - name: startDate
+            in: query
+            required: false
+          - name: endDate
+            in: query
+            required: false
       responses:
           "200":
             description: Succeful Response for getting guss member contribution history

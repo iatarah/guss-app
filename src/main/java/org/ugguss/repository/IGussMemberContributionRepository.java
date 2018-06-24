@@ -9,6 +9,6 @@ import org.ugguss.model.GussMemberContribution;
 
 public interface IGussMemberContributionRepository extends JpaRepository<GussMemberContribution, Integer> {
 	
-	@Query("FROM GussMemberContribution c WHERE c.gussMember.id = :memberId")
+	@Query("FROM GussMemberContribution c WHERE c.gussMember.memberSsn = :memberId")
 	List<GussMemberContribution> findContributionByMemberId(@Param("memberId") String memberId);
 }

@@ -10,6 +10,6 @@ public enum RestEndpointConstants {
         public static final String REGISTER_USER = "/registration";
         public static final String ADMIN_ONLY = "/protectedbyadmin";
         public static final String STAFF_ONLY = "/protectedbystaff";
-        public static final String MEMBER_CONTRIBUTION = "/member-contribution";
+        public static final String MEMBER_CONTRIBUTION = "/member-contribution/{memberId}";
     };
 }
