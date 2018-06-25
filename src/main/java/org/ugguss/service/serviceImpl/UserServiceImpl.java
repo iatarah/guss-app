@@ -9,14 +9,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ugguss.generated.model.BaseResponse;
+import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
 import org.ugguss.generated.model.UserRegistrationResponse;
 import org.ugguss.generated.model.UserRole;
+import org.ugguss.model.GussMember;
 import org.ugguss.model.Role;
 import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
+import org.ugguss.service.IGussMemberService;
+import org.ugguss.service.IGussMemberServiceProvider;
 import org.ugguss.service.IUserService;
 import org.ugguss.service.serviceImpl.provider.UserServiceImplProvider;
+import org.ugguss.util.UserServiceMapperUtil;
 import org.ugguss.util.constants.AppConstants;
 import org.ugguss.service.serviceImpl.provider.ServiceImplProviderFactory;
 
@@ -30,6 +35,8 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     private IUserRepository iUserRepository;
     @Autowired
     private ServiceImplProviderFactory serviceImplProviderFactory;
+	@Autowired
+	private IGussMemberServiceProvider iGussMemberServiceProvider;
 
     public UserServiceImpl() {
         super();
@@ -97,5 +104,11 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
     protected UserServiceImplProvider getServiceImplProvider(UserRole userRole) {
     	return serviceImplProviderFactory.getServiceImplProvider(userRole);
     }
+
+
+	@Override
+	public UserProfileResponse getUserByUserName(String userName) {
+		return iGussMemberServiceProvider.getUserByUserName(userName);
+	}
 
 }

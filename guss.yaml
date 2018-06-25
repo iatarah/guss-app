@@ -7,7 +7,7 @@ basePath: /rest/ugguss/api/v1
 schemes:
   - http
 paths:
-  /profiles/{memberId}:
+  /profiles/{userName}:
     get:
       tags:
        - /accounts
@@ -17,7 +17,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: memberId
+        - name: userName
           in: path
           required: true
           type: string
@@ -25,7 +25,7 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: '#/definitions/UserProfileResponse'
     post:
       tags:
       - /accounts
@@ -213,6 +213,15 @@ definitions:
       policyNumber:
         type: integer
         format: int32
+  UserProfileResponse:
+    type: object
+    properties:
+      gussMember:
+        $ref: '#/definitions/Member'
+      appUser:
+        $ref: '#/definitions/AppUser'
+      baseResponse:
+        $ref: '#/definitions/BaseResponse'
   UserType:
     type: object
     properties:

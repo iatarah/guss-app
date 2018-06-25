@@ -1,5 +1,6 @@
 package org.ugguss.service;
 
+import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
 import org.ugguss.generated.model.UserRegistrationResponse;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,4 +17,5 @@ public interface IUserService {
     User getUserByEmail(String emailId);
     UserDetails loadUserByUsername(String emailId) throws UsernameNotFoundException;
     Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles);
+    UserProfileResponse getUserByUserName(String userName);
 }
