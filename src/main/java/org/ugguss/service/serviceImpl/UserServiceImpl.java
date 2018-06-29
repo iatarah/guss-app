@@ -13,15 +13,12 @@ import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
 import org.ugguss.generated.model.UserRegistrationResponse;
 import org.ugguss.generated.model.UserRole;
-import org.ugguss.model.GussMember;
 import org.ugguss.model.Role;
 import org.ugguss.model.User;
 import org.ugguss.repository.IUserRepository;
-import org.ugguss.service.IGussMemberService;
 import org.ugguss.service.IGussMemberServiceProvider;
 import org.ugguss.service.IUserService;
 import org.ugguss.service.serviceImpl.provider.UserServiceImplProvider;
-import org.ugguss.util.UserServiceMapperUtil;
 import org.ugguss.util.constants.AppConstants;
 import org.ugguss.service.serviceImpl.provider.ServiceImplProviderFactory;
 

@@ -1,8 +1,6 @@
 package org.ugguss.controllerimpl;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,6 @@ import org.ugguss.generated.model.ContributionRequest;
 import org.ugguss.generated.model.ContributionResponse;
 import org.ugguss.service.IGussMemberContributionService;
 import org.ugguss.util.constants.RestEndpointConstants;
-
 import io.swagger.annotations.ApiParam;
 
 @Controller
