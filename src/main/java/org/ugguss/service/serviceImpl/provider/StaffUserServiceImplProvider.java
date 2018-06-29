@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.BaseResponse;
+import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
 import org.ugguss.generated.model.UserRegistrationResponse;
 import org.ugguss.model.Role;
@@ -65,6 +66,12 @@ public class StaffUserServiceImplProvider extends UserServiceImplProvider{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+		return null;
+	}
+
+	@Override
+	public UserProfileResponse getUserByUserName(String userName) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

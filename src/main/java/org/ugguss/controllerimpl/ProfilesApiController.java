@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.ugguss.generated.controller.ProfilesApi;
 import org.ugguss.generated.model.UserProfile;
+import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.service.IUserService;
 import org.ugguss.util.constants.RestEndpointConstants;
 
@@ -21,16 +22,15 @@ public class ProfilesApiController implements ProfilesApi {
 
 	@Autowired
 	@Qualifier(value="userDetailsService")
-    private IUserService userService;
+    private IUserService iUserService;
 
     @Override
     @RequestMapping(value = RestEndpointConstants.Constants.BASE_API +"/" + RestEndpointConstants.Constants.GET_MEMBER_PROFILE,
     produces = { "application/json" }, 
     method = RequestMethod.GET)
-    public ResponseEntity<UserProfile> getMember(@ApiParam(value = "",required=true ) @PathVariable("memberId") String memberId) {
-        userService.getUserByEmail(memberId);
-        return new ResponseEntity<UserProfile>(new UserProfile(), HttpStatus.OK);
+    public ResponseEntity<UserProfileResponse> getMember(@ApiParam(value = "",required=true ) @PathVariable("userName") String userName) {
+    	iUserService.getUserByEmail(userName);
+        return new ResponseEntity<UserProfileResponse>(new UserProfileResponse(), HttpStatus.OK);
     }
-
-
+    
 }

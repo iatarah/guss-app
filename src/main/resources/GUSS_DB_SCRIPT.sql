@@ -120,8 +120,6 @@ CREATE TABLE IF NOT EXISTS `guss_db`.`guss_member_contribution` (
   `date_created` TIMESTAMP(6) NULL,
   `last_updated` TIMESTAMP(6) NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `doc_id_UNIQUE` (`doc_id` ASC),
-  UNIQUE INDEX `UKbpsxsj1lvf3v07ubxve7o8yil` (`doc_id` ASC),
   INDEX `fk_guss_member_contribution_guss_member1_idx` (`guss_member_ssn` ASC),
   CONSTRAINT `fk_guss_member_contribution_guss_member1`
     FOREIGN KEY (`guss_member_ssn`)
@@ -132,14 +130,8 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
--- -----------------------------------------------------
--- Table `guss_db`.`hibernate_sequence`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `guss_db`.`hibernate_sequence` (
-  `next_val` BIGINT(20) NULL DEFAULT NULL)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
+ALTER TABLE `guss_db`.`guss_member_contribution` 
+ADD CONSTRAINT doc-id_ssn_category UNIQUE (`doc_id` ASC, `guss_member_ssn` ASC, `contribution_category` ASC);
 
 -- -----------------------------------------------------
 -- Table `guss_db`.`spring_session`
@@ -206,8 +198,3 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-
-ALTER TABLE `guss_db`.`guss_member_contribution` 
-DROP INDEX `doc_id_UNIQUE` ,
-ADD UNIQUE INDEX `doc_id_UNIQUE` (`doc_id` ASC, `guss_member_ssn` ASC, `contribution_category` ASC),
-DROP INDEX `UKbpsxsj1lvf3v07ubxve7o8yil` ;
