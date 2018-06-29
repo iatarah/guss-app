@@ -102,10 +102,4 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 		return null;
 	}
 
-	@Override
-	public UserProfileResponse getUserByUserName(String userName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -18,4 +18,5 @@ public interface IUserService {
     UserDetails loadUserByUsername(String emailId) throws UsernameNotFoundException;
     Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles);
     UserProfileResponse getUserByUserName(String userName);
+    
 }
