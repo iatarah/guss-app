@@ -1,9 +1,17 @@
 package org.ugguss.service.serviceImpl.provider;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.ugguss.generated.model.UserRegistrationRequest;
+import org.ugguss.generated.model.UserRegistrationResponse;
 import org.ugguss.generated.model.UserRole;
+import org.ugguss.model.Role;
 
 @Component
 public class ServiceImplProviderFactory {
@@ -16,6 +24,8 @@ public class ServiceImplProviderFactory {
 	@Autowired
 	@Qualifier(value="StaffUserServiceImplProvider")
 	private StaffUserServiceImplProvider  staffUserServiceImplProvider;
+	@Qualifier(value="UserServiceImplProvider")
+	private UserServiceImplProvider  userServiceImplProvider;
 	
 	
 	public UserServiceImplProvider getServiceImplProvider (UserRole role){
@@ -49,4 +59,9 @@ public class ServiceImplProviderFactory {
 		// TODO: Implement for userId option
 		
 	}
+	
+	public UserServiceImplProvider getUserServiceImplProvider () throws Exception{
+		return memberUserServiceImplProvider; 
+	}	
+
 }

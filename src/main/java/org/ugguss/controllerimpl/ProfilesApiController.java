@@ -28,8 +28,8 @@ public class ProfilesApiController implements ProfilesApi {
     produces = { "application/json" }, 
     method = RequestMethod.GET)
     public ResponseEntity<UserProfileResponse> getMember(@ApiParam(value = "",required=true ) @PathVariable("userName") String userName) {
-    	iUserService.getUserByEmail(userName);
-        return new ResponseEntity<UserProfileResponse>(new UserProfileResponse(), HttpStatus.OK);
+    	UserProfileResponse response = iUserService.getUserByUserName(userName);
+        return new ResponseEntity<UserProfileResponse>(response, HttpStatus.OK);
     }
     
 }

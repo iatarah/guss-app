@@ -105,7 +105,14 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
 	@Override
 	public UserProfileResponse getUserByUserName(String userName) {
-		return iGussMemberServiceProvider.getUserByUserName(userName);
+		UserProfileResponse response = null;
+		try {
+			response = serviceImplProviderFactory.getUserServiceImplProvider().getUserByUserName(userName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 }

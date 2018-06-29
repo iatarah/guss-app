@@ -251,6 +251,10 @@ definitions:
         type: string
       membershipCategory:
         $ref: '#/definitions/GussMemberCategory'
+      contributionHistory:
+        type: array
+        items:
+          $ref: '#/definitions/Contribution'
   GussMemberCategory:
     type: string
     enum:
