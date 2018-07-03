@@ -9,7 +9,7 @@ import org.ugguss.model.GussMemberContribution;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-02T20:22:52-0500",
+    date = "2018-07-02T20:55:28-0500",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_111 (Oracle Corporation)"
 )
 @Component
