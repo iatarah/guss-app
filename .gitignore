@@ -35,4 +35,5 @@ pom.xml
 /src/main/java/org/ugguss/util/UserServiceMapperUtilImpl.java
 src/main/java/io/*
 src/main/resources/swagger.properties
+.vscode/
 README.md
