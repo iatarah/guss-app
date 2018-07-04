@@ -10,7 +10,7 @@ paths:
   /profiles/{userName}:
     get:
       tags:
-       - /accounts
+       - user
       summary: Returns response object for basic member profile info
       description: ''
       operationId: getMember
@@ -28,7 +28,7 @@ paths:
             $ref: '#/definitions/UserProfileResponse'
     post:
       tags:
-      - /accounts
+      - user
       summary: Update User Profile Info
       description: ''
       operationId: updateMember
@@ -51,6 +51,8 @@ paths:
               $ref: '#/definitions/UserProfile'
   /registration:
     post:
+      tags:
+      - registration
       description: ''
       operationId: registerUser
       produces:
@@ -69,7 +71,7 @@ paths:
   /userType:
     get:
       tags:
-        -/userTypes
+        - user
       summary: Return list of User Types in the application
       description: ''
       operationId: getAllUserTypes
@@ -86,7 +88,7 @@ paths:
   /users/current:
     get:
       tags:
-        - /samples
+        - user
       summary: Returns a simplified JSON representation of Application User object for logged in user (or default user if not logged in)
       description: ''
       operationId: getCurrentUser
@@ -101,7 +103,7 @@ paths:
   /login:
     get:
       tags:
-        -/login
+        - login
       summary: Login User into the portal
       description: ''
       operationId: login
@@ -121,7 +123,7 @@ paths:
   /member-contribution/{memberId}:
     get:
       tags:
-        -  Memcontribution
+        -  memberContribution
       description: 'called to get  all contribution for member'
       operationId: getContribution
       produces:
@@ -143,7 +145,7 @@ paths:
                 $ref: '#/definitions/ContributionHistoryResponse'
     put:
       tags:
-        -  Memcontribution
+        -  memberContribution
       description: 'called to create new contribution'
       operationId: createContribution
       produces:
@@ -161,7 +163,7 @@ paths:
                 $ref: '#/definitions/ContributionResponse'
     post:
       tags:
-        - Memcontribution
+        - memberContribution
       description: 'called to update contribution'
       operationId: updateContribution
       produces:
@@ -178,6 +180,8 @@ paths:
             schema:
                 $ref: '#/definitions/ContributionResponse'
     delete:
+      tags:
+        - memberContribution
       description: 'called to delete  member contribution'
       operationId: deleteContribution
       produces:
