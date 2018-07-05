@@ -7,7 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath('io.swagger:swagger-codegen:2.2.3')
+		classpath('io.swagger:swagger-codegen:2.3.1')
 		classpath('io.swagger:swagger-annotations:2.0.0-rc1')
 
 	}
@@ -114,8 +114,10 @@ processResources {
 *
 **/
 def webappDir = "$projectDir/src/main/webapp" // directory of angular app
+def swaggerClientOutputDir = "$projectDir/src/main/webapp/src/app/gen"
 task buildAngular(type:Exec) {
 	dependsOn "installAngular"
+	dependsOn "generateClientApi"
 	workingDir "$webappDir"
 	inputs.dir "$webappDir"
 	
@@ -136,9 +138,27 @@ task installAngular(type:Exec) {
 	group = BasePlugin.BUILD_GROUP
 	if (System.getProperty("os.name").toUpperCase().contains("WINDOWS")){
 		commandLine "npm.cmd", "install"
+		commandLine "npm.cmd",  "install",  "rxjs-compat",  "--save"
 	} else {
 		commandLine "npm", "install"
+		commandLine "npm",  "install",  "rxjs-compat",  "--save"
 	}
+}
+
+task generateClientApi {
+	dependsOn "installAngular"
+	group "codegen"
+	description "Generate API"
+        def config = new CodegenConfigurator()
+        config.setInputSpec(swaggerInput)
+        config.setOutputDir(swaggerClientOutputDir)
+        config.setLang('typescript-angular')
+        config.setAdditionalProperties([
+                'dateLibrary'   : 'java8',
+                'ngVersion': '5.0.0'
+        ])
+
+        new DefaultGenerator().opts(config.toClientOptInput()).generate()
 }
 
 sourceSets {

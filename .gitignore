@@ -32,7 +32,8 @@
 bin/main/*
 pom.xml
 /src/main/java/org/ugguss/generated/
-/src/main/java/org/ugguss/util/UserServiceMapperUtilImpl.java
+src/main/webapp/src/app/gen/
+/src/main/java/org/ugguss/util/UserServiceMapperUtilImpl.*
 src/main/java/io/*
 src/main/resources/swagger.properties
 .vscode/

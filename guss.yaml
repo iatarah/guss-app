@@ -42,6 +42,10 @@ paths:
             type: object
             items:
               $ref: '#/definitions/UserProfile'
+        - name: userName
+          in: path
+          required: false
+          type: string
       responses:
         '200':
           description: successful operation
@@ -156,6 +160,9 @@ paths:
             required: true
             schema:
               $ref: '#/definitions/ContributionRequest'
+          - name: memberId
+            in: path
+            required: false
       responses:
           "200":
             description: Succeful Response for editing guss member contribution
@@ -174,6 +181,9 @@ paths:
             required: true
             schema:
               $ref: '#/definitions/ContributionRequest'
+          - name: memberId
+            in: path
+            required: false
       responses:
           "200":
             description: Succeful Response for editing guss member contribution
