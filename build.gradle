@@ -155,7 +155,9 @@ task generateClientApi {
         config.setLang('typescript-angular')
         config.setAdditionalProperties([
                 'dateLibrary'   : 'java8',
-                'ngVersion': '5.0.0'
+                'npmVersion' : '6.1.0',
+                'npmName' : '@guss-member/portal-api',
+                'ngVersion' : '6.0.0'
         ])
 
         new DefaultGenerator().opts(config.toClientOptInput()).generate()
