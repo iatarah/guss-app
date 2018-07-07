@@ -5,14 +5,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { HttpModule } from '@angular/http';
-
+import {ApiModule} from './gen/api.module'
 @NgModule({
   declarations: [
     AppComponent,
     UserProfileComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule
+    BrowserModule, HttpClientModule, ApiModule
   ],
   bootstrap: [AppComponent]
 })
