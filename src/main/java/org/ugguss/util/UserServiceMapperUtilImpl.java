@@ -15,7 +15,7 @@ import org.ugguss.model.User;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-07-06T21:58:50-0500",
+    date = "2018-07-08T13:54:26-0500",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_111 (Oracle Corporation)"
 )
 @Component
