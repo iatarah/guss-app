@@ -1,22 +1,32 @@
 import { UserService } from './../../gen/api/user.service';
 import { AppUser } from './../../gen/dist/model/appUser.d';
-
-import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
   memberProfile: AppUser;
-  
-  constructor(private userService: UserService) { }
+  userName: string;
+  private sub: any;
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.userService.getMember("johnDoe1@test.com").subscribe(data => {
+
+    this.sub = this.route.params.subscribe(params => {
+      this.userName = params['userName']; 
+   });
+
+    this.userService.getMember(this.userName).subscribe(data => {
       this.memberProfile = data.appUser;
     })
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }
