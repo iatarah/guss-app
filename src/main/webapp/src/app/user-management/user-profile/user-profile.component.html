@@ -1,7 +1,7 @@
 <h2>User Profile</h2>
 
 <div>
-<label>Name: </label>{{memberProfile?.lastName}}<br>
-<label>Email: </label>{{memberProfile?.email}}<br>
+<label>Name: </label>{{appUser?.lastName}} {{appUser?.middleName}} {{appUser?.firstName}}<br>
+<label>Email: </label>{{appUser?.email}}<br>
 <a [routerLink]="['/contribution']">Contribution</a>
 </div>

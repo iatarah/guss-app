@@ -7,7 +7,7 @@ import {RouterModule, Routes} from '@angular/router';
 export const AppRoutes: Routes = [
     {path: '', component: LoginComponent},
     {path: 'user-profile/:userName', component: UserProfileComponent},
-    {path: 'contribution', component: MemberContributionComponent}
+    {path: 'contribution/:memberId', component: MemberContributionComponent}
 ];
 
 export const ROUTING: ModuleWithProviders = RouterModule.forRoot(AppRoutes, {useHash: true});
