@@ -1,3 +1,4 @@
+import { UserRole } from './../../gen/model/userRole';
 import { CurrentUserService } from './../../shared/current-user.service';
 import { Member } from './../../gen/model/member';
 import { UserService } from './../../gen/api/user.service';
@@ -11,14 +12,20 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
+  
+  private sub: any;
   appUser: AppUser;
   gussmember: Member;
   userName: string;
-  private sub: any;
   currentMember: Member;
+  MEMBER_ROLE: string;
+  ADMIN_ROLE: string;
+  STAFF_ROLE: string;
+
   constructor(private userService: UserService, private route: ActivatedRoute, private currentUserService: CurrentUserService) { }
 
   ngOnInit() {
+    this.init();
     this.sub = this.route.params.subscribe(params => {
       this.userName = params['userName']; 
    });
@@ -43,5 +50,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       flag = true;
     }
     return flag;
+  }
+
+  private init() {
+    this.ADMIN_ROLE = UserRole.ADMIN;
+    this.STAFF_ROLE = UserRole.STAFF;
+    this.MEMBER_ROLE = UserRole.MEMBER;
   }
 }

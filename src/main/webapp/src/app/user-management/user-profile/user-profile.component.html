@@ -3,8 +3,7 @@
 <div>
 <label>Name: </label>{{appUser?.lastName}} {{appUser?.middleName}} {{appUser?.firstName}}<br>
 <label>Email: </label>{{appUser?.email}}<br>
-{{gussmember?.memberId}}
-<app-member-contribution [memberId]="gussmember.memberId"></app-member-contribution>
+<app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
 <!--
 <a [routerLink]="['/contribution']">Contribution</a>
 -->

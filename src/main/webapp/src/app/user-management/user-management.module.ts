@@ -4,6 +4,7 @@ import { ROUTING } from './../app.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserRegistrationComponent } from './user-registration/user-registration.component';
 
 @NgModule({
   imports: [
@@ -11,7 +12,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ROUTING,
     MemberContributionModule
   ],
-  declarations: [UserProfileComponent],
+  declarations: [UserProfileComponent, UserRegistrationComponent],
   exports: [
     UserProfileComponent
   ]
