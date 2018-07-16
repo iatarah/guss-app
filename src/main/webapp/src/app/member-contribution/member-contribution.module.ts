@@ -1,3 +1,4 @@
+import { MemberContributionComponent } from './member-contribution.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -5,6 +6,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule
   ],
-  declarations: []
+  exports: [MemberContributionComponent],
+  declarations: [MemberContributionComponent]
 })
 export class MemberContributionModule { }

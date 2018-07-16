@@ -1,3 +1,4 @@
+import { CurrentUserService } from './../../shared/current-user.service';
 import { Member } from './../../gen/model/member';
 import { UserService } from './../../gen/api/user.service';
 import { AppUser } from './../../gen/dist/model/appUser.d';
@@ -14,10 +15,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   gussmember: Member;
   userName: string;
   private sub: any;
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  currentMember: Member;
+  constructor(private userService: UserService, private route: ActivatedRoute, private currentUserService: CurrentUserService) { }
 
   ngOnInit() {
-
     this.sub = this.route.params.subscribe(params => {
       this.userName = params['userName']; 
    });
@@ -25,11 +26,22 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.userService.getMember(this.userName).subscribe(data => {
       this.appUser = data.appUser;
       this.gussmember = data.gussMember;
-    })
+    });
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
 
+  updateMemberState(gusssMember: Member) {
+    this.currentUserService.changeMemberState(gusssMember);
+  }
+
+  public userInitialized(): boolean {
+    let flag: boolean =false;
+    if(this.currentUserService.currentMemberState != null) {
+      flag = true;
+    }
+    return flag;
+  }
 }

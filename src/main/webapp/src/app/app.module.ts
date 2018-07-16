@@ -1,3 +1,4 @@
+import { MemberContributionModule } from './member-contribution/member-contribution.module';
 import { UserManagementModule } from './user-management/user-management.module';
 
 import { AppSecurityModule } from './app-security/app-security.module';
@@ -14,8 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MemberContributionComponent
+    AppComponent
   ],
   imports: [
     BrowserModule, 
@@ -25,7 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule,
     AppSecurityModule,
-    UserManagementModule
+    UserManagementModule,
+    MemberContributionModule
   ],
   exports: [
     LoginComponent
