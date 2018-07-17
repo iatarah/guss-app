@@ -4,8 +4,8 @@
 <label>Name: </label>{{appUser?.lastName}} {{appUser?.middleName}} {{appUser?.firstName}}<br>
 <label>Email: </label>{{appUser?.email}}<br>
 <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
-<!--
-<a [routerLink]="['/contribution']">Contribution</a>
--->
+
+<a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a>
+
 
 </div>
