@@ -12,6 +12,8 @@ import { HttpModule } from '@angular/http';
 import {ApiModule} from './gen/api.module';
 import { MemberContributionComponent } from './member-contribution/member-contribution.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     AppSecurityModule,
     UserManagementModule,
-    MemberContributionModule
+    MemberContributionModule,
+    BrowserAnimationsModule
   ],
   exports: [
     LoginComponent
