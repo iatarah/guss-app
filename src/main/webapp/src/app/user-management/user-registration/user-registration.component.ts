@@ -1,4 +1,4 @@
-import { Validators } from '@angular/forms';
+import { Validators, FormGroupName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -35,6 +35,30 @@ export class UserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.registrationForm = this.formBuilder.group({
+      appUserInfo: this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        middleName: [''],
+        userRole: ['', Validators.required],
+        gender: ['', Validators.required],
+        status: [''],
+      }),
+      memberInfo: this.formBuilder.group({
+        joinDate: ['', Validators.required],
+        retirementDate: ['', Validators.required],
+        membershipCategory: ['', Validators.required],
+        memberId: ['', Validators.required],
+        basicSalary: ['', Validators.required],
+        address: ['', Validators.required],
+      })
+    });
+  }
+
+  private buildRegistrationForm(formgroup: FormGroup, formBuilder: FormBuilder) {
+    formgroup = formBuilder.group({
+      
       email: ['', Validators.required],
       password: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -42,4 +66,7 @@ export class UserRegistrationComponent implements OnInit {
       middleName: ['', Validators.required],
     });
   }
+  
 }
+
+

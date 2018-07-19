@@ -1,4 +1,71 @@
-<div class="col-md-6 col-md-offset-2">
+<h1>User Registration </h1>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  
+  <h4>User Info</h4>
+  <div formGroupName="appUserInfo">
+      <mat-form-field>
+          <input matInput placeholder="First Name" formControlName="firstName">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Middle Name" formControlName="middleName">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Last Name" formControlName="lastName">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Gender" formControlName="gender">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Role" formControlName="userRole">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Status" formControlName="status">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+      
+      <mat-form-field>
+          <input matInput placeholder="Password" formControlName="password">
+      </mat-form-field>
+  </div>
+
+  <h4>Member Info</h4>
+  <div formGroupName="memberInfo">
+      <mat-form-field>
+          <input matInput placeholder="First Name" formControlName="memberId">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Status" formControlName="membershipCategory">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Last Name" formControlName="joinDate">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Gender" formControlName="retirementDate">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Role" formControlName="basicSalary">
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Middle Name" formControlName="address">
+      </mat-form-field>
+  </div>
+
+</form>
+<!--
+  <div class="col-md-6 col-md-offset-2">
   <h1>User Registration </h1>
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -43,6 +110,7 @@
   </form>
 </div>
 
+-->
 <mat-tab-group>
     <mat-tab label="Step One"> Content 1 </mat-tab>
     <mat-tab label="Step Two"> Content 2 </mat-tab>
