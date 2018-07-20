@@ -1,3 +1,4 @@
+import { Gender } from './../../gen/model/gender';
 import { Validators, FormGroupName } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -10,63 +11,42 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-registration.component.css']
 })
 export class UserRegistrationComponent implements OnInit {
-  registrationForm: FormGroup;
-  submitted: boolean = false;
-  invalidRegistration: boolean = false;
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
-
-  onSubmit() {
-    this.submitted = true;
-    if (this.registrationForm.invalid) {
-      return;
-    }
-    console.log("submitted");
-    // TODO: 1) Validate that the user making call has right role to register:
-    // 2) call registration API and register user here
-    /**
-         if(this.registrationForm.controls.email.value && this.registrationForm.controls.password.value) {
-        this.router.navigate(['user-profile', this.registrationForm.controls.email.value]);
-    }else {
-      this.invalidRegistration = true;
-    }
-     */
-    
-  }
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  gender: any[] = [
+    {value: 'M', viewValue: 'Male'},
+    {value: 'F', viewValue: 'Female'}
+  ];
+  constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.registrationForm = this.formBuilder.group({
-      appUserInfo: this.formBuilder.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        middleName: [''],
-        userRole: ['', Validators.required],
-        gender: ['', Validators.required],
-        status: [''],
-      }),
-      memberInfo: this.formBuilder.group({
-        joinDate: ['', Validators.required],
-        retirementDate: ['', Validators.required],
-        membershipCategory: ['', Validators.required],
-        memberId: ['', Validators.required],
-        basicSalary: ['', Validators.required],
-        address: ['', Validators.required],
-      })
+    this.firstFormGroup = this._formBuilder.group({
+      firstName: ['', Validators.required],
+      middleName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      userRole: ['', Validators.required],
+      status: ['', Validators.required],
+      email: ['', Validators.required],
+      password: ['', Validators.required]
     });
+    this.secondFormGroup = this._formBuilder.group({
+      memberId: ['', Validators.required],
+      membershipCategory: ['', Validators.required],
+      joinDate: ['', Validators.required],
+      secondCtrl: ['', Validators.required],
+      retirementDate: ['', Validators.required],
+      basicSalary: ['', Validators.required],
+      address: ['', Validators.required]
+    });
+  }  
+  form1(){
+    console.log(this.firstFormGroup.value);
   }
 
-  private buildRegistrationForm(formgroup: FormGroup, formBuilder: FormBuilder) {
-    formgroup = formBuilder.group({
-      
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      middleName: ['', Validators.required],
-    });
+  form2(){
+    console.log(this.secondFormGroup.value);
   }
-  
 }
 
 

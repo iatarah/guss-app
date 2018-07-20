@@ -1,74 +1,86 @@
 <h1>User Registration </h1>
-<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <mat-tab-group>
-        <mat-tab label="User Info">
-          <h4>User Info</h4>
-          <div formGroupName="appUserInfo">
-              <mat-form-field>
-                  <input matInput placeholder="First Name" formControlName="firstName">
-              </mat-form-field>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" (ngSubmit)="form1()" #formone="ngForm">
+        <ng-template matStepLabel>User Info</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="First name" formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Middle Name" formControlName="middleName">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Last name" formControlName="lastName" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Gender" required>
+              <mat-option *ngFor="let gen of gender" [value]="gen.value" >
+                {{gen.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Role" formControlName="userRole" required>
+        </mat-form-field>
+  
+        <mat-form-field>
+            <input matInput placeholder="Status" formControlName="status">
+        </mat-form-field>
+  
+        <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="email" required>
+        </mat-form-field>
         
-              <mat-form-field>
-                  <input matInput placeholder="Middle Name" formControlName="middleName">
-              </mat-form-field>
-        
-              <mat-form-field>
-                  <input matInput placeholder="Last Name" formControlName="lastName">
-              </mat-form-field>
-        
-              <mat-form-field>
-                  <input matInput placeholder="Gender" formControlName="gender">
-              </mat-form-field>
-        
-              <mat-form-field>
-                  <input matInput placeholder="Role" formControlName="userRole">
-              </mat-form-field>
-        
-              <mat-form-field>
-                  <input matInput placeholder="Status" formControlName="status">
-              </mat-form-field>
-        
-              <mat-form-field>
-                  <input matInput placeholder="Email" formControlName="email">
-              </mat-form-field>
-              
-              <mat-form-field>
-                  <input matInput placeholder="Password" formControlName="password">
-              </mat-form-field>
-          </div>
-          <button mat-raised-button>Next</button>
-        </mat-tab>
+        <mat-form-field>
+            <input type="password" matInput placeholder="Password" formControlName="password" required>
+        </mat-form-field>
+          
+        <div>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup" (ngSubmit)="form2()" #formtwo="ngForm">
+        <ng-template matStepLabel>Member Info</ng-template>
+        <mat-form-field>
+            <input matInput placeholder="Member ID" formControlName="memberId" required>
+        </mat-form-field>
 
-        <mat-tab label="Member Info">
-          <h4>Member Info</h4>
-          <div formGroupName="memberInfo">
-              <mat-form-field>
-                  <input matInput placeholder="Member ID" formControlName="memberId">
-              </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Membership Category" formControlName="membershipCategory" required>
+        </mat-form-field>
 
-              <mat-form-field>
-                  <input matInput placeholder="Membership Category" formControlName="membershipCategory">
-              </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Scheme Join Date" formControlName="joinDate" required>
+        </mat-form-field>
 
-              <mat-form-field>
-                  <input matInput placeholder="Scheme Join Date" formControlName="joinDate">
-              </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Retirement Date" formControlName="retirementDate" required>
+        </mat-form-field>
 
-              <mat-form-field>
-                  <input matInput placeholder="Retirement Date" formControlName="retirementDate">
-              </mat-form-field>
-
-              <mat-form-field>
-                  <input matInput placeholder="Basic Salary" formControlName="basicSalary">
-              </mat-form-field>
-
-              <mat-form-field>
-                  <input matInput placeholder="Address" formControlName="address">
-              </mat-form-field>
-          </div>
-        </mat-tab>
-    </mat-tab-group>
-
-</form>
-
+        <mat-form-field>
+            <input matInput placeholder="Basic Salary" formControlName="basicSalary" required>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Address" formControlName="address"></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit()">
+            submit
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
   
