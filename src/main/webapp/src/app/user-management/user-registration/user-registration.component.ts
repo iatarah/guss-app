@@ -34,7 +34,7 @@ export class UserRegistrationComponent implements OnInit {
   ];
   memberCategory: any[] = [
     {value: 'YRA1999', viewValue: 'YRA1999'},
-    {value: 'YRB2000', viewValue: 'YRA1999'}
+    {value: 'YRB2000', viewValue: 'YRB2000'}
   ];
   private userRegistrationRequest: UserRegistrationRequest;
   private appUser: AppUser;
