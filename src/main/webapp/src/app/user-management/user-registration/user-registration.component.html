@@ -13,18 +13,26 @@
             <input matInput placeholder="Last name" formControlName="lastName" required>
         </mat-form-field>
         <mat-form-field>
-            <mat-select placeholder="Gender" required>
-              <mat-option *ngFor="let gen of gender" [value]="gen.value" >
+            <mat-select placeholder="Gender" formControlName="gender"  required>
+              <mat-option *ngFor="let gen of userGender" [value]="gen.value" >
                 {{gen.viewValue}}
               </mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Role" formControlName="userRole" required>
+            <mat-select placeholder="Role" formControlName="userRole"  required>
+                <mat-option *ngFor="let rol of appUserRole" [value]="rol.value" >
+                  {{rol.viewValue}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
-  
+
         <mat-form-field>
-            <input matInput placeholder="Status" formControlName="status">
+            <mat-select placeholder="Status" formControlName="status"  required>
+                <mat-option *ngFor="let stat of appUserStatus" [value]="stat.value" >
+                  {{stat.viewValue}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
   
         <mat-form-field>
@@ -48,7 +56,11 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Membership Category" formControlName="membershipCategory" required>
+            <mat-select placeholder="Membership Category" formControlName="membershipCategory"  required>
+                <mat-option *ngFor="let catg of memberCategory" [value]="catg.value" >
+                  {{catg.viewValue}}
+                </mat-option>
+              </mat-select>
         </mat-form-field>
 
         <mat-form-field>
