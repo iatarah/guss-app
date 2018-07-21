@@ -89,7 +89,7 @@
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit()">
+        <button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit();onSubmit();">
             submit
         </button>
       </div>
