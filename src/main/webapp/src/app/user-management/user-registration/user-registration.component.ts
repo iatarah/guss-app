@@ -54,17 +54,7 @@ export class UserRegistrationComponent implements OnInit {
           this.appUser = data.appUser;
           this.gussMember = data.gussMember;
           this.baseResponse = data.baseResponse;
-          console.log("In method now >>>>>>>>>>");
-          console.log(this.baseResponse);
         });
-  }
-
-  form1(){
-    console.log(this.firstFormGroup.value);
-  }
-
-  form2(){
-    console.log(this.secondFormGroup.value);
   }
   private buildFormColtrols() {
     this.firstFormGroup= this._formBuilder.group({
