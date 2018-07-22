@@ -5,7 +5,10 @@
 <label>Email: </label>{{appUser?.email}}<br>
 <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
 
-<a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a>
-
-
+    <div>
+        <a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a>
+    </div>
+    <div>
+        <a *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole" [routerLink]="['/contribution-entry']">Enter New Contribution</a>
+    </div>
 </div>
