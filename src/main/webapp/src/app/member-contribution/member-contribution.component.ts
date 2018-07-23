@@ -3,6 +3,8 @@ import { CurrentUserService } from './../shared/current-user.service';
 import { MemberContributionService } from './../gen/api/memberContribution.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Contribution } from '../gen/dist';
+import { MatTableDataSource, MatSort } from '@angular/material';
+
 
 @Component({
   selector: 'app-member-contribution',
@@ -14,6 +16,9 @@ export class MemberContributionComponent implements OnInit {
   private sub: any;
   contributionList: Contribution[];
   currentMember: Member;
+  contributionColumnsToDisplay = ['documentId', 'paymentDate', 'fiscalMonth', 'fiscalYear', 'contributionCategory', 'comments'];
+  dataSource: any;
+  
   constructor(private contributionService: MemberContributionService, private currentUserService: CurrentUserService) { }
 
   ngOnInit() {
@@ -21,6 +26,7 @@ export class MemberContributionComponent implements OnInit {
 if(this.memberId) {
   this.contributionService.getContribution(this.memberId, "", "").subscribe(data => {
     this.contributionList = data.contributionHistory;
+    this.dataSource = new MatTableDataSource(this.contributionList);
     });
 }
 

@@ -1,7 +1,7 @@
 <h1>User Registration </h1>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" (ngSubmit)="form1()" #formone="ngForm">
+      <form [formGroup]="firstFormGroup" #formone="ngForm">
         <ng-template matStepLabel>User Info</ng-template>
         <mat-form-field>
           <input matInput placeholder="First name" formControlName="firstName" required>
@@ -49,7 +49,7 @@
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup" (ngSubmit)="form2()" #formtwo="ngForm">
+      <form [formGroup]="secondFormGroup"  #formtwo="ngForm">
         <ng-template matStepLabel>Member Info</ng-template>
         <mat-form-field>
             <input matInput placeholder="Member ID" formControlName="memberId" required>
@@ -89,7 +89,7 @@
       <div>
         <button mat-button matStepperPrevious type="button">Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit();onSubmit();">
+        <button mat-button type="button" (click)="onSubmit();">
             submit
         </button>
       </div>

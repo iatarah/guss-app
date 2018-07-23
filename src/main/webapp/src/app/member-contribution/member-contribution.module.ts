@@ -10,6 +10,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTableModule} from '@angular/material/table';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,9 +22,10 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSelectModule,
     MatButtonModule,
     ROUTING,
-    MatStepperModule
+    MatStepperModule,
+    MatTableModule
   ],
-  exports: [MemberContributionComponent],
+  exports: [MemberContributionComponent, MatInputModule, MatTableModule],
   declarations: [MemberContributionComponent, MemberContributionEntryComponent]
 })
 export class MemberContributionModule { }
