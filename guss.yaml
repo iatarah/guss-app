@@ -285,6 +285,8 @@ definitions:
         type: string
       fiscalYear:
         type: string
+      amount:
+        type: number
       contributionCategory:
         type: string
       dateCreated:

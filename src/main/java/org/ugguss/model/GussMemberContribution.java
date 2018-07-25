@@ -1,6 +1,7 @@
 package org.ugguss.model;// default package
 // Generated Jun 17, 2018 6:55:19 PM by Hibernate Tools 5.2.8.Final
 
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -21,6 +22,7 @@ public class GussMemberContribution implements java.io.Serializable {
 	private String contributionCategory;
 	private Date dateCreated;
 	private Date lastUpdated;
+	private BigDecimal amount;
 
 	public GussMemberContribution() {
 	}
@@ -111,6 +113,15 @@ public class GussMemberContribution implements java.io.Serializable {
 
 	public void setComments(String comments) {
 		this.comments = comments;
+	}
+	
+	@Column(name = "amount")
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
 	}
 
 	@Column(name = "contribution_category", nullable = false, length = 45)

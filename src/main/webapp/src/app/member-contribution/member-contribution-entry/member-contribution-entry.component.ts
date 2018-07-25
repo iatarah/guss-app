@@ -51,7 +51,8 @@ export class MemberContributionEntryComponent implements OnInit {
       fiscalYear: ['', Validators.required],
       paymentDate: ['', Validators.required],
       contributionCategory: ['', Validators.required],
-      documentId: ['', Validators.required]
+      documentId: ['', Validators.required],
+      amount: ['', Validators.required]
     });
     this.secondFormGroup= this._formBuilder.group({
       comments: ['']

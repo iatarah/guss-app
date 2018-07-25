@@ -18,7 +18,7 @@ public interface ContributionServiceMapperUtil {
 		@Mapping(target = "contributionCategory", source = "contributionCategory"),
 		@Mapping(target = "paymentDate", source = "paymentDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "comments", source = "comments"),
-		//@Mapping(target = "dateCreated", source = "memberId"),
+		@Mapping(target = "amount", source = "amount"),
 		//@Mapping(target = "lastUpdated", source = ""),
 	})
 	GussMemberContribution contributionDTOtoDbContribution(Contribution contribution);
@@ -31,8 +31,8 @@ public interface ContributionServiceMapperUtil {
 		@Mapping(target = "paymentDate", source = "paymentDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "comments", source = "comments"),
 		@Mapping(target = "memberId", source = "gussMember"),
-		@Mapping(target = "dateCreated", source = "dateCreated", dateFormat = "dd-MM-yyyy HH:mm:ss")
-		//@Mapping(target = "lastUpdated", source = ""),
+		@Mapping(target = "dateCreated", source = "dateCreated", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "amount", source = "amount"),
 	})
 	Contribution dbContributionToDTOcontribution(GussMemberContribution gussMemberContribution);
 	
