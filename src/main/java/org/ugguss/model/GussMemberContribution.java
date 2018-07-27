@@ -16,8 +16,8 @@ public class GussMemberContribution implements java.io.Serializable {
 	private GussMember gussMember;
 	private String docId;
 	private Date paymentDate;
-	private String fiscalMonth;
-	private String fiscalYear;
+	private Date fiscalMonth;
+	private Date fiscalYear;
 	private String comments;
 	private String contributionCategory;
 	private Date dateCreated;
@@ -34,8 +34,8 @@ public class GussMemberContribution implements java.io.Serializable {
 		this.contributionCategory = contributionCategory;
 	}
 
-	public GussMemberContribution(int id, GussMember gussMember, String docId, Date paymentDate, String fiscalMonth,
-			String fiscalYear, String comments, String contributionCategory, Date dateCreated, Date lastUpdated) {
+	public GussMemberContribution(int id, GussMember gussMember, String docId, Date paymentDate, Date fiscalMonth,
+			Date fiscalYear, String comments, String contributionCategory, Date dateCreated, Date lastUpdated) {
 		this.id = id;
 		this.gussMember = gussMember;
 		this.docId = docId;
@@ -87,22 +87,24 @@ public class GussMemberContribution implements java.io.Serializable {
 	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-
-	@Column(name = "fiscal_month", length = 25)
-	public String getFiscalMonth() {
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fiscal_month", length = 10)
+	public Date getFiscalMonth() {
 		return this.fiscalMonth;
 	}
 
-	public void setFiscalMonth(String fiscalMonth) {
+	public void setFiscalMonth(Date fiscalMonth) {
 		this.fiscalMonth = fiscalMonth;
 	}
 
-	@Column(name = "fiscal_year", length = 45)
-	public String getFiscalYear() {
+	@Temporal(TemporalType.DATE)
+	@Column(name = "fiscal_year", length = 10)
+	public Date getFiscalYear() {
 		return this.fiscalYear;
 	}
 
-	public void setFiscalYear(String fiscalYear) {
+	public void setFiscalYear(Date fiscalYear) {
 		this.fiscalYear = fiscalYear;
 	}
 

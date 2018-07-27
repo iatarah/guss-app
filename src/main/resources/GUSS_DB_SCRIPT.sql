@@ -139,6 +139,10 @@ ADD COLUMN `amount` DECIMAL(13,4) NULL DEFAULT 0.0000 AFTER `last_updated`;
 ALTER TABLE `guss_db`.`guss_member_contribution` 
 CHANGE COLUMN `amount` `amount` DECIMAL(13,4) NULL DEFAULT '0.0000' AFTER `fiscal_year`;
 
+ALTER TABLE `guss_db`.`guss_member_contribution` 
+CHANGE COLUMN `fiscal_month` `fiscal_month` DATE NULL DEFAULT NULL ,
+CHANGE COLUMN `fiscal_year` `fiscal_year` DATE NULL DEFAULT NULL ;
+
 -- -----------------------------------------------------
 -- Table `guss_db`.`spring_session`
 -- -----------------------------------------------------

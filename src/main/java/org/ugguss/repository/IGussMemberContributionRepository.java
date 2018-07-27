@@ -11,4 +11,7 @@ public interface IGussMemberContributionRepository extends JpaRepository<GussMem
 	
 	@Query("FROM GussMemberContribution c WHERE c.gussMember.memberSsn = :memberId")
 	List<GussMemberContribution> findContributionByMemberId(@Param("memberId") String memberId);
+	
+	List<GussMemberContribution> findContributionByMemberIdAndDate(@Param("memberId") String memberId);
+
 }

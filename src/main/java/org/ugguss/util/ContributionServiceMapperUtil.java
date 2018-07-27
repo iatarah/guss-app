@@ -13,8 +13,8 @@ public interface ContributionServiceMapperUtil {
 	
 	@Mappings({
 		@Mapping(target = "docId", source = "documentId"),
-		@Mapping(target = "fiscalMonth", source = "fiscalMonth"),
-		@Mapping(target = "fiscalYear", source = "fiscalYear"),
+		@Mapping(target = "fiscalMonth", source = "fiscalMonth", dateFormat = "dd-MM-yyyy"),
+		@Mapping(target = "fiscalYear", source = "fiscalYear", dateFormat = "dd-MM-yyyy" ),
 		@Mapping(target = "contributionCategory", source = "contributionCategory"),
 		@Mapping(target = "paymentDate", source = "paymentDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "comments", source = "comments"),
@@ -25,8 +25,8 @@ public interface ContributionServiceMapperUtil {
 	
 	@Mappings({
 		@Mapping(target = "documentId", source = "docId"),
-		@Mapping(target = "fiscalMonth", source = "fiscalMonth"),
-		@Mapping(target = "fiscalYear", source = "fiscalYear"),
+		@Mapping(target = "fiscalMonth", source = "fiscalMonth", dateFormat = "dd-MM-yyyy"),
+		@Mapping(target = "fiscalYear", source = "fiscalYear", dateFormat = "dd-MM-yyyy"),
 		@Mapping(target = "contributionCategory", source = "contributionCategory"),
 		@Mapping(target = "paymentDate", source = "paymentDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "comments", source = "comments"),
