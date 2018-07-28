@@ -11,6 +11,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
+import { DatePipe } from '@angular/common';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +28,7 @@ import {MatTableModule} from '@angular/material/table';
     MatTableModule
   ],
   exports: [MemberContributionComponent, MatInputModule, MatTableModule],
-  declarations: [MemberContributionComponent, MemberContributionEntryComponent]
+  declarations: [MemberContributionComponent, MemberContributionEntryComponent],
+  providers: [DatePipe]
 })
 export class MemberContributionModule { }
