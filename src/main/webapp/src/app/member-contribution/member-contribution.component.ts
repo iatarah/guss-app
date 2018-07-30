@@ -17,7 +17,7 @@ export class MemberContributionComponent implements OnInit {
   private sub: any;
   contributionList: Contribution[];
   currentMember: Member;
-  contributionColumnsToDisplay = ['documentId', 'paymentDate', 'fiscalMonth', 'fiscalYear', 'contributionCategory', 'comments'];
+  contributionColumnsToDisplay = ['documentId', 'paymentDate', 'fiscalMonth', 'fiscalYear', 'contributionCategory', 'amount','comments'];
   dataSource: any;
   
   constructor(private contributionService: MemberContributionService, private currentUserService: CurrentUserService, private datePipe: DatePipe) { }
