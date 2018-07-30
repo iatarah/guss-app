@@ -1,4 +1,4 @@
-import { Member } from './../gen/dist/model/member.d';
+import { Member } from './../gen/model/member';
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable({

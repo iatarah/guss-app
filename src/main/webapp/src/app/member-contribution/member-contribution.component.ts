@@ -1,9 +1,9 @@
+import { Contribution } from './../gen/model/contribution';
+import { Member } from './../gen/model/member';
 import { DatePipe } from '@angular/common';
-import { Member } from './../gen/dist/model/member.d';
 import { CurrentUserService } from './../shared/current-user.service';
 import { MemberContributionService } from './../gen/api/memberContribution.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Contribution } from '../gen/dist';
 import { MatTableDataSource, MatSort } from '@angular/material';
 
 

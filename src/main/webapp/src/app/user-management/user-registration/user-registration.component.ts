@@ -1,8 +1,8 @@
-import { BaseResponse } from './../../gen/dist/model/baseResponse.d';
+import { BaseResponse } from './../../gen/model/baseResponse';
+import { Member } from './../../gen/model/member';
+import { UserRegistrationRequest } from './../../gen/model/userRegistrationRequest';
 import { AppUser } from './../../gen/model/appUser';
 import { BaseRequest } from './../../gen/model/baseRequest';
-import { Member } from './../../gen/dist/model/member.d';
-import { UserRegistrationRequest } from './../../gen/dist/model/userRegistrationRequest.d';
 import { RegistrationService } from './../../gen/api/registration.service';
 import { FormGroup } from '@angular/forms';
 import { Gender } from './../../gen/model/gender';

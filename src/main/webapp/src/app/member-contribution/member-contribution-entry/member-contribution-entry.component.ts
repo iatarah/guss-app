@@ -1,5 +1,5 @@
-import { Contribution } from './../../gen/dist/model/contribution.d';
-import { ContributionRequest } from './../../gen/dist/model/contributionRequest.d';
+import { ContributionRequest } from './../../gen/model/contributionRequest';
+import { Contribution } from './../../gen/model/contribution';
 import { MemberContributionService } from './../../gen/api/memberContribution.service';
 import { BaseRequest } from './../../gen/model/baseRequest';
 import { BaseResponse } from './../../gen/model/baseResponse';

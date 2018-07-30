@@ -1,8 +1,8 @@
+import { AppUser } from './../../gen/model/appUser';
 import { UserRole } from './../../gen/model/userRole';
 import { CurrentUserService } from './../../shared/current-user.service';
 import { Member } from './../../gen/model/member';
 import { UserService } from './../../gen/api/user.service';
-import { AppUser } from './../../gen/dist/model/appUser.d';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
