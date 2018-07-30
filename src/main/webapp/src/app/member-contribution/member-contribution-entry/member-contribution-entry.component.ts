@@ -4,12 +4,32 @@ import { MemberContributionService } from './../../gen/api/memberContribution.se
 import { BaseRequest } from './../../gen/model/baseRequest';
 import { BaseResponse } from './../../gen/model/baseResponse';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Validators, FormGroupName, FormBuilder } from '@angular/forms';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatDatepicker} from '@angular/material/datepicker';
+import * as _moment from 'moment';
+import {Moment} from 'moment';
+
+const moment = _moment;
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'app-member-contribution-entry',
   templateUrl: './member-contribution-entry.component.html',
-  styleUrls: ['./member-contribution-entry.component.css']
+  styleUrls: ['./member-contribution-entry.component.css'],
+  providers:[{provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}]
 })
 export class MemberContributionEntryComponent implements OnInit {
   isLinear = false;
@@ -38,37 +58,59 @@ export class MemberContributionEntryComponent implements OnInit {
   onSubmit() {
     // calling service
     this.contributionRequest = this.buildContributionRequest(this.firstFormGroup.value, this.secondFormGroup.value);
+    console.log( this.firstFormGroup.get("fiscalDate").value.format("DD-MM-YYYY"));
     this.contributionService.createContribution(this.contributionRequest, this.contributionRequest.contribution.memberId).subscribe(data => {
       this.createdContribution = data.contribution;
       this.baseResponse = data.baseResponse;
     });
    
 }
+date = new FormControl(moment());
+
   private buildFormColtrols() {
     this.firstFormGroup= this._formBuilder.group({
       memberId: ['', Validators.required],
       fiscalMonth: ['', Validators.required],
       fiscalYear: ['', Validators.required],
-      paymentDate: ['', Validators.required],
       contributionCategory: ['', Validators.required],
       documentId: ['', Validators.required],
-      amount: ['', Validators.required]
+      amount: ['', Validators.required],
     });
+    this.firstFormGroup.addControl("fiscalDate", this.date);
     this.secondFormGroup= this._formBuilder.group({
       comments: ['']
     });
   }
 
-  public buildContributionRequest(form1: any, form2: any): ContributionRequest {
+  public buildContributionRequest(formGroup1: FormGroup, formGroup2: FormGroup): ContributionRequest {
     let contributionRequest: ContributionRequest = {
       baseRequest: null,
       contribution: null
     };
+    let fMonth = formGroup1["fiscalDate"].format("DD-MM-YYYY");
+    let fYear = formGroup1["fiscalDate"].format("DD-MM-YYYY");
+    let comments = formGroup2["comments"];
     let baseRequest: BaseRequest = null;
-    let contribution: Contribution = form1;
-
+    let contribution: Contribution = <Contribution>formGroup1;
+    contribution.fiscalMonth = fMonth;
+    contribution.fiscalYear = fYear;
+    contribution.comments = comments;
     contributionRequest.contribution = contribution;
     contributionRequest.baseRequest = baseRequest;
     return contributionRequest;
+  }
+
+  chosenYearHandler(normalizedYear: Moment) {
+    const ctrlValue = this.date.value;
+    ctrlValue.year(normalizedYear.year());
+    this.date.setValue(ctrlValue);
+  }
+
+  chosenMonthHandler(normlizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
+    const ctrlValue = this.date.value;
+    
+    ctrlValue.month(normlizedMonth.month());
+    this.date.setValue(ctrlValue);
+    datepicker.close();
   }
 }

@@ -58,4 +58,6 @@ if(this.memberId) {
   public getDateFromString(stringDate: string): Date {
     return new Date(stringDate);
   }
+
+
 }

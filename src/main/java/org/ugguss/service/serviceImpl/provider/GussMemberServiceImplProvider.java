@@ -69,6 +69,7 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 				.contributionDTOtoDbContribution(contributionRequest.getContribution());
 		dbContribution.setGussMember(gussMember);
 		dbContribution.setDateCreated(new Date());
+		dbContribution.setPaymentDate(new Date());
 		GussMemberContribution savedContribution = iGussMemberContributionRepository.save(dbContribution);
 		response.setContribution(
 					contributionServiceMapperUtil.dbContributionToDTOcontribution(savedContribution));

@@ -7,27 +7,29 @@
           <input matInput placeholder="Member ID" formControlName="memberId" required>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Document ID" formControlName="documentId" required>
-          </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Fical Month" formControlName="fiscalMonth" required>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Fical Year" formControlName="fiscalYear" required>
-        </mat-form-field>
-        <mat-form-field>
+          <input matInput placeholder="Document ID" formControlName="documentId" required>
+       </mat-form-field>
+        <!-- material date picker example-->
+       <mat-form-field>
+          <input matInput [matDatepicker]="fiscalPicker" placeholder="Fiscal Month and Year" [formControl]="date">
+          <mat-datepicker-toggle matSuffix [for]="fiscalPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fiscalPicker
+                          startView="multi-year"
+                          (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, fiscalPicker)"
+                          panelClass="example-month-picker">
+          </mat-datepicker>
+       </mat-form-field>
+       <mat-form-field>
           <input matInput placeholder="Amount" formControlName="amount" required>
-      </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Payment Date" formControlName="paymentDate">
-        </mat-form-field>
-        <mat-form-field>
+       </mat-form-field>
+       <mat-form-field>
             <mat-select placeholder="Category" formControlName="contributionCategory"  required>
                 <mat-option *ngFor="let catg of pensionContributionCategory" [value]="catg.value" >
                   {{catg.viewValue}}
                 </mat-option>
               </mat-select>
-        </mat-form-field>
+       </mat-form-field>
         <div>
           <button mat-button matStepperNext type="button">Next</button>
         </div>

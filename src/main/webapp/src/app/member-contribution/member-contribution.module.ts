@@ -12,6 +12,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTableModule} from '@angular/material/table';
 import { DatePipe } from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+
+import {MomentDateModule} from '@angular/material-moment-adapter';
 
 @NgModule({
   imports: [
@@ -25,7 +29,10 @@ import { DatePipe } from '@angular/common';
     MatButtonModule,
     ROUTING,
     MatStepperModule,
-    MatTableModule
+    MatTableModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule,
   ],
   exports: [MemberContributionComponent, MatInputModule, MatTableModule],
   declarations: [MemberContributionComponent, MemberContributionEntryComponent],
