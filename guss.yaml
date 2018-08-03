@@ -3,7 +3,7 @@ info:
   version: 1.0.0
   title: GUSS Account API
 host: 'localhost:8080'
-basePath: /rest/ugguss/api/v1
+basePath: /guss-app/rest/ugguss/api/v1
 schemes:
   - http
 paths:
