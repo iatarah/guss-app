@@ -24,7 +24,7 @@ public interface  UserServiceMapperUtil {
 		@Mapping(target = "lastName", source = "lastName"),
 		@Mapping(target = "middleName", source = "middleName"),
 		@Mapping(target = "gender", source = "gender"),
-		@Mapping(target = "dob", source = "dateOfBirth", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "dob", source = "dateOfBirth", dateFormat = "dd-MM-yyyy"),
 		@Mapping(target = "status", source = "status"),
 		//@Mapping(target = "dateCreated", source = ""),
 		//@Mapping(target = "lastUpdated", source = ""),
@@ -81,8 +81,8 @@ public interface  UserServiceMapperUtil {
 	@Mappings({
 		@Mapping(target = "basicSalary", source = "currentSalary"),
 		@Mapping(target = "address", source = "address"),
-		@Mapping(target = "retirementDate", source = "maturityDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
-		@Mapping(target = "joinDate", source = "policyStartDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "retirementDate", source = "maturityDate", dateFormat = "dd-MM-yyyy"),
+		@Mapping(target = "joinDate", source = "policyStartDate", dateFormat = "dd-MM-yyyy"),
 		@Mapping(target = "memberId", source = "memberSsn"),
 		@Mapping(target = "membershipStatus", source = "membershipStatus")
 	})
@@ -90,10 +90,11 @@ public interface  UserServiceMapperUtil {
 	
 	
 	@Mappings({
-		@Mapping(target = "policyStartDate", source = "joinDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
-		@Mapping(target = "maturityDate", source = "retirementDate", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "policyStartDate", source = "joinDate", dateFormat = "dd-MM-yyyy"),
+		@Mapping(target = "maturityDate", source = "retirementDate", dateFormat = "dd-MM-yyyy"),
 		@Mapping(target = "address", source = "address"),
-		@Mapping(target = "memberSsn", source = "memberId")
+		@Mapping(target = "memberSsn", source = "memberId"),
+		@Mapping(target = "currentSalary", source = "basicSalary"),
 	})
 	GussMember dtoMemberTodbGussMember(Member member) ;
 	

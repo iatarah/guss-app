@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { Contribution } from './../gen/model/contribution';
 import { Member } from './../gen/model/member';
 import { DatePipe } from '@angular/common';
@@ -5,7 +6,11 @@ import { CurrentUserService } from './../shared/current-user.service';
 import { MemberContributionService } from './../gen/api/memberContribution.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource, MatSort } from '@angular/material';
+import {MatDatepicker} from '@angular/material/datepicker';
+import * as _moment from 'moment';
+import {Moment} from 'moment';
 
+const moment = _moment;
 
 @Component({
   selector: 'app-member-contribution',
@@ -20,6 +25,7 @@ export class MemberContributionComponent implements OnInit {
   contributionColumnsToDisplay = ['documentId', 'paymentDate', 'fiscalMonth', 'fiscalYear', 'contributionCategory', 'amount','comments'];
   dataSource: any;
   
+
   constructor(private contributionService: MemberContributionService, private currentUserService: CurrentUserService, private datePipe: DatePipe) { }
 
   ngOnInit() {

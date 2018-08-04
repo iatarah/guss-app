@@ -13,6 +13,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+import {MomentDateModule} from '@angular/material-moment-adapter';
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +28,10 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
-    MatStepperModule
+    MatStepperModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MomentDateModule,
   ],
   declarations: [UserProfileComponent, UserRegistrationComponent],
   exports: [UserProfileComponent, UserRegistrationComponent]

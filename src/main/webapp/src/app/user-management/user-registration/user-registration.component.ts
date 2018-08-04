@@ -4,21 +4,41 @@ import { UserRegistrationRequest } from './../../gen/model/userRegistrationReque
 import { AppUser } from './../../gen/model/appUser';
 import { BaseRequest } from './../../gen/model/baseRequest';
 import { RegistrationService } from './../../gen/api/registration.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Gender } from './../../gen/model/gender';
 import { Validators, FormGroupName, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { Component, OnInit } from '@angular/core';
+import * as _moment from 'moment';
+import {Moment} from 'moment';
 
+const moment = _moment;
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'app-user-registration',
   templateUrl: './user-registration.component.html',
-  styleUrls: ['./user-registration.component.css']
+  styleUrls: ['./user-registration.component.css'],
+  providers:[{provide: MAT_DATE_FORMATS, useValue: MY_FORMATS}]
 })
 export class UserRegistrationComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  dob = new FormControl(moment());
+  schemeJoinDate = new FormControl(moment());
+  retirementDate = new FormControl(moment());
+
   userGender: any[] = [
     {value: 'M', viewValue: 'Male'},
     {value: 'F', viewValue: 'Female'}
@@ -40,6 +60,12 @@ export class UserRegistrationComponent implements OnInit {
   private appUser: AppUser;
   private gussMember: Member;
   baseResponse: BaseResponse;
+  minDate = new Date(1910, 0, 1);
+  maxDate = new Date();
+  minJoinDate = new Date(1910, 0, 1);
+  maxJoinDate = new Date();
+  minRetireDate = new Date();
+  maxRetireDate = new Date(2120, 0, 1);
   constructor(private _formBuilder: FormBuilder, private registrationService: RegistrationService) {}
 
   ngOnInit() {
@@ -67,14 +93,18 @@ export class UserRegistrationComponent implements OnInit {
       password: ['', Validators.required],
       gender: ['', Validators.required]
     });
+    this.firstFormGroup.addControl("dateOfBirth", this.dob);
+
     this.secondFormGroup= this._formBuilder.group({
       memberId: ['', Validators.required],
       membershipCategory: ['', Validators.required],
-      joinDate: ['', Validators.required],
-      retirementDate: ['', Validators.required],
+      //joinDate: ['', Validators.required],
+      //retirementDate: ['', Validators.required],
       basicSalary: ['', Validators.required],
       address: ['', Validators.required]
     });
+    this.secondFormGroup.addControl("joinDate", this.schemeJoinDate);
+    this.secondFormGroup.addControl("retirementDate", this.retirementDate);
   }
   public buildUserRegistrationRequest(form1: any, form2: any): UserRegistrationRequest {
     let userRegistrationRequest: UserRegistrationRequest = {
@@ -82,13 +112,21 @@ export class UserRegistrationComponent implements OnInit {
       appUser: null,
       member: null
     };
-    let baseRequest: BaseRequest;
-    let appUser: AppUser = form1;
-    let member: Member = form2;
+
+    let dob = form1["dateOfBirth"].format("DD-MM-YYYY");
+    let joinDate = form2["joinDate"].format("DD-MM-YYYY");
+    let retirementDate = form2["retirementDate"].format("DD-MM-YYYY");
+    let baseRequest: BaseRequest = null;
+    let appUser: AppUser = <AppUser>form1;
+    let member: Member = <Member>form2;
+
+    appUser.dateOfBirth = dob;
+    member.joinDate = joinDate;
+    member.retirementDate = retirementDate;
 
     userRegistrationRequest.appUser = appUser;
     userRegistrationRequest.member = member;
-    userRegistrationRequest.baseRequest = null;
+    userRegistrationRequest.baseRequest = baseRequest;
     return userRegistrationRequest;
   }
 }

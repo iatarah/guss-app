@@ -20,6 +20,11 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dobPicker" placeholder="Date of Birth" [formControl]="dob" required>
+          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+        </mat-form-field>     
+        <mat-form-field>
             <mat-select placeholder="Role" formControlName="userRole"  required>
                 <mat-option *ngFor="let rol of appUserRole" [value]="rol.value" >
                   {{rol.viewValue}}
@@ -64,18 +69,22 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Scheme Join Date" formControlName="joinDate" required>
-        </mat-form-field>
+          <input matInput [min]="minJoinDate" [max]="maxJoinDate" [matDatepicker]="joinDatePicker" placeholder="Scheme Join Date" [formControl]="schemeJoinDate" required>
+          <mat-datepicker-toggle matSuffix [for]="joinDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #joinDatePicker></mat-datepicker>
+        </mat-form-field> 
 
         <mat-form-field>
-            <input matInput placeholder="Retirement Date" formControlName="retirementDate" required>
+          <input matInput [min]="minRetireDate" [max]="maxRetireDate" [matDatepicker]="retireDatePicker" placeholder="Retirement Date" [formControl]="retirementDate" required>
+          <mat-datepicker-toggle matSuffix [for]="retireDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #retireDatePicker></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field>
             <input matInput placeholder="Basic Salary" formControlName="basicSalary" required>
         </mat-form-field>
         <mat-form-field>
-            <textarea matInput placeholder="Address" formControlName="address"></textarea>
+            <textarea matInput placeholder="Address" formControlName="address" required></textarea>
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious type="button">Back</button>

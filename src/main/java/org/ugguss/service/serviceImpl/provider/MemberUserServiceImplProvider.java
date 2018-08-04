@@ -25,6 +25,7 @@ import org.ugguss.util.UserServiceMapperUtil;
 import org.ugguss.util.constants.AppConstants;
 
 import java.util.Collection;
+import java.util.Date;
 
 @Component
 @Qualifier(value="MemberUserServiceImplProvider")
@@ -75,6 +76,7 @@ public class MemberUserServiceImplProvider extends UserServiceImplProvider{
 			gussMember.setMembershipCategory(membershipCategory);
 			gussMember.setUser(savedUser);
 			gussMember.setMembershipStatus(AppConstants.GUSS_MEMBER_ACTIVE_STATUS);
+			gussMember.setDateCreated(new Date());
 			GussMember savedGussMember = iGussMemberRepository.save(gussMember);
 			Member dtoMember = userServiceMapperUtil.gussMemberTodtoMember(savedGussMember);
 			AppUser dtoUser = userServiceMapperUtil.dbUserToAppUser(savedUser);
