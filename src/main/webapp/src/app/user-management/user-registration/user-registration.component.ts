@@ -63,7 +63,7 @@ export class UserRegistrationComponent implements OnInit {
   minDate = new Date(1910, 0, 1);
   maxDate = new Date();
   minJoinDate = new Date(1910, 0, 1);
-  maxJoinDate = new Date();
+  maxJoinDate = new Date(2120, 0, 1);
   minRetireDate = new Date();
   maxRetireDate = new Date(2120, 0, 1);
   constructor(private _formBuilder: FormBuilder, private registrationService: RegistrationService) {}
