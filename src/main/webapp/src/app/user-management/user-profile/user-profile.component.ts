@@ -31,8 +31,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
    });
 
     this.userService.getMember(this.userName).subscribe(data => {
-      this.appUser = data.appUser;
       this.gussmember = data.gussMember;
+      this.appUser = data.appUser;
+     
     });
   }
 

@@ -40,7 +40,7 @@ public interface  UserServiceMapperUtil {
 		@Mapping(target = "lastName", source = "lastName"),
 		@Mapping(target = "middleName", source = "middleName"),
 		@Mapping(target = "gender", source = "gender"),
-		@Mapping(target = "dateOfBirth", source = "dob", dateFormat = "dd-MM-yyyy HH:mm:ss"),
+		@Mapping(target = "dateOfBirth", source = "dob", dateFormat = "dd-MM-yyyy"),
 		@Mapping(target = "status", source = "status"),
 		@Mapping(target = "dateCreated", source = "dateCreated", dateFormat = "dd-MM-yyyy HH:mm:ss"),
 		@Mapping(target = "lastUpdatedDate", source = "lastUpdated", dateFormat = "dd-MM-yyyy HH:mm:ss")

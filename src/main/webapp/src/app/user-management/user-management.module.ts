@@ -16,6 +16,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MomentDateModule} from '@angular/material-moment-adapter';
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +33,7 @@ import {MomentDateModule} from '@angular/material-moment-adapter';
     MatDatepickerModule,
     MatNativeDateModule,
     MomentDateModule,
+    MatListModule
   ],
   declarations: [UserProfileComponent, UserRegistrationComponent],
   exports: [UserProfileComponent, UserRegistrationComponent]
