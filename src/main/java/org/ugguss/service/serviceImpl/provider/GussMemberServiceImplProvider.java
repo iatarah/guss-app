@@ -1,5 +1,6 @@
 package org.ugguss.service.serviceImpl.provider;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -68,6 +69,7 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 				.contributionDTOtoDbContribution(contributionRequest.getContribution());
 		dbContribution.setGussMember(gussMember);
 		dbContribution.setDateCreated(new Date());
+		dbContribution.setPaymentDate(new Date());
 		GussMemberContribution savedContribution = iGussMemberContributionRepository.save(dbContribution);
 		response.setContribution(
 					contributionServiceMapperUtil.dbContributionToDTOcontribution(savedContribution));
@@ -90,7 +92,20 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 		List<Contribution> contributionHistory = new ArrayList<>();
 		
 		// TODO: add logic here to fetch by startDate and endDate
-		gussMemberContributionList = iGussMemberContributionRepository.findContributionByMemberId(memberId);
+		Date queryStartDate = null;
+		Date queryEndDate = null;
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			queryStartDate = sdf.parse(startDate);
+			queryEndDate = sdf.parse(endDate);
+		} catch (Exception e) {
+			// TODO: handle exception
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
+			return response;
+		}
+		
+		gussMemberContributionList = iGussMemberContributionRepository.findContributionByMemberIdAndDate(memberId, queryStartDate, queryEndDate);
 		for(GussMemberContribution gc : gussMemberContributionList) {
 			contributionHistory.add(
 					contributionServiceMapperUtil.dbContributionToDTOcontribution(gc));

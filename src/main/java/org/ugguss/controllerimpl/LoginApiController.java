@@ -30,7 +30,7 @@ public class LoginApiController implements LoginApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     public ResponseEntity<UserProfile> login(@ApiParam(value = "" ,required=true )  @Valid @RequestBody LoginRequest loginRequest) {
-        System.out.println("Hello Am here");
+        
         UserDetails user = userService.loadUserByUsername(loginRequest.getEmail());
 
         UserProfile userProfile = new UserProfile();

@@ -1,0 +1,62 @@
+<h1>Contribution Entry Form </h1>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" (ngSubmit)="form1()" #formone="ngForm">
+        <ng-template matStepLabel>Step One</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="Member ID" formControlName="memberId" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Document ID" formControlName="documentId" required>
+       </mat-form-field>
+        <!-- material date picker example-->
+       <mat-form-field>
+          <input matInput [matDatepicker]="fiscalPicker" placeholder="Fiscal Month and Year" [formControl]="date">
+          <mat-datepicker-toggle matSuffix [for]="fiscalPicker"></mat-datepicker-toggle>
+          <mat-datepicker #fiscalPicker
+                          startView="multi-year"
+                          (yearSelected)="chosenYearHandler($event)"
+                          (monthSelected)="chosenMonthHandler($event, fiscalPicker)"
+                          panelClass="example-month-picker">
+          </mat-datepicker>
+       </mat-form-field>
+       <mat-form-field>
+          <input matInput placeholder="Amount" formControlName="amount" required>
+       </mat-form-field>
+       <mat-form-field>
+            <mat-select placeholder="Category" formControlName="contributionCategory"  required>
+                <mat-option *ngFor="let catg of pensionContributionCategory" [value]="catg.value" >
+                  {{catg.viewValue}}
+                </mat-option>
+              </mat-select>
+       </mat-form-field>
+        <div>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup" (ngSubmit)="form2()" #formtwo="ngForm">
+        <ng-template matStepLabel>Step Two</ng-template>
+        <mat-form-field>
+            <input matInput placeholder="Comments" formControlName="comments">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button type="button" (click)="formone.ngSubmit.emit();formtwo.ngSubmit.emit();onSubmit();">
+            submit
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  

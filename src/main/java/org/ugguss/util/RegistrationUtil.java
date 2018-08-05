@@ -9,7 +9,6 @@ import org.ugguss.util.constants.AppConstants;
 
 public class RegistrationUtil {
 	public static User populateUserExtraAttributes(UserRegistrationRequest request, Role role, User user) {
-		user.setPassword("password1");
 		user.setRole(role);
 		user.setDateCreated(new Date());
 		user.setStatus(AppConstants.ACTIVE_STATUS);

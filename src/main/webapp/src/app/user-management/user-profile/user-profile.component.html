@@ -1,0 +1,55 @@
+<h2>User Profile</h2>
+
+<div>
+    <div class="left-nav-basic-profile">
+        <div class="user-info">
+            <div>
+                <label>Name: </label>{{appUser?.lastName}} {{appUser?.middleName}} {{appUser?.firstName}}
+            </div>
+            <div>
+                <label>Email: </label>{{appUser?.email}}
+            </div>
+            <div>
+                <label>Date of Birth: </label>{{appUser?.dateOfBirth}}
+            </div>
+            <div>
+                <label>Gender: </label>{{appUser?.gender}}
+            </div>
+        </div>
+
+        <div class="member-info" class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole">
+            <div>
+                <label>Current Basic Salary: </label>{{gussmember?.basicSalary}}
+            </div>
+            <div>
+                <label>Member ID: </label>{{gussmember?.memberId}}
+            </div>
+            <div>
+                <label>Join Date: </label>{{gussmember?.joinDate}}
+            </div>
+            <div>
+                <label>Membership Category: </label>{{gussmember?.membershipCategory}}
+            </div>
+            <div>
+                <label>Retirement Date: </label>{{gussmember?.retirementDate}}
+            </div>
+            <div>
+                <label>Membership Status: </label>{{gussmember?.membershipStatus}}
+            </div> 
+        </div>
+    </div>
+
+    <div class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole">
+        <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
+    </div>
+
+    <div class="user-management-menu">
+        <div class="registration-link" *ngIf="ADMIN_ROLE === appUser?.userRole">
+                <a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a>
+            </div>
+            
+            <div class="contribution-entry-link" *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole">
+                <a *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole" [routerLink]="['/contribution-entry']">Enter New Contribution</a>
+        </div>
+    </div>
+</div>

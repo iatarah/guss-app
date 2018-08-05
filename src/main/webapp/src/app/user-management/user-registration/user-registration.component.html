@@ -1,0 +1,107 @@
+<h1>User Registration </h1>
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup" #formone="ngForm">
+        <ng-template matStepLabel>User Info</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="First name" formControlName="firstName" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Middle Name" formControlName="middleName">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Last name" formControlName="lastName" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select placeholder="Gender" formControlName="gender"  required>
+              <mat-option *ngFor="let gen of userGender" [value]="gen.value" >
+                {{gen.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="dobPicker" placeholder="Date of Birth" [formControl]="dob" required>
+          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+        </mat-form-field>     
+        <mat-form-field>
+            <mat-select placeholder="Role" formControlName="userRole"  required>
+                <mat-option *ngFor="let rol of appUserRole" [value]="rol.value" >
+                  {{rol.viewValue}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Status" formControlName="status"  required>
+                <mat-option *ngFor="let stat of appUserStatus" [value]="stat.value" >
+                  {{stat.viewValue}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field>
+            <input type="email" matInput placeholder="Email" formControlName="email" required>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input type="password" matInput placeholder="Password" formControlName="password" required>
+        </mat-form-field>
+          
+        <div>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup"  #formtwo="ngForm">
+        <ng-template matStepLabel>Member Info</ng-template>
+        <mat-form-field>
+            <input matInput placeholder="Member ID" formControlName="memberId" required>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select placeholder="Membership Category" formControlName="membershipCategory"  required>
+                <mat-option *ngFor="let catg of memberCategory" [value]="catg.value" >
+                  {{catg.viewValue}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [min]="minJoinDate" [max]="maxJoinDate" [matDatepicker]="joinDatePicker" placeholder="Scheme Join Date" [formControl]="schemeJoinDate" required>
+          <mat-datepicker-toggle matSuffix [for]="joinDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #joinDatePicker></mat-datepicker>
+        </mat-form-field> 
+
+        <mat-form-field>
+          <input matInput [min]="minRetireDate" [max]="maxRetireDate" [matDatepicker]="retireDatePicker" placeholder="Retirement Date" [formControl]="retirementDate" required>
+          <mat-datepicker-toggle matSuffix [for]="retireDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #retireDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Basic Salary" formControlName="basicSalary" required>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea matInput placeholder="Address" formControlName="address" required></textarea>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious type="button">Back</button>
+          <button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      You are now done.
+      <div>
+        <button mat-button matStepperPrevious type="button">Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button type="button" (click)="onSubmit();">
+            submit
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  
