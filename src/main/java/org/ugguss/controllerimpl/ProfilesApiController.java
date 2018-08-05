@@ -1,6 +1,9 @@
 package org.ugguss.controllerimpl;
 
 import io.swagger.annotations.ApiParam;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,7 +21,8 @@ import org.ugguss.util.constants.RestEndpointConstants;
 
 @Controller
 public class ProfilesApiController implements ProfilesApi {
-
+	private static final Logger LOG = LogManager.getLogger(ProfilesApiController.class);
+	
 	@Autowired
 	@Qualifier(value="userDetailsService")
     private IUserService iUserService;
@@ -28,6 +32,7 @@ public class ProfilesApiController implements ProfilesApi {
     produces = { "application/json" }, 
     method = RequestMethod.GET)
     public ResponseEntity<UserProfileResponse> getMember(@ApiParam(value = "",required=true ) @PathVariable("userName") String userName) {
+    	LOG.debug("Calling profile api with userName: {}", userName);
     	UserProfileResponse response = iUserService.getUserByUserName(userName);
         return new ResponseEntity<UserProfileResponse>(response, HttpStatus.OK);
     }
