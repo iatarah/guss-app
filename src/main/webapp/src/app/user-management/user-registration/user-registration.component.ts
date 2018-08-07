@@ -1,3 +1,4 @@
+import { AlertService } from './../../shared/_services/alert.service';
 import { BaseResponse } from './../../gen/model/baseResponse';
 import { Member } from './../../gen/model/member';
 import { UserRegistrationRequest } from './../../gen/model/userRegistrationRequest';
@@ -66,7 +67,7 @@ export class UserRegistrationComponent implements OnInit {
   maxJoinDate = new Date(2120, 0, 1);
   minRetireDate = new Date();
   maxRetireDate = new Date(2120, 0, 1);
-  constructor(private _formBuilder: FormBuilder, private registrationService: RegistrationService) {}
+  constructor(private _formBuilder: FormBuilder, private registrationService: RegistrationService, private alertService: AlertService) {}
 
   ngOnInit() {
     this.buildFormColtrols();
@@ -129,6 +130,9 @@ export class UserRegistrationComponent implements OnInit {
     userRegistrationRequest.baseRequest = baseRequest;
     return userRegistrationRequest;
   }
+      success(message: string) { 
+        this.alertService.success(message);
+    }
 }
 
 

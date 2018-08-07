@@ -1,3 +1,5 @@
+import { AlertService } from './../shared/_services/alert.service';
+import { AlertComponent } from './../shared/_directives/alert.component';
 import { MemberContributionComponent } from './../member-contribution/member-contribution.component';
 import { MemberContributionModule } from './../member-contribution/member-contribution.module';
 import { ROUTING } from './../app.routing';
@@ -17,6 +19,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MomentDateModule} from '@angular/material-moment-adapter';
 import {MatListModule} from '@angular/material/list';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +38,14 @@ import {MatListModule} from '@angular/material/list';
     MomentDateModule,
     MatListModule
   ],
-  declarations: [UserProfileComponent, UserRegistrationComponent],
+  declarations: [
+    UserProfileComponent, 
+    UserRegistrationComponent,
+    AlertComponent
+  ],
+  providers: [
+    AlertService
+  ],
   exports: [UserProfileComponent, UserRegistrationComponent]
 })
 export class UserManagementModule { }

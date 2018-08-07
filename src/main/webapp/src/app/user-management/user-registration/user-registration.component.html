@@ -1,4 +1,13 @@
-<h1>User Registration </h1>
+<h1>User Registration </h1>	
+<!-- main app container -->
+<div class="jumbotron">
+    <div class="success-alert">
+        <div class="col-sm-8 col-sm-offset-2">
+            <alert></alert>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup" #formone="ngForm">
@@ -104,4 +113,9 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
+
+  <div class="col-md-10 col-md-offset-1 text-center">
+      <h1>Angular 2/5 Alerts</h1>
+      <button class="btn btn-success" (click)="success('Success!!')">Success</button>
+  </div>
   
