@@ -1,8 +1,8 @@
 <h1>User Registration </h1>	
 <!-- main app container -->
-<div class="jumbotron">
-    <div class="success-alert">
-        <div class="col-sm-8 col-sm-offset-2">
+<div class="reg-submit-alert">
+    <div [ngClass]="regSubmitAlertstyle">
+        <div class="alert">
             <alert></alert>
             <router-outlet></router-outlet>
         </div>
@@ -113,9 +113,3 @@
       </div>
     </mat-step>
   </mat-horizontal-stepper>
-
-  <div class="col-md-10 col-md-offset-1 text-center">
-      <h1>Angular 2/5 Alerts</h1>
-      <button class="btn btn-success" (click)="success('Success!!')">Success</button>
-  </div>
-  

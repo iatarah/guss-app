@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.alert-info, .alert-success, .alert-warning, .alert-error, .alert-validation {
+.alert_info, .alert_success, .alert_warning, .alert_error, .alert_validation {
     border: 1px solid;
     margin: 10px 0px;
     padding:15px 10px 15px 50px;
@@ -9,22 +9,22 @@
     background-position: 10px center;
     text-align: center
 }
-.alert-info {
+.alert_info {
     color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
 }
-.alert-success {
+.alert_success {
     color: #155724;
     background-color: #d4edda;
     border-color: #c3e6cb;
 }
-.alert-warning {
+.alert_warning {
     color: #856404;
     background-color: #fff3cd;
     border-color: #ffeeba;
 }
-.alert-error {
+.alert_error {
     color: #721c24;
     background-color: #f8d7da;
     border-color: #f5c6cb;

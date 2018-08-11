@@ -67,6 +67,8 @@ export class UserRegistrationComponent implements OnInit {
   maxJoinDate = new Date(2120, 0, 1);
   minRetireDate = new Date();
   maxRetireDate = new Date(2120, 0, 1);
+  registrationSubmitAlert: boolean = false;
+  regSubmitAlertstyle: any = null;
   constructor(private _formBuilder: FormBuilder, private registrationService: RegistrationService, private alertService: AlertService) {}
 
   ngOnInit() {
@@ -81,6 +83,19 @@ export class UserRegistrationComponent implements OnInit {
           this.appUser = data.appUser;
           this.gussMember = data.gussMember;
           this.baseResponse = data.baseResponse;
+        }, 
+        undefined,
+        () => {
+          this.registrationSubmitAlert = true;
+          if(this.baseResponse.returnCode == 0) {
+            this.alertService.success("Success!!");
+            this.regSubmitAlertstyle = this.getAlertStyles("success");
+            
+          } else if (this.baseResponse.returnCode ==1){
+            this.alertService.error("Error");
+            this.regSubmitAlertstyle = this.getAlertStyles("error");
+            
+          }
         });
   }
   private buildFormColtrols() {
@@ -130,9 +145,29 @@ export class UserRegistrationComponent implements OnInit {
     userRegistrationRequest.baseRequest = baseRequest;
     return userRegistrationRequest;
   }
-      success(message: string) { 
+    showSuccess(message: string) { 
         this.alertService.success(message);
     }
+
+    showError(message: string) { 
+      this.alertService.error(message);
+  }
+
+  getAlertStyles(flag:string) {
+    let cssClasses;
+    if(flag == 'error') {  
+       cssClasses = {
+         'alert_error': true,
+         'alert_success': false 
+       }	
+    } else if(flag == 'success'){  
+       cssClasses = {
+        'alert_error': false,
+        'alert_success': true 
+       }	
+    }
+    return cssClasses;
+  }
 }
 
 
