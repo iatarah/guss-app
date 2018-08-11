@@ -1,3 +1,4 @@
+import { AppConstants } from './../../shared/constants';
 import { AlertService } from './../../shared/_services/alert.service';
 import { BaseResponse } from './../../gen/model/baseResponse';
 import { Member } from './../../gen/model/member';
@@ -88,12 +89,12 @@ export class UserRegistrationComponent implements OnInit {
         () => {
           this.registrationSubmitAlert = true;
           if(this.baseResponse.returnCode == 0) {
-            this.alertService.success("Success!!");
-            this.regSubmitAlertstyle = this.getAlertStyles("success");
+            this.alertService.success(AppConstants.MSG_SUCCESS);
+            this.regSubmitAlertstyle = this.getAlertStyles(AppConstants.CONST_SUCCESS);
             
           } else if (this.baseResponse.returnCode ==1){
-            this.alertService.error("Error");
-            this.regSubmitAlertstyle = this.getAlertStyles("error");
+            this.alertService.error(AppConstants.MSG_SYSTEM_ERROR);
+            this.regSubmitAlertstyle = this.getAlertStyles(AppConstants.CONST_ERROR);
             
           }
         });
@@ -155,12 +156,12 @@ export class UserRegistrationComponent implements OnInit {
 
   getAlertStyles(flag:string) {
     let cssClasses;
-    if(flag == 'error') {  
+    if(flag == AppConstants.CONST_ERROR) {  
        cssClasses = {
          'alert_error': true,
          'alert_success': false 
        }	
-    } else if(flag == 'success'){  
+    } else if(flag == AppConstants.CONST_SUCCESS){  
        cssClasses = {
         'alert_error': false,
         'alert_success': true 
