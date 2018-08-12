@@ -1,3 +1,6 @@
+import { Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppUser } from './../../gen/model/appUser';
 import { UserRole } from './../../gen/model/userRole';
 import { CurrentUserService } from './../../shared/current-user.service';
@@ -21,10 +24,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   MEMBER_ROLE: string;
   ADMIN_ROLE: string;
   STAFF_ROLE: string;
-
-  constructor(private userService: UserService, private route: ActivatedRoute, private currentUserService: CurrentUserService) { }
+  clearMevalue = ''
+  memberLookUpForm: FormGroup;
+  constructor(private userService: UserService, private route: ActivatedRoute, 
+    private currentUserService: CurrentUserService, private router: Router, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.buildMemberFormControls();
     this.init();
     this.sub = this.route.params.subscribe(params => {
       this.userName = params['userName']; 
@@ -58,4 +64,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.STAFF_ROLE = UserRole.STAFF;
     this.MEMBER_ROLE = UserRole.MEMBER;
   }
+
+  onSubmitMemberLookUp() {
+    console.log(this.memberLookUpForm.controls.memberId.value);
+    this.router.navigate(['member-profile', this.memberLookUpForm.controls.memberId.value]);
+    
+  }
+
+  private buildMemberFormControls() {
+    this.memberLookUpForm= this._formBuilder.group({
+      memberId: ['', Validators.required]});
+    }    
 }

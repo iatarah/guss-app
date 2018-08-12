@@ -16,9 +16,10 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatStepperModule} from '@angular/material/stepper';
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
+import {MatNativeDateModule, MatIconModule} from '@angular/material';
 import {MomentDateModule} from '@angular/material-moment-adapter';
 import {MatListModule} from '@angular/material/list';
+import { MemberProfileComponent } from './member-profile/member-profile.component';
 
 @NgModule({
   imports: [
@@ -36,12 +37,14 @@ import {MatListModule} from '@angular/material/list';
     MatDatepickerModule,
     MatNativeDateModule,
     MomentDateModule,
-    MatListModule
+    MatListModule,
+    MatIconModule
   ],
   declarations: [
     UserProfileComponent, 
     UserRegistrationComponent,
-    AlertComponent
+    AlertComponent,
+    MemberProfileComponent
   ],
   providers: [
     AlertService
