@@ -1,5 +1,7 @@
 package org.ugguss.service.serviceImpl;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ugguss.controllerimpl.ProfilesApiController;
 import org.ugguss.generated.model.BaseResponse;
 import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.generated.model.UserRegistrationRequest;
@@ -28,6 +31,7 @@ import java.util.HashSet;
 @Service("userDetailsService")
 @Transactional
 public class UserServiceImpl implements IUserService, UserDetailsService {
+	private static final Logger LOG = LogManager.getLogger(UserServiceImpl.class);
     @Autowired
     private IUserRepository iUserRepository;
     @Autowired
@@ -109,8 +113,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		try {
 			response = serviceImplProviderFactory.getUserServiceImplProvider().getUserByUserName(userName);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("Failed to retrieve User, message: {}", e.getMessage());
 		}
 		return response;
 	}

@@ -11,5 +11,6 @@ public enum RestEndpointConstants {
         public static final String ADMIN_ONLY = "/protectedbyadmin";
         public static final String STAFF_ONLY = "/protectedbystaff";
         public static final String MEMBER_CONTRIBUTION = "/member-contribution/{memberId}";
+        public static final String GET_MEMBER_PROFILE_WITH_MEMBER_ID = "/member-profiles";
     };
 }

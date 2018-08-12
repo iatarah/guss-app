@@ -3,6 +3,7 @@ package org.ugguss.service.serviceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.model.GussMember;
 import org.ugguss.repository.IGussMemberRepository;
 import org.ugguss.service.IGussMemberService;
@@ -25,6 +26,11 @@ public class GussMemberServiceImpl implements IGussMemberService {
 	@Override
 	public GussMember getGussMemberByUserId(int userId) {
 		return iGussMemberRepository.findGussMemberByUserId(userId);
+	}
+
+	@Override
+	public UserProfileResponse getUserByGussMemberId(String memberId) throws Exception {
+		return gussMemberServiceImplProvider.getUserByGussMemberId(memberId);
 	}
 
 }

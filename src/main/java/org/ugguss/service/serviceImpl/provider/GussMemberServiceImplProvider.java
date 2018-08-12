@@ -4,14 +4,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.ugguss.controllerimpl.ProfilesApiController;
+import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.BaseResponse;
 import org.ugguss.generated.model.Contribution;
 import org.ugguss.generated.model.ContributionHistoryResponse;
 import org.ugguss.generated.model.ContributionRequest;
 import org.ugguss.generated.model.ContributionResponse;
+import org.ugguss.generated.model.Member;
 import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.model.GussMember;
 import org.ugguss.model.GussMemberContribution;
@@ -28,6 +34,7 @@ import org.ugguss.util.constants.AppConstants;
 @Component
 @Qualifier(value="GussMemberServiceImplProvider")
 public class GussMemberServiceImplProvider implements IGussMemberServiceProvider{
+	private static final Logger LOG = LogManager.getLogger(GussMemberServiceImplProvider.class);
 	@Autowired
 	private IGussMemberRepository iGussMemberRepository;
 	@Autowired
@@ -112,6 +119,34 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 		}
 		
 		response.setContributionHistory(contributionHistory);
+		response.getBaseResponse().setReturnCode(AppConstants.SUCCESS_CODE);
+		return response;
+	}
+
+	@Override
+	public UserProfileResponse getUserByGussMemberId(String memberId) throws Exception {
+		UserProfileResponse response = new UserProfileResponse();
+		response.setBaseResponse(new BaseResponse());
+
+		User user = null;
+
+		GussMember gussMember = iGussMemberService.getGussMemberByMemberId(memberId);
+		
+		if(gussMember != null) {
+			user = gussMember.getUser();
+		}
+		
+		if(gussMember == null || user == null) {
+			LOG.debug("No such Member in database with memberId: {}", memberId);
+			response.getBaseResponse().returnCode(AppConstants.ERROR_CODE);
+			return response;
+		}
+		
+		AppUser appUser = userServiceMapperUtil.dbUserToAppUser(user);
+		Member member = userServiceMapperUtil.gussMemberTodtoMember(gussMember);
+		
+		response.setAppUser(appUser);
+		response.setGussMember(member);
 		response.getBaseResponse().setReturnCode(AppConstants.SUCCESS_CODE);
 		return response;
 	}
