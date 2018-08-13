@@ -88,11 +88,11 @@ export class UserRegistrationComponent implements OnInit {
         undefined,
         () => {
           this.registrationSubmitAlert = true;
-          if(this.baseResponse.returnCode == 0) {
+          if(this.baseResponse != null && this.baseResponse.returnCode == 0) {
             this.alertService.success(AppConstants.MSG_SUCCESS);
             this.regSubmitAlertstyle = this.getAlertStyles(AppConstants.CONST_SUCCESS);
             
-          } else if (this.baseResponse.returnCode ==1){
+          } else {
             this.alertService.error(AppConstants.MSG_SYSTEM_ERROR);
             this.regSubmitAlertstyle = this.getAlertStyles(AppConstants.CONST_ERROR);
             
