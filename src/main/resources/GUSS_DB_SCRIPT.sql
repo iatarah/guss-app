@@ -216,3 +216,13 @@ CREATE TABLE `guss_db`.`app_parameters` (
   `param_value` VARCHAR(80) NULL,
   PRIMARY KEY (`param_name`),
   UNIQUE INDEX `param_name_UNIQUE` (`param_name` ASC));
+  
+-----------------------------------------------
+-- interest rate table
+-----------------------------------------------
+CREATE TABLE `guss_db`.`yrly_rate` (
+  `year` INT NOT NULL,
+  `rate` DECIMAL(10,3) NULL,
+  PRIMARY KEY (`year`),
+  UNIQUE INDEX `year_UNIQUE` (`year` ASC));
+
