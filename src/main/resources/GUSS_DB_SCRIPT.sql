@@ -208,3 +208,11 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+-----------------------------------------------
+-- Params table
+-----------------------------------------------
+CREATE TABLE `guss_db`.`app_parameters` (
+  `param_name` VARCHAR(50) NOT NULL,
+  `param_value` VARCHAR(80) NULL,
+  PRIMARY KEY (`param_name`),
+  UNIQUE INDEX `param_name_UNIQUE` (`param_name` ASC));
