@@ -225,4 +225,3 @@ CREATE TABLE `guss_db`.`yrly_rate` (
   `rate` DECIMAL(10,3) NULL,
   PRIMARY KEY (`year`),
   UNIQUE INDEX `year_UNIQUE` (`year` ASC));
-
