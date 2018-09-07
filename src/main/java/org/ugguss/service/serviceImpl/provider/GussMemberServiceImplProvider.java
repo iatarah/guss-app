@@ -22,6 +22,7 @@ import org.ugguss.generated.model.UserProfileResponse;
 import org.ugguss.model.GussMember;
 import org.ugguss.model.GussMemberContribution;
 import org.ugguss.model.User;
+import org.ugguss.repository.IAppParameterRepository;
 import org.ugguss.repository.IGussMemberContributionRepository;
 import org.ugguss.repository.IGussMemberRepository;
 import org.ugguss.repository.IUserRepository;
@@ -47,7 +48,9 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
     private IUserRepository iUserRepository;
     @Autowired
     private UserServiceMapperUtil userServiceMapperUtil;
-	
+    @Autowired
+    private IAppParameterRepository iAppParameterRepository;
+    
 	@Override
 	public GussMember getGussMemberByMemberId(String memberId) {
 		return iGussMemberRepository.findGussMemberByMemberId(memberId);
