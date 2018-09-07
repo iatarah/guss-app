@@ -132,7 +132,7 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `guss_db`.`guss_member_contribution` 
 ADD CONSTRAINT doc-id_ssn_category UNIQUE (`doc_id` ASC, `guss_member_ssn` ASC, `contribution_category` ASC);
-
+ALTER TABLE `guss_member_contribution` ADD UNIQUE `unique_index`(`fiscal_month`, `fiscal_year`, `guss_member_ssn`);
 ALTER TABLE `guss_db`.`guss_member_contribution` 
 ADD COLUMN `amount` DECIMAL(13,4) NULL DEFAULT 0.0000 AFTER `last_updated`;
 
