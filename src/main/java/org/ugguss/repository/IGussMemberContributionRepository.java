@@ -21,4 +21,6 @@ public interface IGussMemberContributionRepository extends JpaRepository<GussMem
 	@Query("FROM GussMemberContribution c WHERE c.paymentDate BETWEEN :startDate AND :endDate")
 	List<GussMemberContribution> findContributionByDate(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 	
+	@Query("SELECT COUNT(*) FROM GussMemberContribution c WHERE c.gussMember.memberSsn = :memberId  AND c.amount IS NOT NULL")
+	Long getTotalContributionMonths(@Param("memberId") String memberId);
 }
