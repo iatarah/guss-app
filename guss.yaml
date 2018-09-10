@@ -229,6 +229,25 @@ paths:
             description: Succeful Response for editing guss member contribution
             schema:
                 $ref: '#/definitions/ContributionResponse'
+  /member-benefits:
+    post:
+      tags:
+        -  memberContribution
+      description: 'called to computer member benefits'
+      operationId: retrieveBenefits
+      produces:
+          - application/json
+      parameters:
+          - name: benefitsRequest
+            in: body
+            required: true
+            schema:
+              $ref: '#/definitions/BenefitsRequest'
+      responses:
+          "200":
+            description: Succeful Response for retrieving guss member benefits
+            schema:
+                $ref: '#/definitions/BenefitsResponse'
 definitions:
   UserProfile:
     type: object
@@ -395,6 +414,12 @@ definitions:
     enum:
     - M
     - F
+  BenefitsType:
+    type: string
+    enum:
+    - PENSION
+    - REFUND
+    - UNEXPIRED_PENSION
   LoginRequest:
      type: object
      properties:
@@ -432,3 +457,47 @@ definitions:
         $ref: '#/definitions/BaseRequest'
       memberId:
         type: string
+  BenefitsRequest:
+    type: object
+    properties:
+      baseRequest:
+        $ref: '#/definitions/BaseRequest'
+      memberId:
+        type: string
+      benefitsType:
+        $ref: '#/definitions/BenefitsType'
+  BenefitsResponse:
+    type: object
+    properties:
+      baseResponse:
+        $ref: '#/definitions/BaseResponse'
+      pensionBenefits:
+        $ref: '#/definitions/PensionBenefits'
+      refundBenefits:
+        $ref: '#/definitions/RefundBenefits'
+  PensionBenefits:
+    type: object
+    properties:
+      terminalSalary:
+        type: number
+      monthsEntitled:
+        type: number
+      fullPension:
+        type: number
+      monthlyPension:
+        type: number
+      gratuity:
+        type: number
+  RefundBenefits:
+    type: object
+    properties:
+      totalContribution:
+        type: number
+      totalInterest:
+        type: number
+      totalPayable:
+        type: number
+      contributionHistory:
+        type: array
+        items:
+          $ref: '#/definitions/Contribution'
