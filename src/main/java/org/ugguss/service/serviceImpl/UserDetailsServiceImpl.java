@@ -29,6 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         try {
             User user = iUserRepository.findUserByEmail(username);
             System.out.println(user);
+            System.out.println("Spring Security called by" + user);
             if (user == null) {
                 throw new UsernameNotFoundException("No user found with username: " + username);
             }

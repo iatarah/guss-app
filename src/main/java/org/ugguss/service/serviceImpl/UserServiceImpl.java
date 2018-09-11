@@ -91,13 +91,15 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
-        return null;
+        System.out.println("I was here getting Authorities");
+    	return null;
     }
 
 
     private Collection<? extends GrantedAuthority> getAuthorities(User user) {
         Collection<GrantedAuthority> authorities = new HashSet<>();
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole().getRoleName());
+        System.out.println("Adding Role " + user.getRole().getRoleName());
         authorities.add(grantedAuthority);
         return authorities;
     }

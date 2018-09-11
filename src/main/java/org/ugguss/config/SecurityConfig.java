@@ -1,34 +1,29 @@
 package org.ugguss.config;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.savedrequest.NullRequestCache;
-import org.springframework.session.web.http.HeaderHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
-import org.ugguss.repository.IUserRepository;
-import org.ugguss.service.IUserService;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
 
 @Configuration
 @ComponentScan(basePackages = { "org.ugguss.*" })
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static String REALM = "MY_TEST_REALM";
+/*    private static String REALM = "MY_TEST_REALM";
 
     @Autowired
     private IUserRepository userRepository;
@@ -41,10 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder authenticationMgr) throws Exception {
        authenticationMgr.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
-/*
+
         authenticationMgr.inMemoryAuthentication().withUser("john4@gmail.com").password("12345").roles("ADMIN");
         authenticationMgr.inMemoryAuthentication().withUser("hiab4@gmail.com").password("12345").roles("STAFF");
-*/
+
     }
 
     @Override
@@ -61,9 +56,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+               http
                 .csrf().disable()
                 .authorizeRequests()
+                //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
                 .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasRole("ADMIN")
                 .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
@@ -71,11 +67,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/protectedbyrole").hasRole("GUSS_MEMBER")
                 .antMatchers("/protectedforadmin").hasRole("ADMIN")
                 .antMatchers("/protectedforstaff").hasRole("STAFF")
+                .anyRequest().fullyAuthenticated()
                 .and().httpBasic().realmName(REALM).authenticationEntryPoint(getBasicAuthEntryPoint())
-                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and().requestCache().requestCache(new NullRequestCache());
                 //.anyRequest().authenticated();
-    }
+
+    	}
 
     @Bean
     public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
@@ -86,6 +84,60 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }*/
+	
+	@Resource(name = "UserDetailsServiceImpl")
+	private UserDetailsServiceImpl userDetailsServiceImpl;
+	
+	@Autowired
+	private JwtAuthenticationEntryPoint unauthorizedHandler;
+	
+	@Override
+	@Bean
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
+	
+    @Autowired
+    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
+    	auth.userDetailsService(userDetailsServiceImpl)
+    		.passwordEncoder(encoder());
     }
-
+   
+    @Bean
+    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
+		// TODO Auto-generated method stub
+    	return new JwtAuthenticationFilter();
+	}
+    
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+    	http.cors().and().csrf().disable()
+    	.authorizeRequests()
+        .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
+    	.antMatchers("/token/*").permitAll()
+        .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasRole("ADMIN")
+        .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
+        .antMatchers("/rest/ugguss/api/v1/profiles/1").permitAll()
+        .antMatchers("/protectedbyrole").hasRole("GUSS_MEMBER")
+        .antMatchers("/protectedforadmin").hasRole("ADMIN")
+        .antMatchers("/protectedforstaff").hasRole("STAFF")
+        .anyRequest().authenticated()
+        .and()
+        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+        .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+    }
+    
+    @SuppressWarnings("deprecation")
+    @Bean
+    public static NoOpPasswordEncoder noEncoder() {
+        return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+    }
+    
+    @Bean
+    public BCryptPasswordEncoder encoder() {
+    	return new BCryptPasswordEncoder();
+    }
 }
