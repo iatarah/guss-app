@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.BaseResponse;
@@ -31,6 +32,9 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 	@Autowired
 	private IRoleService iRoleService;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	@Override
 	public UserRegistrationResponse registerUser(UserRegistrationRequest userRegistrationRequest) {
 		
@@ -39,11 +43,14 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 		AppUser appUser = userRegistrationRequest.getAppUser();
 		User user = userServiceMapperUtil.appUserToDbUser(appUser);
 		Role role = iRoleService.getRoleByRoleName(AppConstants.ADMIN);
-		
+
 		if(user == null || role == null) {
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 		}
-		
+
+		// Encode the password for Security Purpose
+		String password = user.getPassword();
+		user.setPassword(bCryptPasswordEncoder.encode(password));
 		RegistrationUtil.populateUserExtraAttributes(userRegistrationRequest, role, user);
 		
 		try {

@@ -26,6 +26,7 @@ public interface  UserServiceMapperUtil {
 		@Mapping(target = "gender", source = "gender"),
 		@Mapping(target = "dob", source = "dateOfBirth", dateFormat = "dd-MM-yyyy"),
 		@Mapping(target = "status", source = "status"),
+			@Mapping(target = "password", source ="password" )
 		//@Mapping(target = "dateCreated", source = ""),
 		//@Mapping(target = "lastUpdated", source = ""),
 	})
