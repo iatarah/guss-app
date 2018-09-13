@@ -48,8 +48,8 @@ public class StaffUserServiceImplProvider extends UserServiceImplProvider{
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 		}
 		// Encode the password for Security Purpose
-		String password = user.getPassword();
-		user.setPassword(bCryptPasswordEncoder.encode(password));
+/*		String password = user.getPassword();
+		user.setPassword(bCryptPasswordEncoder.encode(password));*/
 		RegistrationUtil.populateUserExtraAttributes(userRegistrationRequest, role, user);
 		
 		try {

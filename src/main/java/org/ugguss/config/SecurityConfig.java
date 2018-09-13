@@ -3,6 +3,7 @@ package org.ugguss.config;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,12 +11,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
 
 @Configuration
@@ -85,9 +89,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static NoOpPasswordEncoder passwordEncoder() {
         return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
     }*/
-	
-	@Resource(name = "UserDetailsServiceImpl")
-	private UserDetailsServiceImpl userDetailsServiceImpl;
+    @Autowired
+    private IUserRepository userRepository;
+    
+    @Override
+    public UserDetailsService userDetailsServiceBean() throws Exception {
+        return new UserDetailsServiceImpl(userRepository);
+    	//return null;
+    }
+    
+/*	@Autowired
+	@Qualifier(value="UserDetailsServiceImpl")
+	private UserDetailsServiceImpl userDetailsServiceImpl;*/
 	
 	@Autowired
 	private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -100,8 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-    	auth.userDetailsService(userDetailsServiceImpl)
-    		.passwordEncoder(encoder());
+    	auth.userDetailsService(userDetailsServiceBean())
+    		.passwordEncoder(noEncoder());
     }
    
     @Bean
@@ -115,7 +128,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http.cors().and().csrf().disable()
     	.authorizeRequests()
         .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
-    	.antMatchers("/token/*").permitAll()
+    	.antMatchers("/token/*", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
+    	.antMatchers("/css/**", "/js/**", "/images/**", "/styles.js", "/vendor.js", "/polyfills.js", "/runtime.js").permitAll()
         .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasRole("ADMIN")
         .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
         .antMatchers("/rest/ugguss/api/v1/profiles/1").permitAll()
@@ -128,6 +142,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
         .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+    }
+    
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+    	web.ignoring()
+    		.antMatchers("/resources/**")
+    		.antMatchers("/favicon.ico");
     }
     
     @SuppressWarnings("deprecation")

@@ -15,8 +15,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
 import org.ugguss.service.serviceImpl.UserServiceImpl;
 
@@ -28,12 +31,21 @@ import static org.ugguss.util.constants.SecurityConstants.TOKEN_PREFIX;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	private static final Logger LOG = LogManager.getLogger(JwtAuthenticationFilter.class);
-	@Autowired
+/*	@Autowired
 	@Qualifier("UserDetailsServiceImpl")
-	private UserDetailsServiceImpl userDetailsServiceImpl;
+	private UserDetailsServiceImpl userDetailsServiceImpl;*/
+	
+    @Autowired
+    private IUserRepository userRepository;
+    
+    
+    public UserDetailsService userDetailsServiceBean() throws Exception {
+        return new UserDetailsServiceImpl(userRepository);
+    	//return null;
+    }
 	
 	@Autowired
-	private JwtTokenUtil jwtTokenUtil;
+	private TokenProvider jwtTokenUtil;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain ) throws IOException, ServletException {
@@ -55,7 +67,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	           logger.warn("couldn't find bearer string, will ignore the header");
 		}
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(username);
+			UserDetails userDetails = null;
+			try {
+				userDetails = userDetailsServiceBean().loadUserByUsername(username);
+			} catch (UsernameNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (jwtTokenUtil.validateToken(authToken, userDetails)) {
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(req));

@@ -49,8 +49,8 @@ public class AdminUserServiceImplProvider extends UserServiceImplProvider{
 		}
 
 		// Encode the password for Security Purpose
-		String password = user.getPassword();
-		user.setPassword(bCryptPasswordEncoder.encode(password));
+/*		String password = user.getPassword();
+		user.setPassword(bCryptPasswordEncoder.encode(password));*/
 		RegistrationUtil.populateUserExtraAttributes(userRegistrationRequest, role, user);
 		
 		try {
