@@ -19,5 +19,10 @@ public class AppConstants {
 	public static final String GUSS_MEMBER_ACTIVE_STATUS = "ACTIVE";
 	public static final String GUSS_MEMBER_INACTIVE_STATUS = "INACTIVE";
 	
+	public static final String FACTOR_ENH = "FACTOR_ENH";
+	public static final String FACTOR_G = "FACTOR_G";
+	public static final String FACTOR_M = "FACTOR_M";
+	public static final String TOTAL_MONTHS = "TOTAL_MONTHS";
+	
 	
 }

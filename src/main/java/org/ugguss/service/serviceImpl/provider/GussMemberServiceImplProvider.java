@@ -1,10 +1,11 @@
 package org.ugguss.service.serviceImpl.provider;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import static java.lang.Math.toIntExact;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,20 @@ import org.springframework.stereotype.Component;
 import org.ugguss.controllerimpl.ProfilesApiController;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.BaseResponse;
+import org.ugguss.generated.model.BenefitsRequest;
+import org.ugguss.generated.model.BenefitsResponse;
 import org.ugguss.generated.model.Contribution;
 import org.ugguss.generated.model.ContributionHistoryResponse;
 import org.ugguss.generated.model.ContributionRequest;
 import org.ugguss.generated.model.ContributionResponse;
 import org.ugguss.generated.model.Member;
+import org.ugguss.generated.model.PensionBenefits;
 import org.ugguss.generated.model.UserProfileResponse;
+import org.ugguss.model.AppParameter;
 import org.ugguss.model.GussMember;
 import org.ugguss.model.GussMemberContribution;
 import org.ugguss.model.User;
+import org.ugguss.repository.IAppParameterRepository;
 import org.ugguss.repository.IGussMemberContributionRepository;
 import org.ugguss.repository.IGussMemberRepository;
 import org.ugguss.repository.IUserRepository;
@@ -47,7 +53,9 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
     private IUserRepository iUserRepository;
     @Autowired
     private UserServiceMapperUtil userServiceMapperUtil;
-	
+    @Autowired
+    private IAppParameterRepository iAppParameterRepository;
+    
 	@Override
 	public GussMember getGussMemberByMemberId(String memberId) {
 		return iGussMemberRepository.findGussMemberByMemberId(memberId);
@@ -151,4 +159,82 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 		return response;
 	}
 
+	@Override
+	public BenefitsResponse retrieveBenefits(BenefitsRequest benefitsRequest) throws Exception {
+		BenefitsResponse response = new BenefitsResponse();
+		response.baseResponse(new BaseResponse());
+		
+		if(benefitsRequest == null
+				|| benefitsRequest.getMemberId() ==  null
+				|| benefitsRequest.getBenefitsType() == null) {
+			LOG.debug("Input for benefits retrieval not valid, request: {}", benefitsRequest);
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
+			return response;
+			
+		}
+		
+		GussMember member = getGussMemberByMemberId(benefitsRequest.getMemberId());
+		if(member == null
+				|| member.getCurrentSalary() == null) {
+			LOG.debug("No current salary for such member with memberId : {}", benefitsRequest.getMemberId());
+			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
+			return response;
+		}
+		
+		// TODO: logic here to compute other kinds of benefits (unExpired and refund)
+		int monthsServed = toIntExact(iGussMemberContributionRepository.getTotalContributionMonths(benefitsRequest.getMemberId()));
+		
+		List<AppParameter> appParams = iAppParameterRepository.findAll();
+		Double FACTOR_ENH = null;
+		Double FACTOR_G = null;
+		Double FACTOR_M = null;
+		Integer TOTAL_MONTHS = null;
+		Double enhSal = null;
+		for(AppParameter param : appParams) {
+			if(AppConstants.FACTOR_ENH.equalsIgnoreCase(param.getParamName())) {
+				FACTOR_ENH = Double.parseDouble(param.getParamValue());
+			} else if(AppConstants.FACTOR_G.equalsIgnoreCase(param.getParamName())) {
+				FACTOR_G = Double.parseDouble(param.getParamValue());
+			} else if(AppConstants.FACTOR_M.equalsIgnoreCase(param.getParamName())) {
+				FACTOR_M = Double.parseDouble(param.getParamValue());
+			} else if(AppConstants.TOTAL_MONTHS.equalsIgnoreCase(param.getParamName())) {
+				TOTAL_MONTHS = Integer.parseInt(param.getParamValue());
+			}
+		}
+		enhSal = FACTOR_ENH * member.getCurrentSalary();
+		PensionBenefits pensionBenefits = computePensionBenefits(monthsServed, member.getCurrentSalary(), 
+				enhSal, FACTOR_G, FACTOR_M, TOTAL_MONTHS);
+		response.setPensionBenefits(pensionBenefits);
+		response.getBaseResponse().setReturnCode(AppConstants.SUCCESS_CODE);
+		return response;
+	}
+	
+	public PensionBenefits computePensionBenefits(int monthsServed, double currentSalary,
+			double enhSal,
+			double factorG,
+			double factorM,
+			int totalMonths) {
+		PensionBenefits pensionBenefits = new PensionBenefits();
+		
+		double fullPension = (monthsServed * currentSalary)/totalMonths;
+		pensionBenefits.setFullPension(BigDecimal.valueOf(fullPension));
+		pensionBenefits.setTerminalSalary(BigDecimal.valueOf(currentSalary));
+		pensionBenefits.monthsEntitled(BigDecimal.valueOf(monthsServed));
+		pensionBenefits.setGratuity(BigDecimal.valueOf(
+				computeGratuity(enhSal, factorG, monthsServed, totalMonths)));
+		pensionBenefits.setMonthlyPension(BigDecimal.valueOf(
+				computeMonthlyPension(enhSal, factorM, monthsServed, totalMonths)));
+		return pensionBenefits;
+		
+	}
+	
+	public double computeMonthlyPension(double enhSal, double factorM, int monthsServed, int totalMonths) {
+		double monthlyPen = ((enhSal * monthsServed) * factorM)/totalMonths;
+		return monthlyPen;
+	}
+	
+	public double computeGratuity(double enhSal, double factorG, int monthsServed, int totalMonths) {
+		double monthlyPen = ((enhSal * monthsServed) * factorG)/totalMonths;
+		return monthlyPen;
+	}
 }

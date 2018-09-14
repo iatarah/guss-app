@@ -132,7 +132,8 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `guss_db`.`guss_member_contribution` 
 ADD CONSTRAINT doc-id_ssn_category UNIQUE (`doc_id` ASC, `guss_member_ssn` ASC, `contribution_category` ASC);
-
+ALTER TABLE `guss_db`.`guss_member_contribution`
+ADD CONSTRAINT month_ssn_yr UNIQUE (`fiscal_month`, `fiscal_year`, `guss_member_ssn`);
 ALTER TABLE `guss_db`.`guss_member_contribution` 
 ADD COLUMN `amount` DECIMAL(13,4) NULL DEFAULT 0.0000 AFTER `last_updated`;
 
@@ -208,3 +209,20 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
+-----------------------------------------------
+-- Params table
+-----------------------------------------------
+CREATE TABLE `guss_db`.`app_parameters` (
+  `param_name` VARCHAR(50) NOT NULL,
+  `param_value` VARCHAR(80) NULL,
+  PRIMARY KEY (`param_name`),
+  UNIQUE INDEX `param_name_UNIQUE` (`param_name` ASC));
+  
+-----------------------------------------------
+-- interest rate table
+-----------------------------------------------
+CREATE TABLE `guss_db`.`yrly_rate` (
+  `year` INT NOT NULL,
+  `rate` DECIMAL(10,3) NULL,
+  PRIMARY KEY (`year`),
+  UNIQUE INDEX `year_UNIQUE` (`year` ASC));
