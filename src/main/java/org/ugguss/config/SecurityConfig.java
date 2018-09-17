@@ -128,7 +128,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http.cors().and().csrf().disable()
     	.authorizeRequests()
         .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
-    	.antMatchers("/token/*", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
+    	.antMatchers("/rest/ugguss/api/v1/token/auth", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
     	.antMatchers("/css/**", "/js/**", "/images/**", "/styles.js", "/vendor.js", "/polyfills.js", "/runtime.js").permitAll()
         .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasRole("ADMIN")
         .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")

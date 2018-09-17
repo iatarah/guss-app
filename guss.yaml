@@ -92,6 +92,26 @@ paths:
             description: Succeful Response for user registration
             schema:
                 $ref: '#/definitions/UserRegistrationResponse'
+  /token/auth:
+     post:
+        tags:
+        - authentication
+        summary: Authenticate User and Generate Token
+        description: ''
+        operationId: authenticate
+        produces:
+           - application/json
+        parameters: 
+           - name: loginRequest
+             in: body
+             required: true
+             schema: 
+                $ref: '#/definitions/LoginRequest'
+        responses:
+           '200':
+              description: OK
+              schema: 
+                 $ref: '#/definitions/AuthToken'
   /userType:
     get:
       tags:
@@ -402,6 +422,11 @@ definitions:
           type: string
        password:
           type: string
+  AuthToken:
+     type: object
+     properties:
+        token:
+           type: string
   ContributionRequest:
     type: object
     properties:

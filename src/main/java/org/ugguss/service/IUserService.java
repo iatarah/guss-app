@@ -19,4 +19,5 @@ public interface IUserService {
     Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles);
     UserProfileResponse getUserByUserName(String userName);
     
+    
 }
