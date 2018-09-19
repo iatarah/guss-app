@@ -3,7 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthenticationService } from '../../gen';
+import { AuthenticationService, LoginRequest } from '../../gen';
+
 
 @Component({
   selector: 'app-login',
@@ -24,7 +25,15 @@ export class LoginComponent implements OnInit {
     }
     // TODO: call authentication service and authenticate user here
     if(this.loginForm.controls.email.value && this.loginForm.controls.password.value) {
-      
+      let loginRequest: LoginRequest;
+      loginRequest.email = this.loginForm.controls.email.value;
+      loginRequest.password = this.loginForm.controls.password.value;
+      this.authService.authenticate(loginRequest).subscribe(
+        (response: any) => {
+          console.log("Response coming from authentication");
+          console.log(response);
+        }
+      )
         this.router.navigate(['user-profile', this.loginForm.controls.email.value]);
     }else {
       this.invalidLogin = true;

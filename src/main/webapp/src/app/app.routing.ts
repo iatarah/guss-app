@@ -6,10 +6,19 @@ import { LoginComponent } from './app-security/login/login.component';
 import { MemberContributionComponent } from './member-contribution/member-contribution.component';
 import { ModuleWithProviders, Component } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import { AuthGuard } from './auth-guard.service';
 
 export const AppRoutes: Routes = [
-    {path: '', component: LoginComponent},
-    {path: 'user-profile/:userName', component: UserProfileComponent},
+    {path: '', redirectTo:'login', pathMatch: 'full'},
+    {path: 'login', component: LoginComponent},
+    {
+        path: 'user-profile/:userName', 
+        component: UserProfileComponent,
+        canActivate: [AuthGuard],
+        data: {
+            expectedRole: 'staff'
+        }
+    },
     {path: 'contribution/:memberId', component: MemberContributionComponent},
     {path: 'registration', component: UserRegistrationComponent},
     {path: 'contribution-entry', component: MemberContributionEntryComponent},
