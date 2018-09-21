@@ -16,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './shared/_services/auth.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,9 @@ import { AuthService } from './shared/_services/auth.service';
     MemberContributionModule,
     BrowserAnimationsModule
   ],
-  providers: [ AuthGuard, AuthService ],
+  providers: [ 
+    AuthGuard, 
+    AuthService ],
   exports: [
     LoginComponent
   ],

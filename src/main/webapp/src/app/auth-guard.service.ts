@@ -17,6 +17,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+        console.log("Am here");
         const expectedRole = route.data.expectedRole;
         const token = localStorage.getItem('token');
         const tokenPayload = decode(token);

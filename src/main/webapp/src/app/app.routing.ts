@@ -9,8 +9,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
 
 export const AppRoutes: Routes = [
-    {path: '', redirectTo:'login', pathMatch: 'full'},
-    {path: 'login', component: LoginComponent},
+   // {path: '', redirectTo:'login', pathMatch: 'full'},
+    {path: '', component: LoginComponent, pathMatch: 'full'},
     {
         path: 'user-profile/:userName', 
         component: UserProfileComponent,
