@@ -6,6 +6,7 @@ public enum RestEndpointConstants {
         public static final String BASE_API = "/rest/ugguss/api/v1";
         public static final String LOGIN = "/login";
         public static final String LOGOUT = "/logout";
+        public static final String AUTH = "/token/auth";
         public static final String GET_MEMBER_PROFILE = "profiles/{userName}";
         public static final String REGISTER_USER = "/registration";
         public static final String ADMIN_ONLY = "/protectedbyadmin";

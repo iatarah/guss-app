@@ -14,6 +14,9 @@ import { MemberContributionComponent } from './member-contribution/member-contri
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './shared/_services/auth.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
     MemberContributionModule,
     BrowserAnimationsModule
   ],
+  providers: [ 
+    AuthGuard, 
+    AuthService ],
   exports: [
     LoginComponent
   ],

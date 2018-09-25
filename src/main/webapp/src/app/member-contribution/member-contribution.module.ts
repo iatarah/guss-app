@@ -16,6 +16,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 
 import {MomentDateModule} from '@angular/material-moment-adapter';
+import { AuthGuard } from '../auth-guard.service';
+import { AuthService } from '../shared/_services/auth.service';
 
 @NgModule({
   imports: [
@@ -36,6 +38,11 @@ import {MomentDateModule} from '@angular/material-moment-adapter';
   ],
   exports: [MemberContributionComponent, MatInputModule, MatTableModule],
   declarations: [MemberContributionComponent, MemberContributionEntryComponent],
-  providers: [DatePipe]
+  providers: [
+    DatePipe,
+    AuthGuard, 
+    AuthService
+  ]
+
 })
 export class MemberContributionModule { }

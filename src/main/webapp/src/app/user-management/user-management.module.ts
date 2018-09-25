@@ -20,6 +20,8 @@ import {MatNativeDateModule, MatIconModule} from '@angular/material';
 import {MomentDateModule} from '@angular/material-moment-adapter';
 import {MatListModule} from '@angular/material/list';
 import { MemberProfileComponent } from './member-profile/member-profile.component';
+import { AuthGuard } from '../auth-guard.service';
+import { AuthService } from '../shared/_services/auth.service';
 
 @NgModule({
   imports: [
@@ -47,7 +49,9 @@ import { MemberProfileComponent } from './member-profile/member-profile.componen
     MemberProfileComponent
   ],
   providers: [
-    AlertService
+    AlertService,
+    AuthGuard, 
+    AuthService 
   ],
   exports: [UserProfileComponent, UserRegistrationComponent]
 })

@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.ugguss.config.JwtTokenUtil;
 import org.ugguss.generated.controller.LoginApi;
 import org.ugguss.generated.model.LoginRequest;
 import org.ugguss.generated.model.UserProfile;
@@ -24,15 +26,19 @@ public class LoginApiController implements LoginApi {
     @Autowired
     @Qualifier(value="userDetailsService")
     private IUserService userService;
+    
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Override
     @RequestMapping(value = RestEndpointConstants.Constants.BASE_API +"/" + RestEndpointConstants.Constants.LOGIN,
             produces = { "application/json" },
             method = RequestMethod.POST)
     public ResponseEntity<UserProfile> login(@ApiParam(value = "" ,required=true )  @Valid @RequestBody LoginRequest loginRequest) {
-        
-        UserDetails user = userService.loadUserByUsername(loginRequest.getEmail());
-
+    	UserDetails user = userService.loadUserByUsername(loginRequest.getEmail());
         UserProfile userProfile = new UserProfile();
         userProfile.firstName(user.getUsername());
 
