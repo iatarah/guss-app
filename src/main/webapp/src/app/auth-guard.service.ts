@@ -11,29 +11,20 @@ import decode from 'jwt-decode';
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(public router: Router, 
-                public route : ActivatedRouteSnapshot,
                 public geneAuthService: AuthenticationService,
                 public auth : AuthService) {
 
     }
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-        console.log("Am here");
-        const expectedRole = route.data.expectedRole;
-        const token = localStorage.getItem('token');
-        const tokenPayload = decode(token);
-        if(!this.auth.isAuthenticated() || tokenPayload.role !== expectedRole) {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        if(!this.auth.isAuthenticated()) {
             this.router.navigate([AppConfig.routes.login]);
             return false;
         }
         return true;
     }    
     
-    
-    canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-        return this.canActivate(this.route, state);
-    }
-
-                 
-                
+    canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        return this.canActivate(route, state);
+    }         
 
 }

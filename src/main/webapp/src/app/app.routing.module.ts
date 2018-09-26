@@ -4,16 +4,17 @@ import { UserRegistrationComponent } from './user-management/user-registration/u
 import { UserProfileComponent } from './user-management/user-profile/user-profile.component';
 import { LoginComponent } from './app-security/login/login.component';
 import { MemberContributionComponent } from './member-contribution/member-contribution.component';
-import { ModuleWithProviders, Component } from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { ModuleWithProviders, Component, NgModule } from '@angular/core';
+import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
 
-export const AppRoutes: Routes = [
+export const appRoutes: Routes = [
    // {path: '', redirectTo:'login', pathMatch: 'full'},
     {path: '', component: LoginComponent, pathMatch: 'full'},
     {
         path: 'user-profile/:userName', 
-        component: UserProfileComponent,
+        component: UserProfileComponent
+        ,
         canActivate: [AuthGuard],
         data: {
             expectedRole: 'staff'
@@ -25,4 +26,14 @@ export const AppRoutes: Routes = [
     {path: 'member-profile/:memberId', component: MemberProfileComponent},
 ];
 
-export const ROUTING: ModuleWithProviders = RouterModule.forRoot(AppRoutes, {useHash: true});
+@NgModule({
+    imports: [
+        RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules, useHash: true})
+    ],
+    exports: [
+        RouterModule
+    ]
+})
+export class AppRoutingModule {
+
+}

@@ -3,7 +3,7 @@ import { UserManagementModule } from './user-management/user-management.module';
 
 import { AppSecurityModule } from './app-security/app-security.module';
 import { LoginComponent } from './app-security/login/login.component';
-import { ROUTING } from './app.routing';
+import { AppRoutingModule } from './app.routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,6 +17,7 @@ import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './shared/_services/auth.service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { RoleGuard } from './role-guard.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     BrowserModule, 
     HttpClientModule, 
     ApiModule,
-    ROUTING,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     AppSecurityModule,
@@ -36,6 +37,7 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
   ],
   providers: [ 
     AuthGuard, 
+    RoleGuard,
     AuthService ],
   exports: [
     LoginComponent
