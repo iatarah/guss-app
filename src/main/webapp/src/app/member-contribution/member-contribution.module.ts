@@ -1,4 +1,4 @@
-import { ROUTING } from './../app.routing';
+import { AppRoutingModule } from '../app.routing.module';
 import { MemberContributionComponent } from './member-contribution.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ import {MatNativeDateModule} from '@angular/material';
 import {MomentDateModule} from '@angular/material-moment-adapter';
 import { AuthGuard } from '../auth-guard.service';
 import { AuthService } from '../shared/_services/auth.service';
+import { RoleGuard } from '../role-guard.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,7 @@ import { AuthService } from '../shared/_services/auth.service';
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule,
-    ROUTING,
+    AppRoutingModule,
     MatStepperModule,
     MatTableModule,
     MatDatepickerModule,
@@ -41,7 +42,8 @@ import { AuthService } from '../shared/_services/auth.service';
   providers: [
     DatePipe,
     AuthGuard, 
-    AuthService
+    AuthService,
+    RoleGuard
   ]
 
 })

@@ -23,17 +23,19 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    console.log("Am here on submit");
     // TODO: call authentication service and authenticate user here
     if(this.loginForm.controls.email.value && this.loginForm.controls.password.value) {
-      let loginRequest: LoginRequest;
-      loginRequest.email = this.loginForm.controls.email.value;
-      loginRequest.password = this.loginForm.controls.password.value;
-      this.authService.authenticate(loginRequest).subscribe(
-        (response: any) => {
-          console.log("Response coming from authentication");
-          console.log(response);
-        }
-      )
+      console.log("Am here inside");
+      // let loginRequest: LoginRequest = null;
+      //  loginRequest.password = this.loginForm.controls.password.value;
+      // // loginRequest.email = this.loginForm.controls.email.value;
+      // this.authService.authenticate(loginRequest).subscribe(
+      //   (response: any) => {
+      //     console.log("Response coming from authentication");
+      //     console.log(response);
+      //   }
+      // )
         this.router.navigate(['user-profile', this.loginForm.controls.email.value]);
     }else {
       this.invalidLogin = true;

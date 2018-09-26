@@ -2,7 +2,6 @@ import { AlertService } from './../shared/_services/alert.service';
 import { AlertComponent } from './../shared/_directives/alert.component';
 import { MemberContributionComponent } from './../member-contribution/member-contribution.component';
 import { MemberContributionModule } from './../member-contribution/member-contribution.module';
-import { ROUTING } from './../app.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -22,11 +21,13 @@ import {MatListModule} from '@angular/material/list';
 import { MemberProfileComponent } from './member-profile/member-profile.component';
 import { AuthGuard } from '../auth-guard.service';
 import { AuthService } from '../shared/_services/auth.service';
+import { RoleGuard } from '../role-guard.service';
+import { AppRoutingModule } from '../app.routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    ROUTING,
+    AppRoutingModule,
     MemberContributionModule,
     FormsModule,
     ReactiveFormsModule,
@@ -51,6 +52,7 @@ import { AuthService } from '../shared/_services/auth.service';
   providers: [
     AlertService,
     AuthGuard, 
+    RoleGuard,
     AuthService 
   ],
   exports: [UserProfileComponent, UserRegistrationComponent]
