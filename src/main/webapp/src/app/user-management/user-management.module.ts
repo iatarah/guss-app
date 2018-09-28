@@ -23,6 +23,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { AuthService } from '../shared/_services/auth.service';
 import { RoleGuard } from '../role-guard.service';
 import { AppRoutingModule } from '../app.routing.module';
+import { AuthenticationService } from '../gen';
 
 @NgModule({
   imports: [
@@ -53,7 +54,8 @@ import { AppRoutingModule } from '../app.routing.module';
     AlertService,
     AuthGuard, 
     RoleGuard,
-    AuthService 
+    AuthService,
+    AuthenticationService
   ],
   exports: [UserProfileComponent, UserRegistrationComponent]
 })

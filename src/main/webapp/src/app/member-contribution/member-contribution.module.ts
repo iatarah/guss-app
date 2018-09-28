@@ -19,6 +19,7 @@ import {MomentDateModule} from '@angular/material-moment-adapter';
 import { AuthGuard } from '../auth-guard.service';
 import { AuthService } from '../shared/_services/auth.service';
 import { RoleGuard } from '../role-guard.service';
+import { AuthenticationService } from '../gen';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { RoleGuard } from '../role-guard.service';
     DatePipe,
     AuthGuard, 
     AuthService,
+    AuthenticationService,
     RoleGuard
   ]
 

@@ -18,6 +18,7 @@ import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './shared/_services/auth.service';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { RoleGuard } from './role-guard.service';
+import { AuthenticationService } from './gen';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { RoleGuard } from './role-guard.service';
   providers: [ 
     AuthGuard, 
     RoleGuard,
-    AuthService ],
+    AuthService,
+    AuthenticationService
+   ],
   exports: [
     LoginComponent
   ],

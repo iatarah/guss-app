@@ -13,8 +13,7 @@ export const appRoutes: Routes = [
     {path: '', component: LoginComponent, pathMatch: 'full'},
     {
         path: 'user-profile/:userName', 
-        component: UserProfileComponent
-        ,
+        component: UserProfileComponent,
         canActivate: [AuthGuard],
         data: {
             expectedRole: 'staff'
