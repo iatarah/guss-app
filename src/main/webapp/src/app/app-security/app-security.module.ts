@@ -7,6 +7,7 @@ import { AppRoutingModule } from '../app.routing.module';
 import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
+import { LogintestComponent } from './login_test/logintest.component';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { AuthenticationService } from '../gen';
     AppRoutingModule
   ],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogintestComponent
   ],
   providers: [
     AuthGuard, 

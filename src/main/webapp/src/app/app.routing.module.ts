@@ -7,10 +7,11 @@ import { MemberContributionComponent } from './member-contribution/member-contri
 import { ModuleWithProviders, Component, NgModule } from '@angular/core';
 import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
+import { LogintestComponent } from './app-security/login_test/logintest.component';
 
 export const appRoutes: Routes = [
    // {path: '', redirectTo:'login', pathMatch: 'full'},
-    {path: '', component: LoginComponent, pathMatch: 'full'},
+    {path: '', component: LogintestComponent, pathMatch: 'full'},
     {
         path: 'user-profile/:userName', 
         component: UserProfileComponent,
