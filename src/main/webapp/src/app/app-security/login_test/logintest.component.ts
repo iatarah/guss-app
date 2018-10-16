@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, FormControl, Validators } from "@angular/forms";
 import { LoginRequest, AuthenticationService } from "../../gen";
+import { AuthService } from "../../shared/_services/auth.service";
 
 @Component({
     selector: 'app-logintest',
@@ -10,7 +11,10 @@ export class LogintestComponent implements OnInit {
     loginForm : FormGroup;
 
     constructor(private formBuilder : FormBuilder,
-                private authService : AuthenticationService) {}
+                private authService : AuthenticationService,
+                private authService2 : AuthService
+                ) {}
+                // 
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -21,11 +25,18 @@ export class LogintestComponent implements OnInit {
 
     onSubmit(user : any) {
         let loginRequest : LoginRequest = user;
-        this.authService.authenticate(loginRequest).subscribe(
+        // this.authService.authenticate(loginRequest).subscribe(
+        //     (response) => {
+        //         console.log('Response coming from authentication');
+        //         console.log(response);
+        //     }
+        // );
+
+        this.authService2.authenticateNew(loginRequest).subscribe(
             (response) => {
-                console.log('Response coming from authentication');
+                console.log('Response Coming form authentication');
                 console.log(response);
             }
-        )
+        );
     }
 }

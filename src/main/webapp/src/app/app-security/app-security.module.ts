@@ -8,6 +8,8 @@ import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
 import { LogintestComponent } from './login_test/logintest.component';
+import { AuthService } from '../shared/_services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ import { LogintestComponent } from './login_test/logintest.component';
   providers: [
     AuthGuard, 
     RoleGuard,
-    AuthenticationService
+    AuthenticationService,
+    JwtHelperService,
+    AuthService
   ],
   exports: [
     LoginComponent
