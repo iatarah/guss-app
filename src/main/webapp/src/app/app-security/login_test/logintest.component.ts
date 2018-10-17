@@ -18,25 +18,27 @@ export class LogintestComponent implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            username : new FormControl('', Validators.required),
+            email : new FormControl('', Validators.required),
             password : new FormControl('', Validators.required)
         })
     }
 
     onSubmit(user : any) {
         let loginRequest : LoginRequest = user;
-        // this.authService.authenticate(loginRequest).subscribe(
-        //     (response) => {
-        //         console.log('Response coming from authentication');
-        //         console.log(response);
-        //     }
-        // );
-
-        this.authService2.authenticateNew(loginRequest).subscribe(
+        console.log(loginRequest.email);
+        console.log(loginRequest.password);
+        this.authService.authenticate(user, 'body', false).subscribe(
             (response) => {
-                console.log('Response Coming form authentication');
+                console.log('Response coming from authentication');
                 console.log(response);
             }
         );
+
+        // this.authService2.authenticateNew(loginRequest).subscribe(
+        //     (response) => {
+        //         console.log('Response Coming form authentication');
+        //         console.log(response);
+        //     }
+        // );
     }
 }

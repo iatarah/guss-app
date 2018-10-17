@@ -24,6 +24,7 @@ import { AuthGuard } from './auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
 
 export function getToken() {
+  console.log('I am here getToken');
   var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   var token = currentUser && currentUser.token;
   return token ? token : "";
@@ -48,8 +49,9 @@ export function getToken() {
     JwtModule.forRoot({
       config: {
         tokenGetter : getToken,
-        whitelistedDomains: ['localhost:3001'],
-        blacklistedRoutes: ['localhost:8080/auth']
+        throwNoTokenError: true,
+        whitelistedDomains: ['http://localhost:4200/#/login'],
+        blacklistedRoutes: ['http://localhost:8080/guss-app/rest/ugguss/api/v1/token/auth']
       }
     })
   ],

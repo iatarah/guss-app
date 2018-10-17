@@ -10,14 +10,16 @@ import { AuthGuard } from './auth-guard.service';
 import { LogintestComponent } from './app-security/login_test/logintest.component';
 import { JwtHelperService, JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { AuthService } from './shared/_services/auth.service';
+import { RoleGuard } from './role-guard.service';
 
 export const appRoutes: Routes = [
    // {path: '', redirectTo:'login', pathMatch: 'full'},
-    {path: '', component: LogintestComponent, pathMatch: 'full'},
+    {path: '', redirectTo:'login', pathMatch: 'full'},
+    {path: 'login', component: LogintestComponent},
     {
         path: 'user-profile/:userName', 
         component: UserProfileComponent,
-        canActivate: [AuthGuard],
+        canActivate: [RoleGuard],
         data: {
             expectedRole: 'staff'
         }
