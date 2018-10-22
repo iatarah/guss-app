@@ -25,7 +25,16 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 export function getToken() {
   console.log('I am here getToken');
-  var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  let savedToken : string = localStorage.getItem('currentUser');
+  let currentUser;
+  if(savedToken != null || savedToken != undefined) {
+    console.log(savedToken);
+    currentUser = savedToken;
+  } else {
+    currentUser = null;
+  }
+  // var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  // var currentUser = null;
   var token = currentUser && currentUser.token;
   return token ? token : "";
 }
@@ -49,8 +58,8 @@ export function getToken() {
     JwtModule.forRoot({
       config: {
         tokenGetter : getToken,
-        throwNoTokenError: true,
-        whitelistedDomains: ['http://localhost:4200/#/login'],
+        throwNoTokenError: false,
+        whitelistedDomains: ['localhost:4200'],
         blacklistedRoutes: ['http://localhost:8080/guss-app/rest/ugguss/api/v1/token/auth']
       }
     })

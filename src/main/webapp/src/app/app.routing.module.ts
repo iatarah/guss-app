@@ -15,14 +15,14 @@ import { RoleGuard } from './role-guard.service';
 export const appRoutes: Routes = [
    // {path: '', redirectTo:'login', pathMatch: 'full'},
     {path: '', redirectTo:'login', pathMatch: 'full'},
-    {path: 'login', component: LogintestComponent},
+    {path: 'login', component: LoginComponent },
     {
         path: 'user-profile/:userName', 
         component: UserProfileComponent,
         canActivate: [RoleGuard],
-        data: {
-            expectedRole: 'staff'
-        }
+         data: {
+             expectedRole: 'staff'
+         }
     },
     {path: 'contribution/:memberId', component: MemberContributionComponent},
     {path: 'registration', component: UserRegistrationComponent},

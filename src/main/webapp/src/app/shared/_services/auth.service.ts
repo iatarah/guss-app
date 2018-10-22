@@ -3,12 +3,13 @@ import { AuthenticationService, LoginRequest } from "../../gen";
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { JwtHelperService } from "@auth0/angular-jwt";
+import * as jwt_decode from "jwt-decode";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService extends AuthenticationService {
     
-    constructor(public jwtHelper : JwtHelperService, httpClient: HttpClient) {
+    constructor(private jwtHelper: JwtHelperService,  httpClient: HttpClient) {
         super(null, null, null);
     }
 
@@ -23,9 +24,18 @@ export class AuthService extends AuthenticationService {
         localStorage.removeItem('currentUser');
     }
 
+    public saveToken(token: string) : void {
+        localStorage.setItem('currentUser', token);
+    }
+
     public isAuthenticated() : boolean {
         const token = localStorage.getItem('currentUser');
-        return !this.jwtHelper.isTokenExpired(token);
+        return this.jwtHelper.isTokenExpired(token);
+    }
+
+    public getTokenInfo(token) : any {
+        let tokenInfo = jwt_decode(token);
+        return tokenInfo;
     }
 
     public authenticateNew(loginRequest: LoginRequest) : Observable<any> {

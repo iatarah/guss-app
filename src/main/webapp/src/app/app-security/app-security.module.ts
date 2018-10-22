@@ -7,7 +7,6 @@ import { AppRoutingModule } from '../app.routing.module';
 import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
-import { LogintestComponent } from './login_test/logintest.component';
 import { AuthService } from '../shared/_services/auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -20,8 +19,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
     AppRoutingModule
   ],
   declarations: [
-    LoginComponent,
-    LogintestComponent
+    LoginComponent
   ],
   providers: [
     AuthGuard, 
