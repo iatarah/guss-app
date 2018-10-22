@@ -7,7 +7,6 @@ import { MemberContributionComponent } from './member-contribution/member-contri
 import { ModuleWithProviders, Component, NgModule } from '@angular/core';
 import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
-import { LogintestComponent } from './app-security/login_test/logintest.component';
 import { JwtHelperService, JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { AuthService } from './shared/_services/auth.service';
 import { RoleGuard } from './role-guard.service';

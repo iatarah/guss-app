@@ -37,6 +37,10 @@ export class LoginComponent implements OnInit {
           console.log("Response coming from authentication");
           console.log(response.token);
           this.authServiceImpl.saveToken(response.token);
+        },
+        (error : Error) => {
+          console.log(error.message);
+          console.log(error.name);
         }
       );
       this.router.navigate(['user-profile', loginRequest.email]);
