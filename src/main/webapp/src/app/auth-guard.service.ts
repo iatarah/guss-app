@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { AuthenticationService } from "src/app/gen/api/api";
 import { AuthService } from "./shared/_services/auth.service";
 import { AppConfig } from "./config/app.config";
-import decode from 'jwt-decode';
+import * as jwt_decode from "jwt-decode";
 
 //import { AuthenticationService } from ""
 
@@ -17,9 +17,12 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     }
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         if(!this.auth.isAuthenticated()) {
+            console.log('Am Not Authenticated');
             this.router.navigate([AppConfig.routes.login]);
             return false;
         }
+       // this.router.navigate()
+        console.log('Am not Authenticated');
         return true;
     }    
     

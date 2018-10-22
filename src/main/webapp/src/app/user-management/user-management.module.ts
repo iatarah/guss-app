@@ -20,9 +20,11 @@ import {MomentDateModule} from '@angular/material-moment-adapter';
 import {MatListModule} from '@angular/material/list';
 import { MemberProfileComponent } from './member-profile/member-profile.component';
 import { AuthGuard } from '../auth-guard.service';
-import { AuthService } from '../shared/_services/auth.service';
 import { RoleGuard } from '../role-guard.service';
 import { AppRoutingModule } from '../app.routing.module';
+import { AuthenticationService } from '../gen';
+import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
+import { AuthService } from '../shared/_services/auth.service';
 
 @NgModule({
   imports: [
@@ -53,7 +55,9 @@ import { AppRoutingModule } from '../app.routing.module';
     AlertService,
     AuthGuard, 
     RoleGuard,
-    AuthService 
+    AuthenticationService,
+    JwtHelperService,
+    AuthService,
   ],
   exports: [UserProfileComponent, UserRegistrationComponent]
 })

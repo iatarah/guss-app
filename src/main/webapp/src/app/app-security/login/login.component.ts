@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationService, LoginRequest } from '../../gen';
+import { AuthService } from '../../shared/_services/auth.service';
 
 
 @Component({
@@ -16,29 +17,32 @@ export class LoginComponent implements OnInit {
   submitted: boolean = false;
   invalidLogin: boolean = false;
   constructor(private formBuilder: FormBuilder, private router: Router,
-              private authService: AuthenticationService) { }
+              private authService: AuthenticationService, private authServiceImpl : AuthService) { }
 
-  onSubmit() {
+
+  onSubmit(user : any) {
     this.submitted = true;
+    let loginRequest : LoginRequest = user;
     if (this.loginForm.invalid) {
+      console.log(this.loginForm.invalid);
       return;
     }
-    console.log("Am here on submit");
     // TODO: call authentication service and authenticate user here
-    if(this.loginForm.controls.email.value && this.loginForm.controls.password.value) {
-      console.log("Am here inside");
+    if(loginRequest.email && loginRequest.password) {
       // let loginRequest: LoginRequest = null;
-      //  loginRequest.password = this.loginForm.controls.password.value;
-      // // loginRequest.email = this.loginForm.controls.email.value;
-      // this.authService.authenticate(loginRequest).subscribe(
-      //   (response: any) => {
-      //     console.log("Response coming from authentication");
-      //     console.log(response);
-      //   }
-      // )
-        this.router.navigate(['user-profile', this.loginForm.controls.email.value]);
+      // loginRequest.email = this.loginForm.controls.email.value;
+      // loginRequest.password = this.loginForm.controls.password.value;
+      this.authService.authenticate(loginRequest).subscribe(
+        (response: any) => {
+          console.log("Response coming from authentication");
+          console.log(response.token);
+          this.authServiceImpl.saveToken(response.token);
+        }
+      );
+      this.router.navigate(['user-profile', loginRequest.email]);
     }else {
       this.invalidLogin = true;
+      console.log("Invalid Login");
     }
   }
 

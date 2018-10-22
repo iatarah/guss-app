@@ -17,8 +17,10 @@ import {MatNativeDateModule} from '@angular/material';
 
 import {MomentDateModule} from '@angular/material-moment-adapter';
 import { AuthGuard } from '../auth-guard.service';
-import { AuthService } from '../shared/_services/auth.service';
 import { RoleGuard } from '../role-guard.service';
+import { AuthenticationService } from '../gen';
+import { AuthService } from '../shared/_services/auth.service';
+import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
 
 @NgModule({
   imports: [
@@ -41,9 +43,11 @@ import { RoleGuard } from '../role-guard.service';
   declarations: [MemberContributionComponent, MemberContributionEntryComponent],
   providers: [
     DatePipe,
-    AuthGuard, 
+    AuthGuard,
+    AuthenticationService,
+    RoleGuard,
+    JwtHelperService, 
     AuthService,
-    RoleGuard
   ]
 
 })
