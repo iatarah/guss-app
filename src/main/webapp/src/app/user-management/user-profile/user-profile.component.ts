@@ -34,12 +34,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.init();
     this.sub = this.route.params.subscribe(params => {
       this.userName = params['userName']; 
+      console.log(this.userName);
    });
 
     this.userService.getMember(this.userName).subscribe(data => {
       this.gussmember = data.gussMember;
       this.appUser = data.appUser;
-     
+      
     });
   }
 

@@ -32,6 +32,7 @@ export function getToken() {
     currentUser = savedToken;
   } else {
     currentUser = null;
+    console.log('No User is logged');
   }
   // var currentUser = JSON.parse(localStorage.getItem('currentUser'));
   // var currentUser = null;
@@ -57,7 +58,9 @@ export function getToken() {
     BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter : getToken,
+        tokenGetter: getToken,
+        headerName: 'Authorization',
+        authScheme: 'Bearer',
         throwNoTokenError: false,
         whitelistedDomains: ['localhost:4200'],
         blacklistedRoutes: ['http://localhost:8080/guss-app/rest/ugguss/api/v1/token/auth']

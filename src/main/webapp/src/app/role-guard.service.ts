@@ -29,7 +29,7 @@ export class RoleGuard implements CanActivate, CanActivateChild {
             console.log(tokenInfo);
             console.log(tokenInfo.scopes[0].authority);
             // console.log(tokenPayload.role);
-            // console.log(this.auth.isAuthenticated());
+            console.log(this.auth.isAuthenticated());
             if(!this.auth.isAuthenticated() || tokenInfo.scopes[0].authority !== expectedRole) {
                 console.log('Am not Authenticated Role Guard');
                 this.router.navigate([AppConfig.routes.login]);

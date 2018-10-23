@@ -30,7 +30,7 @@ export class AuthService extends AuthenticationService {
 
     public isAuthenticated() : boolean {
         const token = localStorage.getItem('currentUser');
-        return this.jwtHelper.isTokenExpired(token);
+        return !this.jwtHelper.isTokenExpired(token);
     }
 
     public getTokenInfo(token) : any {

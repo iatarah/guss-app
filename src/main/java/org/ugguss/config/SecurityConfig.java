@@ -19,6 +19,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.session.SessionManagementFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
@@ -149,6 +153,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	web.ignoring()
     		.antMatchers("/resources/**")
     		.antMatchers("/favicon.ico");
+    }
+    
+    @Bean
+    CorsConfigurationSource corsConfigSource() {
+    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    	source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+    	return source;
     }
     
     @SuppressWarnings("deprecation")
