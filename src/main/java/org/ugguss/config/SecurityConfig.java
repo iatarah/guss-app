@@ -24,6 +24,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
 
@@ -132,10 +134,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
     	http.csrf().disable().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
     	.authorizeRequests()
-        .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
+        .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout", "/rest/ugguss/api/v1/profiles/**").permitAll()
     	.antMatchers("/rest/ugguss/api/v1/token/auth", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
     	.antMatchers("/css/**", "/js/**", "/images/**", "/styles.js", "/vendor.js", "/polyfills.js", "/runtime.js").permitAll()
-        .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasRole("ADMIN")
+        .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasAnyRole("ADMIN","STAFF", "GUSS_MEMBER")
         .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
         .antMatchers("/rest/ugguss/api/v1/profiles/1").permitAll()
         .antMatchers("/protectedbyrole").hasRole("GUSS_MEMBER")
@@ -156,10 +158,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     
     @Bean
-    CorsConfigurationSource corsConfigSource() {
-    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    	source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-    	return source;
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+            }
+        };
     }
     
     @SuppressWarnings("deprecation")
@@ -172,5 +177,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public BCryptPasswordEncoder encoder() {
     	return new BCryptPasswordEncoder();
     }
+    
     
 }
