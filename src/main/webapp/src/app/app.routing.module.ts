@@ -20,7 +20,7 @@ export const appRoutes: Routes = [
         component: UserProfileComponent,
         canActivate: [RoleGuard],
          data: {
-             expectedRole: 'staff'
+             expectedRole: ['ROLE_STAFF', 'ROLE_ADMIN','ROLE_GUSS_MEMBER']
          }
     },
     {path: 'contribution/:memberId', component: MemberContributionComponent},

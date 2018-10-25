@@ -19,8 +19,8 @@ export class RoleGuard implements CanActivate, CanActivateChild {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         console.log("Am here");
-        // const expectedRole = route.data.expectedRole;
-        const expectedRole ='ROLE_ADMIN';
+         const expectedRole : string[] = route.data.expectedRole;
+        //const expectedRole ='ROLE_ADMIN';
         const token = localStorage.getItem('currentUser');
         if(token != null || token != undefined) {
             console.log(token);
@@ -28,9 +28,10 @@ export class RoleGuard implements CanActivate, CanActivateChild {
             let tokenInfo = jwt_decode(token);
             console.log(tokenInfo);
             console.log(tokenInfo.scopes[0].authority);
+            console.log(expectedRole);
             // console.log(tokenPayload.role);
             console.log(this.auth.isAuthenticated());
-            if(!this.auth.isAuthenticated() || tokenInfo.scopes[0].authority !== expectedRole) {
+            if(!this.auth.isAuthenticated() || !expectedRole.includes(tokenInfo.scopes[0].authority)) {
                 console.log('Am not Authenticated Role Guard');
                 this.router.navigate([AppConfig.routes.login]);
                 return false;

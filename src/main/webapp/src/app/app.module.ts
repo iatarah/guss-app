@@ -62,7 +62,7 @@ export function getToken() {
         headerName: 'Authorization',
         authScheme: 'Bearer',
         throwNoTokenError: false,
-        whitelistedDomains: ['localhost:4200'],
+        whitelistedDomains: ['localhost:4200', 'localhost:8080'],
         blacklistedRoutes: ['http://localhost:8080/guss-app/rest/ugguss/api/v1/token/auth']
       }
     })
