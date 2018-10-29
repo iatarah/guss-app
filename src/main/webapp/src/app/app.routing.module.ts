@@ -7,7 +7,6 @@ import { MemberContributionComponent } from './member-contribution/member-contri
 import { ModuleWithProviders, Component, NgModule } from '@angular/core';
 import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
-import { JwtHelperService, JwtModule, JwtModuleOptions } from '@auth0/angular-jwt';
 import { AuthService } from './shared/_services/auth.service';
 import { RoleGuard } from './role-guard.service';
 
@@ -19,7 +18,7 @@ export const appRoutes: Routes = [
         path: 'user-profile/:userName', 
         component: UserProfileComponent,
         canActivate: [RoleGuard],
-         data: {
+        data: {
              expectedRole: ['ROLE_STAFF', 'ROLE_ADMIN','ROLE_GUSS_MEMBER']
          }
     },
@@ -37,7 +36,6 @@ export const appRoutes: Routes = [
         RouterModule
     ],
     providers: [
-        JwtHelperService,
         AuthService
     ]
 })

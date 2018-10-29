@@ -23,14 +23,12 @@ export class RoleGuard implements CanActivate, CanActivateChild {
         //const expectedRole ='ROLE_ADMIN';
         const token = localStorage.getItem('currentUser');
         if(token != null || token != undefined) {
-            console.log(token);
             console.log("Token on Role Guard");
             let tokenInfo = jwt_decode(token);
-            console.log(tokenInfo);
-            console.log(tokenInfo.scopes[0].authority);
-            console.log(expectedRole);
-            // console.log(tokenPayload.role);
-            console.log(this.auth.isAuthenticated());
+            // console.log(tokenInfo);
+            // console.log(tokenInfo.scopes[0].authority);
+            // console.log(expectedRole);
+            // console.log(this.auth.isAuthenticated());
             if(!this.auth.isAuthenticated() || !expectedRole.includes(tokenInfo.scopes[0].authority)) {
                 console.log('Am not Authenticated Role Guard');
                 this.router.navigate([AppConfig.routes.login]);

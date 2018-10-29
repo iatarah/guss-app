@@ -20,7 +20,6 @@ import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
 import { AuthService } from '../shared/_services/auth.service';
-import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
 
 @NgModule({
   imports: [
@@ -46,7 +45,6 @@ import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
     AuthGuard,
     AuthenticationService,
     RoleGuard,
-    JwtHelperService, 
     AuthService,
   ]
 

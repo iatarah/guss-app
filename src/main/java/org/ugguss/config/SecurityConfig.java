@@ -23,6 +23,7 @@ import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -132,12 +133,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.csrf().disable().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
+    	http.csrf().disable().cors().configurationSource(corsConfigurationSource()).and().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
+//    	http.cors().and().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
+    	//.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
     	.authorizeRequests()
-        .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout", "/rest/ugguss/api/v1/profiles/**").permitAll()
+        .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
     	.antMatchers("/rest/ugguss/api/v1/token/auth", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
     	.antMatchers("/css/**", "/js/**", "/images/**", "/styles.js", "/vendor.js", "/polyfills.js", "/runtime.js").permitAll()
-//        .antMatchers("/rest/ugguss/api/v1/profiles/**").hasAnyRole("ADMIN","STAFF", "GUSS_MEMBER")
+        .antMatchers("/rest/ugguss/api/v1/profiles/**").hasRole("ADMIN")
+//    	"/rest/ugguss/api/v1/profiles/**"
         .antMatchers("/rest/ugguss/api/v1/registration/**").hasAnyRole("ADMIN", "STAFF")
         .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasAnyRole("ADMIN","STAFF", "GUSS_MEMBER")
         .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
@@ -158,15 +162,44 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     		.antMatchers("/favicon.ico");
     }
     
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+//            }
+//        };
+//    }
+    
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-            }
-        };
+    CorsConfigurationSource corsConfigurationSource() {
+    	CorsConfiguration configuration = new CorsConfiguration();
+    	configuration.setAllowCredentials(true);
+    	configuration.addAllowedOrigin("*");
+    	configuration.addAllowedHeader("*");
+    	configuration.addAllowedMethod("*");
+    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    	source.registerCorsConfiguration("/**", configuration);
+    	return source;
     }
+    
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("OPTIONS");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("DELETE");
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+    
     
     @SuppressWarnings("deprecation")
     @Bean

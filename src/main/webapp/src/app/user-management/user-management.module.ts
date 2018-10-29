@@ -23,7 +23,6 @@ import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AppRoutingModule } from '../app.routing.module';
 import { AuthenticationService } from '../gen';
-import { JwtHelperService } from '@auth0/angular-jwt/src/jwthelper.service';
 import { AuthService } from '../shared/_services/auth.service';
 
 @NgModule({
@@ -56,7 +55,6 @@ import { AuthService } from '../shared/_services/auth.service';
     AuthGuard, 
     RoleGuard,
     AuthenticationService,
-    JwtHelperService,
     AuthService,
   ],
   exports: [UserProfileComponent, UserRegistrationComponent]

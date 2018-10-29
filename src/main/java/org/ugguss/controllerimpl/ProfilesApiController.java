@@ -28,7 +28,7 @@ public class ProfilesApiController implements ProfilesApi {
 	@Qualifier(value="userDetailsService")
     private IUserService iUserService;
 
-	@CrossOrigin
+    @CrossOrigin(origins="*")
     @Override
     @RequestMapping(value = RestEndpointConstants.Constants.BASE_API +"/" + RestEndpointConstants.Constants.GET_MEMBER_PROFILE,
     produces = { "application/json" }, 

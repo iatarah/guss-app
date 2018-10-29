@@ -41,9 +41,12 @@ export class LoginComponent implements OnInit {
         (error : Error) => {
           console.log(error.message);
           console.log(error.name);
+        },
+        () => {
+          this.router.navigate(['user-profile', loginRequest.email]);
         }
       );
-      this.router.navigate(['user-profile', loginRequest.email]);
+      //this.router.navigate(['user-profile', loginRequest.email]);
     }else {
       this.invalidLogin = true;
       console.log("Invalid Login");

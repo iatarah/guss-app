@@ -38,7 +38,7 @@ public class AuthenticationController implements TokenApi {
     @Autowired
     private AuthenticationManager authenticationManager;
     
-    @CrossOrigin
+    @CrossOrigin(origins="*")
     @Override
     @RequestMapping(value = RestEndpointConstants.Constants.BASE_API + "/" + RestEndpointConstants.Constants.AUTH,
     				produces = { "application/json" }, method = RequestMethod.POST)
