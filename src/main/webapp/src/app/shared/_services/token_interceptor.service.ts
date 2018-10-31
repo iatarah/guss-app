@@ -19,8 +19,8 @@ export class TokenInterceptor implements HttpInterceptor {
             console.log("I was not here");
             console.log(request.url);
             let myToken : string = localStorage.getItem('currentUser');
-            let result = this.authServiceImpl.isAuthenticated();
-            if(result && myToken != null) {
+            let isAuthenticated = this.authServiceImpl.isAuthenticated();
+            if(isAuthenticated && myToken != null) {
                 console.log(myToken);
                 console.log("Am in interceptor");
                 request = request.clone({
@@ -29,7 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
                     }
                 });
             }
-        }
+        };
         return next.handle(request);
     }
 }

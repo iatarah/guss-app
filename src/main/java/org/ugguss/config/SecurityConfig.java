@@ -133,15 +133,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.csrf().disable().cors().configurationSource(corsConfigurationSource()).and().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
-//    	http.cors().and().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
-    	//.addFilterBefore(new CORSFilter(), UsernamePasswordAuthenticationFilter.class)
+    	http.csrf().disable().cors()
+    	.configurationSource(corsConfigurationSource()).and().addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class)
     	.authorizeRequests()
         .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
     	.antMatchers("/rest/ugguss/api/v1/token/auth", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
     	.antMatchers("/css/**", "/js/**", "/images/**", "/styles.js", "/vendor.js", "/polyfills.js", "/runtime.js").permitAll()
-        .antMatchers("/rest/ugguss/api/v1/profiles/**").hasRole("ADMIN")
-//    	"/rest/ugguss/api/v1/profiles/**"
+        .antMatchers("/rest/ugguss/api/v1/profiles/**").hasAnyRole("ADMIN", "STAFF", "GUSS_MEMBER")
         .antMatchers("/rest/ugguss/api/v1/registration/**").hasAnyRole("ADMIN", "STAFF")
         .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasAnyRole("ADMIN","STAFF", "GUSS_MEMBER")
         .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
