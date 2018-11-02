@@ -22,6 +22,7 @@ import { AuthService } from './shared/_services/auth.service';
 import { AuthGuard } from './auth-guard.service';
 // import { JwtModule } from '@auth0/angular-jwt';
 import { TokenInterceptor } from './shared/_services/token_interceptor.service';
+import { ErrorInterceptor } from './shared/_services/error_interceptor.service';
 
 
 // export function getToken() {
@@ -76,6 +77,11 @@ import { TokenInterceptor } from './shared/_services/token_interceptor.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     }
    ],
