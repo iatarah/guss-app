@@ -8,6 +8,8 @@ import { Member } from './../../gen/model/member';
 import { UserService } from './../../gen/api/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '../../shared/_services/auth.service';
+import { AppConfig } from '../../config/app.config';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,7 +29,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   clearMevalue = ''
   memberLookUpForm: FormGroup;
   constructor(private userService: UserService, private route: ActivatedRoute, 
-    private currentUserService: CurrentUserService, private router: Router, private _formBuilder: FormBuilder) { }
+    private currentUserService: CurrentUserService, private router: Router, 
+    private _formBuilder: FormBuilder, private authService: AuthService) { }
 
   ngOnInit() {
     this.buildMemberFormControls();
@@ -75,5 +78,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private buildMemberFormControls() {
     this.memberLookUpForm= this._formBuilder.group({
       memberId: ['', Validators.required]});
-    }    
+    }
+  
+  private onLogout() {
+    this.authService.logout();
+    this.router.navigate([AppConfig.routes.login])
+  }
 }

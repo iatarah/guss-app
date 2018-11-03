@@ -9,11 +9,12 @@ import {RouterModule, Routes, PreloadAllModules} from '@angular/router';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './shared/_services/auth.service';
 import { RoleGuard } from './role-guard.service';
+import { AppConfig } from './config/app.config';
 
 export const appRoutes: Routes = [
    // {path: '', redirectTo:'login', pathMatch: 'full'},
     {path: '', redirectTo:'login', pathMatch: 'full'},
-    {path: 'login', component: LoginComponent },
+    {path: AppConfig.routes.login, component: LoginComponent },
     {
         path: 'user-profile/:userName', 
         component: UserProfileComponent,
