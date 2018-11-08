@@ -8,6 +8,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
 import { AuthService } from '../shared/_services/auth.service';
+import { MyMaterialModule } from '../mymaterial.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { AuthService } from '../shared/_services/auth.service';
     FormsModule,
     ReactiveFormsModule,
     MatCheckboxModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MyMaterialModule
   ],
   declarations: [
     LoginComponent
@@ -27,7 +29,8 @@ import { AuthService } from '../shared/_services/auth.service';
     AuthService
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    MyMaterialModule
   ]
 })
 export class AppSecurityModule { }
