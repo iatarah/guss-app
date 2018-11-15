@@ -9,9 +9,11 @@ import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
 import { AuthService } from '../shared/_services/auth.service';
 import { MyMaterialModule } from '../mymaterial.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
+    FlexLayoutModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
