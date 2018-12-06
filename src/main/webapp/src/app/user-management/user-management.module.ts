@@ -27,7 +27,6 @@ import { AuthService } from '../shared/_services/auth.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserMenuComponent } from '../core/user-menu/user-menu.component';
 import { ToolbarComponent } from '../core/toolbar/toolbar.component';
-import { ToolbarNotificationComponent } from '../core/toolbar-notification/toolbar-notification.component';
 import { MyMaterialModule } from '../mymaterial.module';
 
 @NgModule({
@@ -53,10 +52,9 @@ import { MyMaterialModule } from '../mymaterial.module';
     UserProfileComponent, 
     UserRegistrationComponent,
     AlertComponent,
-    MemberProfileComponent
-    // UserMenuComponent,
-    // ToolbarComponent,
-    // ToolbarNotificationComponent
+    MemberProfileComponent,
+    UserMenuComponent,
+    ToolbarComponent
   ],
   providers: [
     AlertService,

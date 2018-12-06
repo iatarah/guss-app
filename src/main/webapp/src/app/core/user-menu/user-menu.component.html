@@ -1,5 +1,5 @@
 <div class="toolbar-user-container">
-    <button mat-button (click)="isOpen = !isOpen" class="toolbar-user-btn" [class.open]="isOpen" [ngStyle.xs]="{'min-width': '70px'}">
+    <!-- <button mat-button (click)="isOpen = !isOpen" class="toolbar-user-btn" [class.open]="isOpen" [ngStyle.xs]="{'min-width': '70px'}">
         <span fxLayout="row" fxLayoutAlign="start center">
             <img class="avatar" [src]="currentUser?.photoURL || 'assets/images/avatars/noavatar.png'">
             <span class="name" fxHide fxShow.gt-xs>{{currentUser?.currentUserName || User}}</span>
@@ -32,7 +32,24 @@
                     </button>
                 </mat-list-item>
             </mat-nav-list>
+        </div> -->
+
+        <div class="profileMenu mat-elevation-z1">
+            <button mat-button [matMenuTriggerFor]="appMenu">Profile Name</button>
+            <mat-menu #appMenu="matMenu">
+                <button mat-menu-item>
+                    <mat-icon>Profile</mat-icon>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>Help</mat-icon>
+                </button>
+                <button mat-menu-item (click)="onLogout()">
+                    <mat-icon>Logout</mat-icon>
+                </button>
+            </mat-menu>
         </div>
 
-    </div>
+
+
+    <!-- </div> -->
 </div>

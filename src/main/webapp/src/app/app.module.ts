@@ -26,7 +26,6 @@ import { ErrorInterceptor } from './shared/_services/error_interceptor.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { UserMenuComponent } from './core/user-menu/user-menu.component';
 import { ToolbarComponent } from './core/toolbar/toolbar.component';
-import { ToolbarNotificationComponent } from './core/toolbar-notification/toolbar-notification.component';
 import { MyMaterialModule } from './mymaterial.module';
 
 // export function getToken() {
@@ -49,10 +48,7 @@ import { MyMaterialModule } from './mymaterial.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    UserMenuComponent,
-    ToolbarComponent,
-    ToolbarNotificationComponent
+    AppComponent
   ],
   imports: [
     BrowserModule, 

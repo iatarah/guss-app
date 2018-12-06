@@ -3,10 +3,10 @@ package org.ugguss.config;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -19,16 +19,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.ugguss.repository.IUserRepository;
 import org.ugguss.service.serviceImpl.UserDetailsServiceImpl;
+
+import static org.ugguss.util.constants.RoleConstants.Constants.*;
 
 @Configuration
 @ComponentScan(basePackages = { "org.ugguss.*" })
@@ -139,13 +137,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/rest/ugguss/api/v1/login", "/rest/ugguss/api/v1/logout").permitAll()
     	.antMatchers("/rest/ugguss/api/v1/token/auth", "/", "/resources/**", "/favicon.ico", "/main.js").permitAll()
     	.antMatchers("/css/**", "/js/**", "/images/**", "/styles.js", "/vendor.js", "/polyfills.js", "/runtime.js").permitAll()
-        .antMatchers("/rest/ugguss/api/v1/profiles/**").hasAnyRole("ADMIN", "STAFF", "GUSS_MEMBER")
-        .antMatchers("/rest/ugguss/api/v1/registration/**").hasAnyRole("ADMIN", "STAFF")
-        .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasAnyRole("ADMIN","STAFF", "GUSS_MEMBER")
-        .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole("STAFF")
-        .antMatchers("/protectedbyrole").hasRole("GUSS_MEMBER")
-        .antMatchers("/protectedforadmin").hasRole("ADMIN")
-        .antMatchers("/protectedforstaff").hasRole("STAFF")
+    	.antMatchers(HttpMethod.GET, "/rest/ugguss/api/v1/profiles/**").hasAnyRole(ADMIN_ROLE, STAFF_ROLE, MEMBER_ROLE)
+    	.antMatchers(HttpMethod.POST, "/rest/ugguss/api/v1/profiles/**").hasAnyRole(ADMIN_ROLE, STAFF_ROLE)
+    	.antMatchers(HttpMethod.GET, "/rest/ugguss/api/v1/userType").hasAnyRole(ADMIN_ROLE, STAFF_ROLE, MEMBER_ROLE)
+    	.antMatchers(HttpMethod.GET, "/rest/ugguss/api/v1/users/current").hasAnyRole(ADMIN_ROLE, STAFF_ROLE, MEMBER_ROLE)
+        .antMatchers(HttpMethod.POST, "/rest/ugguss/api/v1/registration/**").hasAnyRole(ADMIN_ROLE)
+        .antMatchers(HttpMethod.POST, "/rest/ugguss/api/v1/member-profiles").hasAnyRole(ADMIN_ROLE, STAFF_ROLE, MEMBER_ROLE)
+        .antMatchers(HttpMethod.GET, "/rest/ugguss/api/v1/member-contribution/**").hasAnyRole(ADMIN_ROLE, STAFF_ROLE, MEMBER_ROLE)
+        .antMatchers(HttpMethod.PUT, "/rest/ugguss/api/v1/member-contribution/**").hasAnyRole(STAFF_ROLE, ADMIN_ROLE)
+        .antMatchers(HttpMethod.POST, "/rest/ugguss/api/v1/member-contribution/**").hasAnyRole(ADMIN_ROLE, STAFF_ROLE)
+        .antMatchers(HttpMethod.DELETE, "/rest/ugguss/api/v1/member-contribution/**").hasAnyRole(ADMIN_ROLE, STAFF_ROLE)
+        .antMatchers(HttpMethod.POST, "/rest/ugguss/api/v1/member-benefits/**").hasAnyRole(ADMIN_ROLE, STAFF_ROLE)
+        
+        .antMatchers("/rest/ugguss/api/v1/protectedbyadmin").hasAnyRole(ADMIN_ROLE, STAFF_ROLE, MEMBER_ROLE)
+        .antMatchers("/rest/ugguss/api/v1/protectedbystaff").hasRole(STAFF_ROLE)
+        .antMatchers("/protectedbyrole").hasRole(MEMBER_ROLE)
+        .antMatchers("/protectedforadmin").hasRole(ADMIN_ROLE)
+        .antMatchers("/protectedforstaff").hasRole(STAFF_ROLE)
         .anyRequest().authenticated()
         .and()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
