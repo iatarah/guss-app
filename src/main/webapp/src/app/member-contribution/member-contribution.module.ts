@@ -20,6 +20,7 @@ import { AuthGuard } from '../auth-guard.service';
 import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
 import { AuthService } from '../shared/_services/auth.service';
+import { MemberContributionBenefitsComponent } from './member-contribution-benefits/member-contribution-benefits.component';
 
 @NgModule({
   imports: [
@@ -38,8 +39,8 @@ import { AuthService } from '../shared/_services/auth.service';
     MatNativeDateModule,
     MomentDateModule,
   ],
-  exports: [MemberContributionComponent, MatInputModule, MatTableModule],
-  declarations: [MemberContributionComponent, MemberContributionEntryComponent],
+  exports: [MemberContributionComponent, MatInputModule, MatTableModule, MemberContributionBenefitsComponent],
+  declarations: [MemberContributionComponent, MemberContributionEntryComponent, MemberContributionBenefitsComponent, MemberContributionBenefitsComponent],
   providers: [
     DatePipe,
     AuthGuard,

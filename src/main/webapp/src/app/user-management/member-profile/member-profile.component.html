@@ -43,6 +43,12 @@
         </div>
     </div>
 
+    <!-- benefits widget -->
+    <div class="cont-benefits" *ngIf="MEMBER_ROLE === appUser?.userRole">
+        <app-member-contribution-benefits [memberId]="gussmember.memberId"></app-member-contribution-benefits>
+    </div>
+
+    <!-- Contributions table -->
     <div class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole">
         <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
     </div>
