@@ -1,6 +1,8 @@
 package org.ugguss.service.serviceImpl.provider;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.ugguss.controllerimpl.RegistrationApiControllerImpl;
 import org.ugguss.generated.model.AppUser;
 import org.ugguss.generated.model.BaseResponse;
 import org.ugguss.generated.model.UserProfileResponse;
@@ -26,6 +29,7 @@ import java.util.Collection;
 @Component
 @Qualifier(value="StaffUserServiceImplProvider")
 public class StaffUserServiceImplProvider extends UserServiceImplProvider{	
+	private static final Logger LOG = LogManager.getLogger(StaffUserServiceImplProvider.class);
 	@Autowired
 	private IUserRepository iUserRepository;
 	@Autowired
@@ -45,6 +49,7 @@ public class StaffUserServiceImplProvider extends UserServiceImplProvider{
 		Role role = iRoleService.getRoleByRoleName(AppConstants.STAFF);
 
 		if(user == null || role == null) {
+			LOG.error("Invalid userRegistrationRequest: {}", userRegistrationRequest.toString());
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 		}
 		// Encode the password for Security Purpose

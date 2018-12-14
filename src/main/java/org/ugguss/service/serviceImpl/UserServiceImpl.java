@@ -51,6 +51,7 @@ public class UserServiceImpl implements IUserService, UserDetailsService {
 		response.setBaseResponse(new BaseResponse());
 		if(request == null
 				|| request.getAppUser() == null) {
+			LOG.error("Invalid request to register user, UserRegistrationRequest: {}", request.toString());
 			response.getBaseResponse().setReturnCode(AppConstants.ERROR_CODE);
 			return response;
 		}
