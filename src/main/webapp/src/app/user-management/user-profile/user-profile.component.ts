@@ -43,7 +43,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.userService.getMember(this.userName).subscribe(data => {
       this.gussmember = data.gussMember;
       this.appUser = data.appUser;
-      
+      this.updateMemberState(this.gussmember);
+      this.updateAppState(this.appUser);
     });
   }
 
@@ -53,6 +54,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   updateMemberState(gusssMember: Member) {
     this.currentUserService.changeMemberState(gusssMember);
+  }
+
+  updateAppState(appUser : AppUser) {
+    this.currentUserService.changeUserState(appUser);
   }
 
   public userInitialized(): boolean {

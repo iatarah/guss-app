@@ -7,6 +7,7 @@ import { MemberProfileService } from './../../gen/api/memberProfile.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Location} from '@angular/common';
+import { CurrentUserService } from '../../shared/current-user.service';
 @Component({
   selector: 'app-member-profile',
   templateUrl: './member-profile.component.html',
@@ -23,7 +24,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
   ADMIN_ROLE: string;
   STAFF_ROLE: string;
 
-  constructor(private route: ActivatedRoute, private memberProfileService: MemberProfileService, private _location: Location) { }
+  constructor(private route: ActivatedRoute, private memberProfileService: MemberProfileService, 
+    private _location: Location, private currentUserService : CurrentUserService) { }
 
   ngOnInit() {
     this.init();
@@ -34,7 +36,8 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
     this.memberProfileService.retrieveMemberWithMemberId(this.buildRequest(this.memberId)).subscribe(data => {
       this.gussmember = data.gussMember;
       this.appUser = data.appUser;
-     
+      this.updateMemberState(this.gussmember);
+      this.updateAppState(this.appUser);
     });
   }
 
@@ -59,5 +62,13 @@ export class MemberProfileComponent implements OnInit, OnDestroy {
 
   backClicked() {
     this._location.back();
+  }
+
+  updateMemberState(gusssMember: Member) {
+    this.currentUserService.changeMemberState(gusssMember);
+  }
+
+  updateAppState(appUser : AppUser) {
+    this.currentUserService.changeUserState(appUser);
   }
 }

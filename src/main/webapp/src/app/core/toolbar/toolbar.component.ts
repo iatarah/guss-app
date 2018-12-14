@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { CurrentUserService } from "../../shared/current-user.service";
+import { Member, AppUser } from "../../gen";
 
 @Component({
     selector: 'app-toolbar',
@@ -6,9 +8,10 @@ import { Component, OnInit } from "@angular/core";
     styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
-    
-    constructor() {
 
+    member : Member;
+    appUser : AppUser;
+    constructor() {
     }
 
     ngOnInit() {
