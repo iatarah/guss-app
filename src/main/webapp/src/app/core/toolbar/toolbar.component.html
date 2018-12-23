@@ -1,6 +1,14 @@
-<mat-toolbar class="mat-elevation-z4">
-    <div style="text-align:center">
-        <h1>GUSS App!</h1>
-    </div>
-    <app-user-menu [currentUser]="toolbarHelpers?.currentUser"></app-user-menu>
-</mat-toolbar>
+<!-- <mat-toolbar class="mat-elevation-z4"> -->
+<!--     <div style="text-align:center"> -->
+<!--         <h1>GUSS App!</h1> -->
+<!--     </div> -->
+<!--     <app-user-menu [currentUser]="toolbarHelpers?.currentUser"></app-user-menu> -->
+<!-- </mat-toolbar> -->
+<div class="header-bar clearfix">
+	<div class="header-left">
+		Guss Member Dashboard
+	</div>
+	<div class="header-right">
+		<app-user-menu [currentUser]="toolbarHelpers?.currentUser"></app-user-menu>
+	</div>
+</div>

@@ -1,4 +1,11 @@
 table {
     width: 100%;
   }
+.mat-header-row th{
+	font-size: 1.1em;
+	font-weight: bold;
+}
+.contribution-table tr.mat-row:nth-child(odd){
+	background-color: #fcfce8;
+}
   

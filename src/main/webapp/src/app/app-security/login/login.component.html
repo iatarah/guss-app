@@ -85,44 +85,80 @@
   </mat-card-content>
 </mat-card> -->
 
-<div style="text-align:center">
-    <h1>
-      Welcome to GUSS App!
-    </h1>
+<!-- <div style="text-align:center"> -->
+<!--     <h1> -->
+<!--       Welcome to GUSS Appee! -->
+<!--     </h1> -->
     
-</div>
+<!-- </div> -->
 
-<div fxLayout="column" fxFlexFill fxLayoutAlign="center center" style="height: 100%; 
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover; ">
-    <div fxLayout="column">
-      <div fxLayout="mat-elevation-z4">
-        <mat-card class="login-card" style="background-color: aliceblue;">
-          <mat-card-header>
-            <mat-card-title class="card-title">LOGIN</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <form fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="text-center" style="color: #757575;">
-              <mat-form-field class="full-width">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" class="form-control" formControlName="email" id="email">
-                <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
+<!-- <div fxLayout="column" fxFlexFill fxLayoutAlign="center center" style="height: 100%;  -->
+<!-- /*     background-repeat: no-repeat; */ -->
+<!-- /*     background-position: center; */ -->
+<!--     background-size: cover; "> -->
+<!--     <div fxLayout="column"> -->
+<!--       <div fxLayout="mat-elevation-z4"> -->
+<!--         <mat-card class="login-card" style="background-color: aliceblue;"> -->
+<!--           <mat-card-header> -->
+<!--             <mat-card-title class="card-title">LOGIN</mat-card-title> -->
+<!--           </mat-card-header> -->
+<!--           <mat-card-content> -->
+<!--             <form fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="text-center" style="color: #757575;"> -->
+<!--               <mat-form-field class="full-width"> -->
+<!--                 <mat-label>Email</mat-label> -->
+<!--                 <input matInput type="email" class="form-control" formControlName="email" id="email"> -->
+<!--                 <mat-error *ngIf="loginForm.controls.email.invalid">{{getErrorMessage()}}</mat-error> -->
+<!--               </mat-form-field> -->
               
-              <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input matInput type="password" class="form-control" formControlName="password">
-                <mat-error *ngIf="loginForm.controls.password.invalid">{{getErrorMessagePassword()}}</mat-error>
-              </mat-form-field>
+<!--               <mat-form-field> -->
+<!--                 <mat-label>Password</mat-label> -->
+<!--                 <input matInput type="password" class="form-control" formControlName="password"> -->
+<!--                 <mat-error *ngIf="loginForm.controls.password.invalid">{{getErrorMessagePassword()}}</mat-error> -->
+<!--               </mat-form-field> -->
 
-              <mat-card-actions>
-                <button mat-raised-button color="primary" outline="true" 
-                  rounded="true" bloctype="submit" [disabled]="!loginForm.valid">Login</button>
-              </mat-card-actions>
-            </form>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-  </div>
+<!--               <mat-card-actions> -->
+<!--                 <button mat-raised-button color="primary" outline="true"  -->
+<!--                   rounded="true" bloctype="submit" [disabled]="!loginForm.valid">Login</button> -->
+<!--               </mat-card-actions> -->
+<!--             </form> -->
+<!--           </mat-card-content> -->
+<!--         </mat-card> -->
+<!--       </div> -->
+<!--     </div> -->
+<!--   </div> -->
+<div class="header"></div>
+ <div class="content clearfix"> 
+	  <div class="login-wrapper">
+	  <div class="intro">
+	  	Member Login
+	  </div>
+	  <div class="login-form">
+		  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+		    <div class="form-group">
+		      <label for="email"><b>Email address:</b></label>
+		      <input type="email" class="form-control input-lg" formControlName="email" id="email" placeholder="email">
+		      <div *ngIf="submitted && loginForm.controls.email.errors" class="error">
+		        <div *ngIf="loginForm.controls.email.errors.required">Email is required</div>
+		      </div>
+		    </div>
+		    <div class="form-group">
+		      <label for="pwd"><b>Password:</b></label>
+		      <input type="password" class="form-control input-lg" formControlName="password" id="pwd" placeholder="password">
+		      <div *ngIf="submitted && loginForm.controls.password.errors" class="error">
+		        <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+		      </div>
+		    </div>
+		    <div class="clearfix">
+		    	<a href="#" class="pull-right">Forgot Password?</a>
+		    </div>
+		    <button class="btn btn-default input-lg" rounded="true" bloctype="submit" [disabled]="!loginForm.valid">Login</button>
+		    <div *ngIf="invalidLogin" class="error">
+		      <div>Invalid credentials.</div>
+		    </div>
+		  </form>
+		</div>
+	</div>
+</div>
+<div class="footer">
+&copy;Guss 2018
+</div>

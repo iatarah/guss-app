@@ -1,80 +1,112 @@
 <app-toolbar></app-toolbar>
-<h2>User Profile</h2>
-<div>
-    <div class="left-nav-basic-profile">
-        <div class="user-info">
-            <div>
-                <label>Name: </label>{{appUser?.lastName}} {{appUser?.middleName}} {{appUser?.firstName}}
-            </div>
-            <div>
-                <label>Email: </label>{{appUser?.email}}
-            </div>
-            <div>
-                <label>Date of Birth: </label>{{appUser?.dateOfBirth}}
-            </div>
-            <div>
-                <label>Gender: </label>{{appUser?.gender}}
-            </div>
-        </div>
-
-        <div class="member-info" class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole">
-            <div>
-                <label>Current Basic Salary: </label>{{gussmember?.basicSalary}}
-            </div>
-            <div>
-                <label>Member ID: </label>{{gussmember?.memberId}}
-            </div>
-            <div>
-                <label>Join Date: </label>{{gussmember?.joinDate}}
-            </div>
-            <div>
-                <label>Membership Category: </label>{{gussmember?.membershipCategory}}
-            </div>
-            <div>
-                <label>Retirement Date: </label>{{gussmember?.retirementDate}}
-            </div>
-            <div>
-                <label>Membership Status: </label>{{gussmember?.membershipStatus}}
-            </div> 
-        </div>
-    </div>
-    
-    <!-- benefits widget -->
-    <div class="cont-benefits" *ngIf="MEMBER_ROLE === appUser?.userRole">
-        <app-member-contribution-benefits [memberId]="gussmember.memberId"></app-member-contribution-benefits>
-    </div>
-
-    <!-- contribution table -->
-    <div class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole">
-        <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
-    </div>
-
-    <div class="user-management-menu">
-        <div class="registration-link" *ngIf="ADMIN_ROLE === appUser?.userRole">
-                <a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a>
-        </div>
-            
-        <div class="contribution-entry-link" *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole">
-                <a *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole" [routerLink]="['/contribution-entry']">Enter New Contribution</a>
-        </div>
-
-        <!-- look up member profile -->
-        <div class="member-profile" *ngIf="ADMIN_ROLE === appUser?.userRole">
-            <form [formGroup]="memberLookUpForm" class="lookup-member-form">
-                <mat-form-field class="memberId-form-field">
-                        <input matInput type="text" placeholder="Member ID" [(ngModel)]="clearMevalue" formControlName="memberId" required>
-                        <button mat-button *ngIf="clearMevalue" matSuffix mat-icon-button aria-label="Clear" (click)="clearMevalue=''">
-                            <mat-icon>X</mat-icon>
-                        </button>
-                </mat-form-field>
-                <button mat-button type="button" (click)="onSubmitMemberLookUp();">
-                       Search Member
-                </button>                          
-            </form>                      
-        </div>
-    </div>
-    <div>
-        <button mat-raised-button color="warn" (click)="onLogout()">Logout</button>
-    </div>
-
+<div class="app-wrapper">
+	<div class="side-bar">
+		<ul>
+			<li><a href="#"><div>Dashboad</div></a></li>
+			<li *ngIf="ADMIN_ROLE === appUser?.userRole"><a [routerLink]="['/registration']"><div>Register New User</div></a>
+			<li *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole" ><a [routerLink]="['/contribution-entry']"><div>Enter New Contribution</div></a>
+			<li><a href="#"><div>Profile</div></a></li>
+			<li><a href="#"><div>Contributions</div></a></li>
+			<li><a href="#"><div>Benefits</div></a></li>
+			<li><a href="#" (click)="onLogout()"><div>Logout</div></a></li>
+		</ul>
+	</div>
+	<div class="app-main">
+		    <div class="left-nav-basic-profile">
+		    	<div class="clearfix">
+		        <div class="user-info panel panel-default">
+		        	<div class="panel-heading"><h4>User Profile</h4></div>
+		        	<div class="panel-body">
+			            <div>
+			                <label>Name: </label>{{appUser?.lastName}} {{appUser?.middleName}} {{appUser?.firstName}}
+			            </div>
+			            <div>
+			                <label>Email: </label>{{appUser?.email}}
+			            </div>
+			            <div>
+			                <label>Date of Birth: </label>{{appUser?.dateOfBirth}}
+			            </div>
+			            <div>
+			                <label>Gender: </label>{{appUser?.gender}}
+			            </div>		        
+		
+		            <div>
+		                <label>Current Basic Salary: </label>{{gussmember?.basicSalary}}
+		            </div>
+		            <div>
+		                <label>Member ID: </label>{{gussmember?.memberId}}
+		            </div>
+		            <div>
+		                <label>Join Date: </label>{{gussmember?.joinDate}}
+		            </div>
+		            <div>
+		                <label>Membership Category: </label>{{gussmember?.membershipCategory}}
+		            </div>
+		            <div>
+		                <label>Retirement Date: </label>{{gussmember?.retirementDate}}
+		            </div>
+		            <div>
+		                <label>Membership Status: </label>{{gussmember?.membershipStatus}}
+		            </div> 
+		        
+		    </div>
+		    </div>
+		    
+		    <!-- benefits widget -->
+		    <div class="panel panel-default benefits">
+		    	<div class="panel-heading">
+		    		<h4>Benefits Summary</h4>
+		    	</div>
+		    	<div class="panel-body" *ngIf="MEMBER_ROLE === appUser?.userRole">
+		    		 <app-member-contribution-benefits [memberId]="gussmember.memberId"></app-member-contribution-benefits>
+		    	</div>
+		    </div>
+		    </div>
+		    <div class="panel panel-default" *ngIf="MEMBER_ROLE === appUser?.userRole">
+		    	<div class="panel-heading">
+		    		<h4>Most Recent Contributions</h4>
+		    	</div>
+		    	<div class="panel-body">
+		    		<app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
+		    	</div>
+		    </div>
+<!-- 		    <div class="cont-benefits" > -->
+<!-- 		        <app-member-contribution-benefits [memberId]="gussmember.memberId"></app-member-contribution-benefits> -->
+<!-- 		    </div> -->
+		
+<!-- 		    contribution table -->
+<!-- 		    <div class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole"> -->
+<!-- 		        <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution> -->
+<!-- 		    </div> -->
+		
+		    <div class="user-management-menu">
+<!-- 		        <div class="registration-link" *ngIf="ADMIN_ROLE === appUser?.userRole"> -->
+<!-- 		                <a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a> -->
+<!-- 		        </div> -->
+		            
+<!-- 		        <div class="contribution-entry-link" *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole"> -->
+<!-- 		                <a *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole" [routerLink]="['/contribution-entry']">Enter New Contribution</a> -->
+<!-- 		        </div> -->
+		
+		        <!-- look up member profile -->
+		        <div class="member-profile" *ngIf="ADMIN_ROLE === appUser?.userRole">
+		            <form [formGroup]="memberLookUpForm" class="lookup-member-form">
+		                <mat-form-field class="memberId-form-field">
+		                        <input matInput type="text" placeholder="Member ID" [(ngModel)]="clearMevalue" formControlName="memberId" required>
+		                        <button mat-button *ngIf="clearMevalue" matSuffix mat-icon-button aria-label="Clear" (click)="clearMevalue=''">
+		                            <mat-icon>X</mat-icon>
+		                        </button>
+		                </mat-form-field>
+		                <button mat-button type="button" (click)="onSubmitMemberLookUp();">
+		                       Search Member
+		                </button>                          
+		            </form>                      
+		        </div>
+		    </div>
+		
+		</div>
+	</div>
+</div>
+<div class="footer">
+&copy; Guss 2018
 </div>
