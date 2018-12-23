@@ -24,8 +24,6 @@ import { AuthGuard } from './auth-guard.service';
 import { TokenInterceptor } from './shared/_services/token_interceptor.service';
 import { ErrorInterceptor } from './shared/_services/error_interceptor.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { UserMenuComponent } from './core/user-menu/user-menu.component';
-import { ToolbarComponent } from './core/toolbar/toolbar.component';
 import { MyMaterialModule } from './mymaterial.module';
 
 // export function getToken() {

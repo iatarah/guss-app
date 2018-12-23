@@ -1,3 +1,4 @@
+import { ToolbarModule } from './../toolbar/toolbar.module';
 import { AppRoutingModule } from '../app.routing.module';
 import { MemberContributionComponent } from './member-contribution.component';
 import { NgModule } from '@angular/core';
@@ -38,6 +39,7 @@ import { MemberContributionBenefitsComponent } from './member-contribution-benef
     MatDatepickerModule,
     MatNativeDateModule,
     MomentDateModule,
+    ToolbarModule
   ],
   exports: [MemberContributionComponent, MatInputModule, MatTableModule, MemberContributionBenefitsComponent],
   declarations: [MemberContributionComponent, MemberContributionEntryComponent, MemberContributionBenefitsComponent, MemberContributionBenefitsComponent],

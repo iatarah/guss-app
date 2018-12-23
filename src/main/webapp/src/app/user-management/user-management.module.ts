@@ -1,3 +1,6 @@
+import { ToolbarModule } from './../toolbar/toolbar.module';
+import { ToolbarComponent } from './../toolbar/toolbar/toolbar.component';
+import { UserMenuComponent } from './../toolbar/user-menu/user-menu.component';
 import { AlertService } from './../shared/_services/alert.service';
 import { AlertComponent } from './../shared/_directives/alert.component';
 import { MemberContributionComponent } from './../member-contribution/member-contribution.component';
@@ -25,8 +28,6 @@ import { AppRoutingModule } from '../app.routing.module';
 import { AuthenticationService } from '../gen';
 import { AuthService } from '../shared/_services/auth.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { UserMenuComponent } from '../core/user-menu/user-menu.component';
-import { ToolbarComponent } from '../core/toolbar/toolbar.component';
 import { MyMaterialModule } from '../mymaterial.module';
 
 @NgModule({
@@ -46,15 +47,14 @@ import { MyMaterialModule } from '../mymaterial.module';
     MatNativeDateModule,
     MomentDateModule,
     FlexLayoutModule,
-    MyMaterialModule
+    MyMaterialModule,
+    ToolbarModule
   ],
   declarations: [
     UserProfileComponent, 
     UserRegistrationComponent,
     AlertComponent,
     MemberProfileComponent,
-    UserMenuComponent,
-    ToolbarComponent
   ],
   providers: [
     AlertService,
