@@ -201,7 +201,7 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 				TOTAL_MONTHS = Integer.parseInt(param.getParamValue());
 			}
 		}
-		enhSal = FACTOR_ENH * member.getCurrentSalary();
+		enhSal = FACTOR_ENH * member.getCurrentSalary()*12;
 		PensionBenefits pensionBenefits = computePensionBenefits(monthsServed, member.getCurrentSalary(), 
 				enhSal, FACTOR_G, FACTOR_M, TOTAL_MONTHS);
 		response.setPensionBenefits(pensionBenefits);
@@ -218,7 +218,7 @@ public class GussMemberServiceImplProvider implements IGussMemberServiceProvider
 		
 		double fullPension = (monthsServed * currentSalary)/totalMonths;
 		pensionBenefits.setFullPension(BigDecimal.valueOf(fullPension));
-		pensionBenefits.setTerminalSalary(BigDecimal.valueOf(currentSalary));
+		pensionBenefits.setTerminalSalary(BigDecimal.valueOf(currentSalary * 12));
 		pensionBenefits.monthsEntitled(BigDecimal.valueOf(monthsServed));
 		pensionBenefits.setGratuity(BigDecimal.valueOf(
 				computeGratuity(enhSal, factorG, monthsServed, totalMonths)));
