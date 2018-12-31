@@ -53,7 +53,7 @@
 		    </div>
 		    
 		    <!-- benefits widget -->
-		    <div class="panel panel-default benefits">
+		    <div class="panel panel-default benefits" *ngIf="MEMBER_ROLE === appUser?.userRole">
 		    	<div class="panel-heading">
 		    		<h4>Benefits Summary</h4>
 		    	</div>
