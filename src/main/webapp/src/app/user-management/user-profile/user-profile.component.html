@@ -70,25 +70,9 @@
 		    		<app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution>
 		    	</div>
 		    </div>
-<!-- 		    <div class="cont-benefits" > -->
-<!-- 		        <app-member-contribution-benefits [memberId]="gussmember.memberId"></app-member-contribution-benefits> -->
-<!-- 		    </div> -->
-		
-<!-- 		    contribution table -->
-<!-- 		    <div class="member-contribution" *ngIf="MEMBER_ROLE === appUser?.userRole"> -->
-<!-- 		        <app-member-contribution *ngIf="MEMBER_ROLE === appUser?.userRole" [memberId]="gussmember.memberId"></app-member-contribution> -->
-<!-- 		    </div> -->
+
 		
 		    <div class="user-management-menu">
-<!-- 		        <div class="registration-link" *ngIf="ADMIN_ROLE === appUser?.userRole"> -->
-<!-- 		                <a *ngIf="ADMIN_ROLE === appUser?.userRole" [routerLink]="['/registration']">Register New User</a> -->
-<!-- 		        </div> -->
-		            
-<!-- 		        <div class="contribution-entry-link" *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole"> -->
-<!-- 		                <a *ngIf="ADMIN_ROLE === appUser?.userRole || STAFF_ROLE === appUser?.userRole" [routerLink]="['/contribution-entry']">Enter New Contribution</a> -->
-<!-- 		        </div> -->
-		
-		        <!-- look up member profile -->
 		        <div class="member-profile" *ngIf="ADMIN_ROLE === appUser?.userRole">
 		            <form [formGroup]="memberLookUpForm" class="lookup-member-form">
 		                <mat-form-field class="memberId-form-field">
