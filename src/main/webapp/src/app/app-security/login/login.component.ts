@@ -30,13 +30,8 @@ export class LoginComponent implements OnInit {
     }
     // TODO: call authentication service and authenticate user here
     if(loginRequest.email && loginRequest.password) {
-      // let loginRequest: LoginRequest = null;
-      // loginRequest.email = this.loginForm.controls.email.value;
-      // loginRequest.password = this.loginForm.controls.password.value;
       this.authService.authenticate(loginRequest).subscribe(
         (response: AuthToken) => {
-          console.log("Response coming from authentication");
-          console.log(response.token);
           this.authServiceImpl.saveToken(response.token);
           sessionStorage.setItem("fName", response.appUser.firstName);
           sessionStorage.setItem("lName", response.appUser.lastName);
@@ -50,7 +45,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['user-profile', loginRequest.email]);
         }
       );
-      //this.router.navigate(['user-profile', loginRequest.email]);
     }else {
       this.invalidLogin = true;
       console.log("Invalid Login");
