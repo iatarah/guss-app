@@ -1,8 +1,8 @@
+import { SharedModule } from './../shared/shared/shared.module';
 import { ToolbarModule } from './../toolbar/toolbar.module';
 import { ToolbarComponent } from './../toolbar/toolbar/toolbar.component';
 import { UserMenuComponent } from './../toolbar/user-menu/user-menu.component';
 import { AlertService } from './../shared/_services/alert.service';
-import { AlertComponent } from './../shared/_directives/alert.component';
 import { MemberContributionComponent } from './../member-contribution/member-contribution.component';
 import { MemberContributionModule } from './../member-contribution/member-contribution.module';
 import { NgModule } from '@angular/core';
@@ -48,12 +48,12 @@ import { MyMaterialModule } from '../mymaterial.module';
     MomentDateModule,
     FlexLayoutModule,
     MyMaterialModule,
-    ToolbarModule
+    ToolbarModule,
+    SharedModule
   ],
   declarations: [
     UserProfileComponent, 
     UserRegistrationComponent,
-    AlertComponent,
     MemberProfileComponent,
   ],
   providers: [

@@ -22,6 +22,7 @@ import { RoleGuard } from '../role-guard.service';
 import { AuthenticationService } from '../gen';
 import { AuthService } from '../shared/_services/auth.service';
 import { MemberContributionBenefitsComponent } from './member-contribution-benefits/member-contribution-benefits.component';
+import { SharedModule } from '../shared/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { MemberContributionBenefitsComponent } from './member-contribution-benef
     MatDatepickerModule,
     MatNativeDateModule,
     MomentDateModule,
-    ToolbarModule
+    ToolbarModule,
+    SharedModule
   ],
   exports: [MemberContributionComponent, MatInputModule, MatTableModule, MemberContributionBenefitsComponent],
   declarations: [MemberContributionComponent, MemberContributionEntryComponent, MemberContributionBenefitsComponent, MemberContributionBenefitsComponent],

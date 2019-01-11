@@ -1,3 +1,5 @@
+import { AppConstants } from './../../shared/constants';
+import { AlertService } from './../../shared/_services/alert.service';
 import { ContributionRequest } from './../../gen/model/contributionRequest';
 import { Contribution } from './../../gen/model/contribution';
 import { MemberContributionService } from './../../gen/api/memberContribution.service';
@@ -42,7 +44,10 @@ export class MemberContributionEntryComponent implements OnInit {
   baseResponse: BaseResponse;
   createdContribution: Contribution;
   private contributionRequest: ContributionRequest;
-  constructor(private _formBuilder: FormBuilder, private contributionService: MemberContributionService) { }
+  contributionSubmitAlert: boolean = false;
+  contSubmitAlertstyle: any = null;
+
+  constructor(private _formBuilder: FormBuilder, private contributionService: MemberContributionService, private alertService: AlertService) { }
 
   ngOnInit() {
     this.buildFormColtrols();
@@ -62,6 +67,19 @@ export class MemberContributionEntryComponent implements OnInit {
     this.contributionService.createContribution(this.contributionRequest, this.contributionRequest.contribution.memberId).subscribe(data => {
       this.createdContribution = data.contribution;
       this.baseResponse = data.baseResponse;
+    },
+    undefined,
+    () => {
+      this.contributionSubmitAlert = true;
+      if(this.baseResponse != null && this.baseResponse.returnCode == 0) {
+        this.alertService.success(AppConstants.MSG_SUCCESS);
+        this.contSubmitAlertstyle = this.getAlertStyles(AppConstants.CONST_SUCCESS);
+        
+      } else {
+        this.alertService.error(AppConstants.MSG_SYSTEM_ERROR);
+        this.contSubmitAlertstyle = this.getAlertStyles(AppConstants.CONST_ERROR);
+        
+      }
     });
    
 }
@@ -112,5 +130,27 @@ date = new FormControl(moment());
     ctrlValue.month(normlizedMonth.month());
     this.date.setValue(ctrlValue);
     datepicker.close();
+  }
+  showSuccess(message: string) { 
+    this.alertService.success(message);
+  }
+
+  showError(message: string) { 
+    this.alertService.error(message);
+  }
+  getAlertStyles(flag:string) {
+    let cssClasses;
+    if(flag == AppConstants.CONST_ERROR) {  
+       cssClasses = {
+         'alert_error': true,
+         'alert_success': false 
+       }	
+    } else if(flag == AppConstants.CONST_SUCCESS){  
+       cssClasses = {
+        'alert_error': false,
+        'alert_success': true 
+       }	
+    }
+    return cssClasses;
   }
 }
