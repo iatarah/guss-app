@@ -1,3 +1,4 @@
+import { AuthToken } from './../../gen/model/authToken';
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -33,10 +34,13 @@ export class LoginComponent implements OnInit {
       // loginRequest.email = this.loginForm.controls.email.value;
       // loginRequest.password = this.loginForm.controls.password.value;
       this.authService.authenticate(loginRequest).subscribe(
-        (response: any) => {
+        (response: AuthToken) => {
           console.log("Response coming from authentication");
           console.log(response.token);
           this.authServiceImpl.saveToken(response.token);
+          sessionStorage.setItem("fName", response.appUser.firstName);
+          sessionStorage.setItem("lName", response.appUser.lastName);
+          sessionStorage.setItem("email", response.appUser.email);
         },
         (error : Error) => {
           console.log(error.message);

@@ -452,6 +452,8 @@ definitions:
      properties:
         token:
            type: string
+        appUser:
+           $ref: '#/definitions/AppUser'
   ContributionRequest:
     type: object
     properties:

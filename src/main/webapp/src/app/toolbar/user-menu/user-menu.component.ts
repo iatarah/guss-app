@@ -22,10 +22,7 @@ export class UserMenuComponent implements OnInit {
         }
 
     ngOnInit() {
-        this.currentUserService.userState.subscribe(data => {
-            this.appUser = data;
-            this.userName = this.appUser.firstName + " " + this.appUser.lastName;
-        })
+        this.userName = sessionStorage.getItem("fName") + " " + sessionStorage.getItem("lName");
     }
 
     private onLogout() {

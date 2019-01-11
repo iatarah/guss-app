@@ -21,6 +21,7 @@ import org.ugguss.generated.model.AuthToken;
 import org.ugguss.generated.model.LoginRequest;
 import org.ugguss.model.User;
 import org.ugguss.service.IUserService;
+import org.ugguss.util.UserServiceMapperUtil;
 import org.ugguss.util.constants.RestEndpointConstants;
 
 import io.swagger.annotations.ApiParam;
@@ -32,6 +33,9 @@ public class AuthenticationController implements TokenApi {
     @Qualifier(value="userDetailsService")
     private IUserService userService;
     
+	@Autowired
+	private UserServiceMapperUtil userServiceMapperUtil;
+	
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     
@@ -50,6 +54,9 @@ public class AuthenticationController implements TokenApi {
     	
     	AuthToken tk = new AuthToken();
     	tk.setToken(token);
+    	if(authentication.isAuthenticated()) {
+    		tk.setAppUser(userServiceMapperUtil.dbUserToAppUser(user));
+    	}
     	return new ResponseEntity<AuthToken>(tk, HttpStatus.OK);
     	//return ResponseEntity.ok(new AuthToken(token));
     }
