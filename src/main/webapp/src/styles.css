@@ -26,6 +26,13 @@ body{
 }
 .header-right{float: right;}
 .header-left{float: left;}
+.alert {
+    position: relative; 
+    padding: 0; 
+    margin-bottom: 1rem; 
+    border: 0; 
+    border-radius: .25rem; 
+}
 .alert_info, .alert_success, .alert_warning, .alert_error, .alert_validation {
     border: 1px solid;
     margin: 10px 0px;

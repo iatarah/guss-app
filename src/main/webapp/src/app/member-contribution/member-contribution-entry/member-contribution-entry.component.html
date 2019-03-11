@@ -14,12 +14,8 @@
 	<div class="app-main">
 		<h1>Contribution Entry Form </h1>
 			<div class="reg-submit-alert">
-				<div [ngClass]="contSubmitAlertstyle">
-						<div class="alert">
-								<alert></alert>
-								<router-outlet></router-outlet>
-						</div>
-				</div>
+				<alert></alert>
+				<router-outlet></router-outlet>
 			</div>
 		  <mat-horizontal-stepper [linear]="isLinear" #stepper>
 		    <mat-step [stepControl]="firstFormGroup">

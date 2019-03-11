@@ -25,7 +25,7 @@ plugins {
 
 
 group = 'org.ugguss.services'
-version = '0.0.1-SNAPSHOT'
+//version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 
@@ -80,7 +80,8 @@ import io.swagger.codegen.DefaultGenerator
 
 def swaggerInput = file("guss.yaml").path
 def swaggerOutputDir = file('./').path
-def swaggerGeneratedDir = "./src/main/java/io/"
+def swaggerGeneratedDir = "./src/main/webapp/dist/static/"
+def staticGeneratedDir = "./src/main/java/io/"
 def generatedApiControllers = fileTree('./src/main/java/org/ugguss/generated/controller/') { 
     include '**/*Controller.java'
 }
@@ -105,7 +106,7 @@ task generateApi {
 }
 
 clean.doFirst {
-    delete swaggerGeneratedDir, generatedApiControllers
+    delete swaggerGeneratedDir, generatedApiControllers, staticGeneratedDir
 }
 
 
