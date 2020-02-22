@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: GUSS Account API
-host: 18.220.11.193:8080
+host: 18.219.219.39:8080
 basePath: /guss-app/rest/ugguss/api/v1
 schemes:
   - http

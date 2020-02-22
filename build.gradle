@@ -65,6 +65,7 @@ dependencies {
     compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Final'
     compile 'joda-time:joda-time:2.9.4'
     apt('org.mapstruct:mapstruct-processor:1.2.0.Final')
+    compile group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '2.3.2'
     
     //log4j dependencies
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
@@ -73,6 +74,7 @@ dependencies {
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.6'
 	// Jwt dependencies
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	
 }
 
 import io.swagger.codegen.config.CodegenConfigurator

@@ -6,7 +6,7 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     private blackList = [
-        'http://18.220.11.193:8080/guss-app/rest/ugguss/api/v1/token/auth'
+        'http://18.219.219.39:8080/guss-app/rest/ugguss/api/v1/token/auth'
     ]
 
     constructor(private authServiceImpl: AuthService) { }
